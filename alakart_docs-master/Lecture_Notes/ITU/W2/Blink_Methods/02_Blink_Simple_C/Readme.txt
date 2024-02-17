@@ -1,0 +1,31 @@
+
+
+This is a simple C language example progam.
+It blinks the blue LED connected to PIN P16 of ALAKART board.
+
+
+To run the program on the microprocessor follow these steps. Run them in a terminal window:
+
+1. Compile blink.c to blink.o. In the terminal, type the following:
+arm-none-eabi-gcc -c -mcpu=cortex-m0 -mthumb -g  blink.c -o blink.o
+
+2. Compile init.c to init.o:
+arm-none-eabi-gcc -c -mcpu=cortex-m0 -mthumb -g  init.c -o init.o
+
+3. Link the two object files blink.o and init.o together and produce the executable (.elf) in the memory regions specified in the file lpc824_linker_script.ld:
+arm-none-eabi-ld blink.o init.o -T lpc824_linker_script.ld --cref -Map blink.map -o blink.elf
+
+4. Create the hex format file from the executable file (.elf -> .hex) 
+arm-none-eabi-objcopy -O ihex  blink.elf blink.hex
+
+5. Program the final /hex file on the microprocessor using the programmer software (Windows and MAC uses Flash Magic):
+lpc21isp -control -controlswap blink.hex /dev/ttyUSB0 115200 12000
+
+
+
+To see how the program works, read the source file "blink.c".
+
+It is recommended to automate the compile/program sequence using the Makefile supplied.
+
+
+Ahmet Onat 2023

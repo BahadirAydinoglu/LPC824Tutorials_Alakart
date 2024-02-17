@@ -1,0 +1,5 @@
+/home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx/CMakeFiles/UsartTx.elf.dir
+/home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx/CMakeFiles/CreateHex.dir
+/home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx/CMakeFiles/flash.dir
+/home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx/CMakeFiles/edit_cache.dir
+/home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx/CMakeFiles/rebuild_cache.dir
