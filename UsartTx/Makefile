@@ -57,10 +57,10 @@ RM = /usr/local/lib/python3.8/dist-packages/cmake/data/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx
+CMAKE_SOURCE_DIR = /home/bahadira/Seafile/BahadirFiles/Firmwares/LPC824Tutorials_Alakart/UsartTx
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx
+CMAKE_BINARY_DIR = /home/bahadira/Seafile/BahadirFiles/Firmwares/LPC824Tutorials_Alakart/UsartTx
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx/CMakeFiles /home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bahadira/Seafile/BahadirFiles/Firmwares/LPC824Tutorials_Alakart/UsartTx/CMakeFiles /home/bahadira/Seafile/BahadirFiles/Firmwares/LPC824Tutorials_Alakart/UsartTx//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bahadira/Seafile/BahadirFiles/Firmwares/LPC824Tutorials_Alakart/UsartTx/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -371,30 +371,6 @@ drivers/fsl_gpio.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/drivers/fsl_gpio.c.s
 .PHONY : drivers/fsl_gpio.c.s
 
-drivers/fsl_inputmux.obj: drivers/fsl_inputmux.c.obj
-.PHONY : drivers/fsl_inputmux.obj
-
-# target to build an object file
-drivers/fsl_inputmux.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
-.PHONY : drivers/fsl_inputmux.c.obj
-
-drivers/fsl_inputmux.i: drivers/fsl_inputmux.c.i
-.PHONY : drivers/fsl_inputmux.i
-
-# target to preprocess a source file
-drivers/fsl_inputmux.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.i
-.PHONY : drivers/fsl_inputmux.c.i
-
-drivers/fsl_inputmux.s: drivers/fsl_inputmux.c.s
-.PHONY : drivers/fsl_inputmux.s
-
-# target to generate assembly for a file
-drivers/fsl_inputmux.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.s
-.PHONY : drivers/fsl_inputmux.c.s
-
 drivers/fsl_power.obj: drivers/fsl_power.c.obj
 .PHONY : drivers/fsl_power.obj
 
@@ -515,29 +491,29 @@ drivers/fsl_usart.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.s
 .PHONY : drivers/fsl_usart.c.s
 
-source/usart_terminal.obj: source/usart_terminal.c.obj
-.PHONY : source/usart_terminal.obj
+source/main.obj: source/main.c.obj
+.PHONY : source/main.obj
 
 # target to build an object file
-source/usart_terminal.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-.PHONY : source/usart_terminal.c.obj
+source/main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+.PHONY : source/main.c.obj
 
-source/usart_terminal.i: source/usart_terminal.c.i
-.PHONY : source/usart_terminal.i
+source/main.i: source/main.c.i
+.PHONY : source/main.i
 
 # target to preprocess a source file
-source/usart_terminal.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.i
-.PHONY : source/usart_terminal.c.i
+source/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/source/main.c.i
+.PHONY : source/main.c.i
 
-source/usart_terminal.s: source/usart_terminal.c.s
-.PHONY : source/usart_terminal.s
+source/main.s: source/main.c.s
+.PHONY : source/main.s
 
 # target to generate assembly for a file
-source/usart_terminal.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.s
-.PHONY : source/usart_terminal.c.s
+source/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/UsartTx.elf.dir/build.make CMakeFiles/UsartTx.elf.dir/source/main.c.s
+.PHONY : source/main.c.s
 
 startup/startup_LPC824.obj: startup/startup_LPC824.S.obj
 .PHONY : startup/startup_LPC824.obj
@@ -705,9 +681,6 @@ help:
 	@echo "... drivers/fsl_gpio.obj"
 	@echo "... drivers/fsl_gpio.i"
 	@echo "... drivers/fsl_gpio.s"
-	@echo "... drivers/fsl_inputmux.obj"
-	@echo "... drivers/fsl_inputmux.i"
-	@echo "... drivers/fsl_inputmux.s"
 	@echo "... drivers/fsl_power.obj"
 	@echo "... drivers/fsl_power.i"
 	@echo "... drivers/fsl_power.s"
@@ -723,9 +696,9 @@ help:
 	@echo "... drivers/fsl_usart.obj"
 	@echo "... drivers/fsl_usart.i"
 	@echo "... drivers/fsl_usart.s"
-	@echo "... source/usart_terminal.obj"
-	@echo "... source/usart_terminal.i"
-	@echo "... source/usart_terminal.s"
+	@echo "... source/main.obj"
+	@echo "... source/main.i"
+	@echo "... source/main.s"
 	@echo "... startup/startup_LPC824.obj"
 	@echo "... utilities/fsl_assert.obj"
 	@echo "... utilities/fsl_assert.i"

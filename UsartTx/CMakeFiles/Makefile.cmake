@@ -21,8 +21,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "device/device_LPC824_system.LPC824.cmake"
   "drivers/driver_clock.LPC824.cmake"
   "drivers/driver_common.LPC824.cmake"
-  "drivers/driver_inputmux.LPC824.cmake"
-  "drivers/driver_inputmux_connections.LPC824.cmake"
   "drivers/driver_lpc_gpio.LPC824.cmake"
   "drivers/driver_lpc_iocon_lite.LPC824.cmake"
   "drivers/driver_lpc_miniusart.LPC824.cmake"

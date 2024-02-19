@@ -20,6 +20,8 @@ Archive member included to satisfy reference by file (symbol)
                               /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-malloc.o) (_malloc_r)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
                               /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o) (_sbrk_r)
+/home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sprintf.o)
+                              CMakeFiles/UsartTx.elf.dir/source/main.c.obj (sprintf)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strlen.o)
                               CMakeFiles/UsartTx.elf.dir/utilities/fsl_str.c.obj (strlen)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strtoul.o)
@@ -28,14 +30,28 @@ Archive member included to satisfy reference by file (symbol)
                               /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strtoul.o) (_ctype_)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
                               /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o) (__malloc_lock)
+/home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+                              /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sprintf.o) (_svfprintf_r)
+/home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                              /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o) (_printf_i)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
                               /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o) (errno)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
                               /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o) (__retarget_lock_acquire_recursive)
+/home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memchr-stub.o)
+                              /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o) (memchr)
+/home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memmove.o)
+                              /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o) (memmove)
+/home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-reallocr.o)
+                              /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o) (_realloc_r)
+/home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-msizer.o)
+                              /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-reallocr.o) (_malloc_usable_size_r)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_uqi.o)
                               CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj (__gnu_thumb1_case_uqi)
+/home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
+                              /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o) (__gnu_thumb1_case_shi)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
-                              CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj (__aeabi_uidiv)
+                              CMakeFiles/UsartTx.elf.dir/source/main.c.obj (__aeabi_uidiv)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
                               CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj (__aeabi_idiv)
 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
@@ -77,14 +93,16 @@ Discarded input sections
  .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
  .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
  .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
+ .text.BOARD_BootClockIRC12M
+                0x0000000000000000        0x8 CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
  .text.BOARD_BootClockPll24M
                 0x0000000000000000       0x64 CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
  .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
  .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
  .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
- .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
- .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
- .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
+ .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+ .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+ .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/source/main.c.obj
  .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
  .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
  .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
@@ -118,6 +136,8 @@ Discarded input sections
                 0x0000000000000000        0x8 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
  .text.CLOCK_GetUart1ClkFreq
                 0x0000000000000000        0x8 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+ .text.CLOCK_GetFreq
+                0x0000000000000000       0x5c CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
  .text.CLOCK_InitExtClkin
                 0x0000000000000000       0x30 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
  .text.CLOCK_InitXtalin
@@ -148,18 +168,6 @@ Discarded input sections
  .comment       0x0000000000000000       0x4a CMakeFiles/UsartTx.elf.dir/drivers/fsl_common_arm.c.obj
  .ARM.attributes
                 0x0000000000000000       0x2c CMakeFiles/UsartTx.elf.dir/drivers/fsl_common_arm.c.obj
- .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
- .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
- .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
- .text.INPUTMUX_Init
-                0x0000000000000000       0x1c CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
- .text.INPUTMUX_AttachSignal
-                0x0000000000000000        0xe CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
- .text.INPUTMUX_Deinit
-                0x0000000000000000       0x20 CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
- .comment       0x0000000000000000       0x4a CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
- .ARM.attributes
-                0x0000000000000000       0x2c CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
  .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/drivers/fsl_gpio.c.obj
  .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/drivers/fsl_gpio.c.obj
  .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/drivers/fsl_gpio.c.obj
@@ -236,12 +244,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
  .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
  .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
- .text._sbrk    0x0000000000000000       0x38 CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
- .bss.heap_end.0
-                0x0000000000000000        0x4 CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
- .comment       0x0000000000000000       0x4a CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
- .ARM.attributes
-                0x0000000000000000       0x2c CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
  .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_syscall_stub.c.obj
  .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_syscall_stub.c.obj
  .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_syscall_stub.c.obj
@@ -263,6 +265,8 @@ Discarded input sections
  .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_assert.c.obj
  .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_assert.c.obj
  .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_assert.c.obj
+ .text.fsl_assert_hook
+                0x0000000000000000        0x4 CMakeFiles/UsartTx.elf.dir/utilities/fsl_assert.c.obj
  .comment       0x0000000000000000       0x4a CMakeFiles/UsartTx.elf.dir/utilities/fsl_assert.c.obj
  .ARM.attributes
                 0x0000000000000000       0x2c CMakeFiles/UsartTx.elf.dir/utilities/fsl_assert.c.obj
@@ -278,27 +282,19 @@ Discarded input sections
  .text.StrFormatPrintf
                 0x0000000000000000      0x194 CMakeFiles/UsartTx.elf.dir/utilities/fsl_str.c.obj
  .text.StrFormatScanf
-                0x0000000000000000      0x250 CMakeFiles/UsartTx.elf.dir/utilities/fsl_str.c.obj
+                0x0000000000000000      0x244 CMakeFiles/UsartTx.elf.dir/utilities/fsl_str.c.obj
  .comment       0x0000000000000000       0x4a CMakeFiles/UsartTx.elf.dir/utilities/fsl_str.c.obj
  .ARM.attributes
                 0x0000000000000000       0x2c CMakeFiles/UsartTx.elf.dir/utilities/fsl_str.c.obj
  .text          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
  .data          0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
  .bss           0x0000000000000000        0x0 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
- .text.DbgConsole_Putchar
-                0x0000000000000000       0x24 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
- .text.DbgConsole_ConvertRadixNumToString.constprop.0
-                0x0000000000000000       0x4a CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
  .text.DbgConsole_Deinit
                 0x0000000000000000       0x1c CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
  .text.DbgConsole_EnterLowpower
                 0x0000000000000000       0x1c CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
  .text.DbgConsole_ExitLowpower
                 0x0000000000000000       0x1c CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
- .text.DbgConsole_Vprintf
-                0x0000000000000000      0x208 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
- .text.DbgConsole_Printf
-                0x0000000000000000       0x16 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
  .text.DbgConsole_Getchar
                 0x0000000000000000       0x28 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
  .text.DbgConsole_Scanf
@@ -306,18 +302,12 @@ Discarded input sections
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-errno.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-errno.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-errno.o)
- .text.__errno  0x0000000000000000        0xc /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-errno.o)
- .debug_frame   0x0000000000000000       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-errno.o)
- .ARM.attributes
-                0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-errno.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
- .data._impure_ptr
-                0x0000000000000000        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
@@ -332,46 +322,25 @@ Discarded input sections
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memcpy-stub.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memcpy-stub.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memcpy-stub.o)
- .text.memcpy   0x0000000000000000       0x12 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x0000000000000000       0x28 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memcpy-stub.o)
- .ARM.attributes
-                0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memcpy-stub.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o)
- .text._free_r  0x0000000000000000       0x94 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o)
- .ARM.attributes
-                0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
- .text.sbrk_aligned
-                0x0000000000000000       0x44 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
- .text._malloc_r
-                0x0000000000000000       0xec /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
- .bss.__malloc_free_list
-                0x0000000000000000        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
- .bss.__malloc_sbrk_start
-                0x0000000000000000        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x0000000000000000       0x50 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
- .ARM.attributes
-                0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
- .text._sbrk_r  0x0000000000000000       0x24 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
- .ARM.attributes
-                0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
- .text          0x0000000000000000        0xe /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strlen.o)
+ .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sprintf.o)
+ .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sprintf.o)
+ .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sprintf.o)
+ .text._sprintf_r
+                0x0000000000000000       0x38 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sprintf.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strlen.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strlen.o)
- .ARM.attributes
-                0x0000000000000000       0x1c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strlen.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strtoul.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strtoul.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strtoul.o)
@@ -395,13 +364,14 @@ Discarded input sections
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
- .text.__malloc_lock
-                0x0000000000000000       0x10 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
- .text.__malloc_unlock
-                0x0000000000000000       0x10 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
- .debug_frame   0x0000000000000000       0x40 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
- .ARM.attributes
-                0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
+ .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+ .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+ .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+ .text.__ssprint_r
+                0x0000000000000000      0x100 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+ .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o)
+ .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o)
+ .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
@@ -409,10 +379,6 @@ Discarded input sections
                 0x0000000000000000       0x1a /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
  .text._reclaim_reent
                 0x0000000000000000       0xcc /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
- .bss.errno     0x0000000000000000        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
- .debug_frame   0x0000000000000000       0x48 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
- .ARM.attributes
-                0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
  .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
@@ -426,15 +392,11 @@ Discarded input sections
                 0x0000000000000000        0x2 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .text.__retarget_lock_acquire
                 0x0000000000000000        0x2 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
- .text.__retarget_lock_acquire_recursive
-                0x0000000000000000        0x2 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .text.__retarget_lock_try_acquire
                 0x0000000000000000        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .text.__retarget_lock_try_acquire_recursive
                 0x0000000000000000        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .text.__retarget_lock_release
-                0x0000000000000000        0x2 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
- .text.__retarget_lock_release_recursive
                 0x0000000000000000        0x2 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .bss.__lock___arc4random_mutex
                 0x0000000000000000        0x1 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
@@ -446,19 +408,28 @@ Discarded input sections
                 0x0000000000000000        0x1 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .bss.__lock___env_recursive_mutex
                 0x0000000000000000        0x1 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
- .bss.__lock___malloc_recursive_mutex
-                0x0000000000000000        0x1 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .bss.__lock___sfp_recursive_mutex
                 0x0000000000000000        0x1 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .bss.__lock___sinit_recursive_mutex
                 0x0000000000000000        0x1 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
  .bss.__lock___tz_mutex
                 0x0000000000000000        0x1 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
- .debug_frame   0x0000000000000000       0xb0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
- .ARM.attributes
-                0x0000000000000000       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
+ .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memchr-stub.o)
+ .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memchr-stub.o)
+ .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memchr-stub.o)
+ .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memmove.o)
+ .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memmove.o)
+ .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memmove.o)
+ .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-reallocr.o)
+ .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-reallocr.o)
+ .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-reallocr.o)
+ .text          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-msizer.o)
+ .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-msizer.o)
+ .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-msizer.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_uqi.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_uqi.o)
+ .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
+ .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
  .data          0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
  .bss           0x0000000000000000        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
  .text          0x0000000000000000      0x1d4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
@@ -548,14 +519,13 @@ LOAD /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/.
 LOAD CMakeFiles/UsartTx.elf.dir/board/board.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
-LOAD CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
+LOAD CMakeFiles/UsartTx.elf.dir/source/main.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/startup/startup_LPC824.S.obj
 LOAD CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/drivers/fsl_common.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/drivers/fsl_common_arm.c.obj
-LOAD CMakeFiles/UsartTx.elf.dir/drivers/fsl_inputmux.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/drivers/fsl_gpio.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
 LOAD CMakeFiles/UsartTx.elf.dir/drivers/fsl_power.c.obj
@@ -605,7 +575,7 @@ LOAD /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/t
  .crp           0x00000000000002fc        0x4 CMakeFiles/UsartTx.elf.dir/startup/startup_LPC824.S.obj
                 0x0000000000000300                . = ALIGN (0x4)
 
-.text           0x0000000000000300      0xcbc
+.text           0x0000000000000300     0x1804
                 0x0000000000000300                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000000000300       0x48 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
@@ -649,10 +619,10 @@ LOAD /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/t
                 0x000000000000041c                HardFault_Handler
                 0x0000000000000420                SVC_Handler
                 0x0000000000000424                PendSV_Handler
-                0x0000000000000428                SysTick_Handler
                 0x000000000000042c                SPI0_IRQHandler
                 0x0000000000000430                SPI1_IRQHandler
                 0x0000000000000434                Reserved18_IRQHandler
+                0x0000000000000438                USART0_IRQHandler
                 0x000000000000043c                USART1_IRQHandler
                 0x0000000000000440                USART2_IRQHandler
                 0x0000000000000444                Reserved22_IRQHandler
@@ -681,296 +651,384 @@ LOAD /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/t
                 0x00000000000004a0                PIN_INT5_IRQHandler
                 0x00000000000004a4                PIN_INT6_IRQHandler
                 0x00000000000004a8                PIN_INT7_IRQHandler
- .text          0x0000000000000544       0x14 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_uqi.o)
-                0x0000000000000544                __gnu_thumb1_case_uqi
- .text          0x0000000000000558      0x114 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
-                0x0000000000000558                __udivsi3
-                0x0000000000000558                __aeabi_uidiv
-                0x0000000000000664                __aeabi_uidivmod
- .text          0x000000000000066c        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
-                0x000000000000066c                __aeabi_ldiv0
-                0x000000000000066c                __aeabi_idiv0
+ .text          0x0000000000000544        0xe /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strlen.o)
+                0x0000000000000544                strlen
+ *fill*         0x0000000000000552        0x2 
+ .text          0x0000000000000554       0x14 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_uqi.o)
+                0x0000000000000554                __gnu_thumb1_case_uqi
+ .text          0x0000000000000568       0x14 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
+                0x0000000000000568                __gnu_thumb1_case_shi
+ .text          0x000000000000057c      0x114 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+                0x000000000000057c                __udivsi3
+                0x000000000000057c                __aeabi_uidiv
+                0x0000000000000688                __aeabi_uidivmod
+ .text          0x0000000000000690        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+                0x0000000000000690                __aeabi_ldiv0
+                0x0000000000000690                __aeabi_idiv0
  *(.text*)
  .text.BOARD_InitDebugConsole
-                0x0000000000000670       0x38 CMakeFiles/UsartTx.elf.dir/board/board.c.obj
-                0x0000000000000670                BOARD_InitDebugConsole
- .text.BOARD_BootClockIRC12M
-                0x00000000000006a8       0x64 CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
-                0x00000000000006a8                BOARD_BootClockIRC12M
+                0x0000000000000694       0x38 CMakeFiles/UsartTx.elf.dir/board/board.c.obj
+                0x0000000000000694                BOARD_InitDebugConsole
+ .text.BOARD_BootClockRUN
+                0x00000000000006cc       0x70 CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
+                0x00000000000006cc                BOARD_BootClockRUN
  .text.BOARD_InitBootClocks
-                0x000000000000070c        0x8 CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
-                0x000000000000070c                BOARD_InitBootClocks
+                0x000000000000073c        0x8 CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
+                0x000000000000073c                BOARD_InitBootClocks
  .text.BOARD_InitPins
-                0x0000000000000714       0x48 CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
-                0x0000000000000714                BOARD_InitPins
+                0x0000000000000744       0x48 CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
+                0x0000000000000744                BOARD_InitPins
  .text.BOARD_InitBootPins
-                0x000000000000075c        0x8 CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
-                0x000000000000075c                BOARD_InitBootPins
- .text.USART0_IRQHandler
-                0x0000000000000764       0x9c CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x0000000000000764                USART0_IRQHandler
+                0x000000000000078c        0x8 CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
+                0x000000000000078c                BOARD_InitBootPins
+ .text.SysTick_Handler
+                0x0000000000000794       0x14 CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+                0x0000000000000794                SysTick_Handler
+ .text.SysTick_DelayTicks
+                0x00000000000007a8       0x10 CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+                0x00000000000007a8                SysTick_DelayTicks
  .text.startup.main
-                0x0000000000000800       0xe8 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x0000000000000800                main
+                0x00000000000007b8       0xbc CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+                0x00000000000007b8                main
  .text.HAL_UartInit
-                0x00000000000008e8       0x6c CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
-                0x00000000000008e8                HAL_UartInit
+                0x0000000000000874       0x6c CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
+                0x0000000000000874                HAL_UartInit
  .text.HAL_UartReceiveBlocking
-                0x0000000000000954       0x2c CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
-                0x0000000000000954                HAL_UartReceiveBlocking
+                0x00000000000008e0       0x2c CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
+                0x00000000000008e0                HAL_UartReceiveBlocking
  .text.HAL_UartSendBlocking
-                0x0000000000000980       0x18 CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
-                0x0000000000000980                HAL_UartSendBlocking
+                0x000000000000090c       0x18 CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
+                0x000000000000090c                HAL_UartSendBlocking
  .text.SystemInitHook
-                0x0000000000000998        0x2 CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj
-                0x0000000000000998                SystemInitHook
- *fill*         0x000000000000099a        0x2 
+                0x0000000000000924        0x2 CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj
+                0x0000000000000924                SystemInitHook
+ *fill*         0x0000000000000926        0x2 
  .text.SystemInit
-                0x000000000000099c       0x24 CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj
-                0x000000000000099c                SystemInit
+                0x0000000000000928       0x24 CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj
+                0x0000000000000928                SystemInit
  .text.CLOCK_UpdateClkSrc
-                0x00000000000009c0       0x14 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+                0x000000000000094c       0x14 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
  .text.CLOCK_GetSysOscFreq
-                0x00000000000009d4       0x1c CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
-                0x00000000000009d4                CLOCK_GetSysOscFreq
+                0x0000000000000960       0x1c CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+                0x0000000000000960                CLOCK_GetSysOscFreq
  .text.CLOCK_GetSystemPLLInClockRate
-                0x00000000000009f0       0x40 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
-                0x00000000000009f0                CLOCK_GetSystemPLLInClockRate
+                0x000000000000097c       0x40 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+                0x000000000000097c                CLOCK_GetSystemPLLInClockRate
  .text.CLOCK_GetMainClkFreq
-                0x0000000000000a30       0x44 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
-                0x0000000000000a30                CLOCK_GetMainClkFreq
- .text.CLOCK_GetFreq
-                0x0000000000000a74       0x5c CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
-                0x0000000000000a74                CLOCK_GetFreq
+                0x00000000000009bc       0x44 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+                0x00000000000009bc                CLOCK_GetMainClkFreq
  .text.CLOCK_InitSystemPll
-                0x0000000000000ad0       0x9c CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
-                0x0000000000000ad0                CLOCK_InitSystemPll
+                0x0000000000000a00       0x9c CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+                0x0000000000000a00                CLOCK_InitSystemPll
  .text.CLOCK_SetMainClkSrc
-                0x0000000000000b6c       0x34 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
-                0x0000000000000b6c                CLOCK_SetMainClkSrc
+                0x0000000000000a9c       0x34 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+                0x0000000000000a9c                CLOCK_SetMainClkSrc
  .text.USART_GetInstance
-                0x0000000000000ba0       0x2c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
-                0x0000000000000ba0                USART_GetInstance
+                0x0000000000000ad0       0x2c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000000ad0                USART_GetInstance
  .text.USART_GetDefaultConfig
-                0x0000000000000bcc       0x20 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
-                0x0000000000000bcc                USART_GetDefaultConfig
+                0x0000000000000afc       0x20 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000000afc                USART_GetDefaultConfig
  .text.USART_SetBaudRate
-                0x0000000000000bec       0xa4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
-                0x0000000000000bec                USART_SetBaudRate
+                0x0000000000000b1c       0xa4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000000b1c                USART_SetBaudRate
  .text.USART_Init
-                0x0000000000000c90       0xfc CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
-                0x0000000000000c90                USART_Init
+                0x0000000000000bc0       0xfc CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000000bc0                USART_Init
  .text.USART_WriteBlocking
-                0x0000000000000d8c       0x24 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
-                0x0000000000000d8c                USART_WriteBlocking
+                0x0000000000000cbc       0x24 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000000cbc                USART_WriteBlocking
  .text.USART_ReadBlocking
-                0x0000000000000db0       0x7c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
-                0x0000000000000db0                USART_ReadBlocking
+                0x0000000000000ce0       0x7c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000000ce0                USART_ReadBlocking
  .text.USART0_DriverIRQHandler
-                0x0000000000000e2c       0x1c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
-                0x0000000000000e2c                USART0_DriverIRQHandler
+                0x0000000000000d5c       0x1c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000000d5c                USART0_DriverIRQHandler
  .text.USART1_DriverIRQHandler
-                0x0000000000000e48       0x1c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
-                0x0000000000000e48                USART1_DriverIRQHandler
+                0x0000000000000d78       0x1c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000000d78                USART1_DriverIRQHandler
  .text.USART2_DriverIRQHandler
-                0x0000000000000e64       0x1c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
-                0x0000000000000e64                USART2_DriverIRQHandler
+                0x0000000000000d94       0x1c CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000000d94                USART2_DriverIRQHandler
+ .text.RESET_SetPeripheralReset
+                0x0000000000000db0       0x14 CMakeFiles/UsartTx.elf.dir/drivers/fsl_reset.c.obj
+                0x0000000000000db0                RESET_SetPeripheralReset
+ .text.RESET_ClearPeripheralReset
+                0x0000000000000dc4       0x14 CMakeFiles/UsartTx.elf.dir/drivers/fsl_reset.c.obj
+                0x0000000000000dc4                RESET_ClearPeripheralReset
  .text.RESET_PeripheralReset
-                0x0000000000000e80       0x18 CMakeFiles/UsartTx.elf.dir/drivers/fsl_reset.c.obj
-                0x0000000000000e80                RESET_PeripheralReset
+                0x0000000000000dd8       0x10 CMakeFiles/UsartTx.elf.dir/drivers/fsl_reset.c.obj
+                0x0000000000000dd8                RESET_PeripheralReset
  .text.SWM_SetMovablePinSelect
-                0x0000000000000e98       0x1e CMakeFiles/UsartTx.elf.dir/drivers/fsl_swm.c.obj
-                0x0000000000000e98                SWM_SetMovablePinSelect
- *fill*         0x0000000000000eb6        0x2 
+                0x0000000000000de8       0x1e CMakeFiles/UsartTx.elf.dir/drivers/fsl_swm.c.obj
+                0x0000000000000de8                SWM_SetMovablePinSelect
+ *fill*         0x0000000000000e06        0x2 
+ .text._sbrk    0x0000000000000e08       0x38 CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
+                0x0000000000000e08                _sbrk
+ .text.DbgConsole_Putchar
+                0x0000000000000e40       0x24 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
+                0x0000000000000e40                DbgConsole_Putchar
+ .text.DbgConsole_ConvertRadixNumToString.constprop.0
+                0x0000000000000e64       0x4a CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
+ *fill*         0x0000000000000eae        0x2 
  .text.DbgConsole_Init
-                0x0000000000000eb8       0x4c CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
-                0x0000000000000eb8                DbgConsole_Init
- .text.exit     0x0000000000000f04       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
-                0x0000000000000f04                exit
+                0x0000000000000eb0       0x4c CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
+                0x0000000000000eb0                DbgConsole_Init
+ .text.DbgConsole_Vprintf
+                0x0000000000000efc      0x208 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
+                0x0000000000000efc                DbgConsole_Vprintf
+ .text.DbgConsole_Printf
+                0x0000000000001104       0x16 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
+                0x0000000000001104                DbgConsole_Printf
+ *fill*         0x000000000000111a        0x2 
+ .text.__errno  0x000000000000111c        0xc /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-errno.o)
+                0x000000000000111c                __errno
+ .text.exit     0x0000000000001128       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
+                0x0000000000001128                exit
  .text.__libc_init_array
-                0x0000000000000f30       0x48 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
-                0x0000000000000f30                __libc_init_array
- .text.memset   0x0000000000000f78       0x10 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
-                0x0000000000000f78                memset
- .text._exit    0x0000000000000f88        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
-                0x0000000000000f88                _exit
+                0x0000000000001154       0x48 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
+                0x0000000000001154                __libc_init_array
+ .text.memcpy   0x000000000000119c       0x12 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memcpy-stub.o)
+                0x000000000000119c                memcpy
+ .text.memset   0x00000000000011ae       0x10 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
+                0x00000000000011ae                memset
+ *fill*         0x00000000000011be        0x2 
+ .text._free_r  0x00000000000011c0       0x94 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o)
+                0x00000000000011c0                _free_r
+ .text.sbrk_aligned
+                0x0000000000001254       0x44 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
+ .text._malloc_r
+                0x0000000000001298       0xec /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
+                0x0000000000001298                _malloc_r
+ .text._sbrk_r  0x0000000000001384       0x24 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
+                0x0000000000001384                _sbrk_r
+ .text.sprintf  0x00000000000013a8       0x40 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sprintf.o)
+                0x00000000000013a8                sprintf
+                0x00000000000013a8                siprintf
+ .text.__malloc_lock
+                0x00000000000013e8       0x10 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
+                0x00000000000013e8                __malloc_lock
+ .text.__malloc_unlock
+                0x00000000000013f8       0x10 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
+                0x00000000000013f8                __malloc_unlock
+ .text.__ssputs_r
+                0x0000000000001408       0xc4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000000001408                __ssputs_r
+ .text._svfprintf_r
+                0x00000000000014cc      0x200 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00000000000014cc                _svfprintf_r
+                0x00000000000014cc                _svfiprintf_r
+ .text._printf_common
+                0x00000000000016cc       0xde /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000000016cc                _printf_common
+ *fill*         0x00000000000017aa        0x2 
+ .text._printf_i
+                0x00000000000017ac      0x224 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000000017ac                _printf_i
+ .text.__retarget_lock_acquire_recursive
+                0x00000000000019d0        0x2 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
+                0x00000000000019d0                __retarget_lock_acquire_recursive
+ .text.__retarget_lock_release_recursive
+                0x00000000000019d2        0x2 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
+                0x00000000000019d2                __retarget_lock_release_recursive
+ .text.memchr   0x00000000000019d4       0x16 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memchr-stub.o)
+                0x00000000000019d4                memchr
+ .text.memmove  0x00000000000019ea       0x26 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memmove.o)
+                0x00000000000019ea                memmove
+ .text._realloc_r
+                0x0000000000001a10       0x5e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-reallocr.o)
+                0x0000000000001a10                _realloc_r
+ .text._malloc_usable_size_r
+                0x0000000000001a6e       0x10 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-msizer.o)
+                0x0000000000001a6e                _malloc_usable_size_r
+ *fill*         0x0000000000001a7e        0x2 
+ .text._exit    0x0000000000001a80        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
+                0x0000000000001a80                _exit
  *(.rodata)
  *(.rodata*)
+ .rodata.main.str1.1
+                0x0000000000001a84       0x1a CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+                                         0x1f (size before relaxing)
+ *fill*         0x0000000000001a9e        0x2 
  .rodata.s_UsartAdapterBase
-                0x0000000000000f8c        0xc CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
+                0x0000000000001aa0        0xc CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
  .rodata.s_usartClock
-                0x0000000000000f98        0x3 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x0000000000001aac        0x3 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
  .rodata.s_usartRest
-                0x0000000000000f9b        0x3 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
- *fill*         0x0000000000000f9e        0x2 
+                0x0000000000001aaf        0x3 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+ *fill*         0x0000000000001ab2        0x2 
  .rodata._global_impure_ptr
-                0x0000000000000fa0        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
-                0x0000000000000fa0                _global_impure_ptr
+                0x0000000000001ab4        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
+                0x0000000000001ab4                _global_impure_ptr
+ .rodata._svfprintf_r.str1.1
+                0x0000000000001ab8       0x11 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+ .rodata._printf_i.str1.1
+                0x0000000000001ac9       0x22 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o)
  *(.glue_7)
- .glue_7        0x0000000000000fa4        0x0 linker stubs
+ .glue_7        0x0000000000001aeb        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0000000000000fa4        0x0 linker stubs
+ .glue_7t       0x0000000000001aeb        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x0000000000000fa4        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
+ *fill*         0x0000000000001aeb        0x1 
+ .eh_frame      0x0000000000001aec        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
  *(.init)
- .init          0x0000000000000fa4        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crti.o
-                0x0000000000000fa4                _init
- .init          0x0000000000000fa8        0x8 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtn.o
+ .init          0x0000000000001aec        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crti.o
+                0x0000000000001aec                _init
+ .init          0x0000000000001af0        0x8 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtn.o
  *(.fini)
- .fini          0x0000000000000fb0        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crti.o
-                0x0000000000000fb0                _fini
- .fini          0x0000000000000fb4        0x8 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtn.o
-                0x0000000000000fbc                . = ALIGN (0x4)
+ .fini          0x0000000000001af8        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crti.o
+                0x0000000000001af8                _fini
+ .fini          0x0000000000001afc        0x8 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtn.o
+                0x0000000000001b04                . = ALIGN (0x4)
 
-.vfp11_veneer   0x0000000000000fbc        0x0
- .vfp11_veneer  0x0000000000000fbc        0x0 linker stubs
+.vfp11_veneer   0x0000000000001b04        0x0
+ .vfp11_veneer  0x0000000000001b04        0x0 linker stubs
 
-.v4_bx          0x0000000000000fbc        0x0
- .v4_bx         0x0000000000000fbc        0x0 linker stubs
+.v4_bx          0x0000000000001b04        0x0
+ .v4_bx         0x0000000000001b04        0x0 linker stubs
 
-.iplt           0x0000000000000fbc        0x0
- .iplt          0x0000000000000fbc        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
+.iplt           0x0000000000001b04        0x0
+ .iplt          0x0000000000001b04        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x0000000000000fbc        0x8
-                0x0000000000000fbc                __exidx_start = .
+.ARM            0x0000000000001b04        0x8
+                0x0000000000001b04                __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x0000000000000fbc        0x8 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/crt0.o
+ .ARM.exidx     0x0000000000001b04        0x8 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/crt0.o
                                          0x10 (size before relaxing)
-                0x0000000000000fc4                __exidx_end = .
+                0x0000000000001b0c                __exidx_end = .
 
-.rel.dyn        0x0000000000000fc4        0x0
- .rel.iplt      0x0000000000000fc4        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
+.rel.dyn        0x0000000000001b0c        0x0
+ .rel.iplt      0x0000000000001b0c        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
 
-.ctors          0x0000000000000fc4        0x0
-                0x0000000000000fc4                __CTOR_LIST__ = .
+.ctors          0x0000000000001b0c        0x0
+                0x0000000000001b0c                __CTOR_LIST__ = .
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
-                0x0000000000000fc4                __CTOR_END__ = .
+                0x0000000000001b0c                __CTOR_END__ = .
 
-.dtors          0x0000000000000fc4        0x0
-                0x0000000000000fc4                __DTOR_LIST__ = .
+.dtors          0x0000000000001b0c        0x0
+                0x0000000000001b0c                __DTOR_LIST__ = .
  *crtbegin.o(.dtors)
  *crtbegin?.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .dtors)
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
-                0x0000000000000fc4                __DTOR_END__ = .
+                0x0000000000001b0c                __DTOR_END__ = .
 
-.preinit_array  0x0000000000000fc4        0x0
-                0x0000000000000fc4                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x0000000000001b0c        0x0
+                0x0000000000001b0c                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0000000000000fc4                PROVIDE (__preinit_array_end = .)
+                0x0000000000001b0c                PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0000000000000fc4        0x4
-                0x0000000000000fc4                PROVIDE (__init_array_start = .)
+.init_array     0x0000000000001b0c        0x4
+                0x0000000000001b0c                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0000000000000fc4        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
-                0x0000000000000fc8                PROVIDE (__init_array_end = .)
+ .init_array    0x0000000000001b0c        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x0000000000001b10                PROVIDE (__init_array_end = .)
 
-.fini_array     0x0000000000000fc8        0x4
+.fini_array     0x0000000000001b10        0x4
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0000000000000fc8        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
+ .fini_array    0x0000000000001b10        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x0000000000000fcc                __etext = .
-                0x0000000000000fcc                __DATA_ROM = .
+                0x0000000000001b14                __etext = .
+                0x0000000000001b14                __DATA_ROM = .
 
-.data           0x0000000010000000      0x158 load address 0x0000000000000fcc
+.data           0x0000000010000000       0x68 load address 0x0000000000001b14
                 0x0000000010000000                . = ALIGN (0x4)
                 0x0000000010000000                __DATA_RAM = .
                 0x0000000010000000                __data_start__ = .
  *(.ramfunc*)
  *(.data)
  *(.data*)
- .data.g_demoInfo
-                0x0000000010000000       0x5a CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x0000000010000000                g_demoInfo
- .data.g_logInfo
-                0x000000001000005a       0x1d CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x000000001000005a                g_logInfo
- .data.g_overFlowInfo
-                0x0000000010000077       0x3a CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x0000000010000077                g_overFlowInfo
- .data.g_promptInfo
-                0x00000000100000b1       0x43 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x00000000100000b1                g_promptInfo
  .data.SystemCoreClock
-                0x00000000100000f4        0x4 CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj
-                0x00000000100000f4                SystemCoreClock
+                0x0000000010000000        0x4 CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj
+                0x0000000010000000                SystemCoreClock
+ .data._impure_ptr
+                0x0000000010000004        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
+                0x0000000010000004                _impure_ptr
  .data.impure_data
-                0x00000000100000f8       0x60 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
+                0x0000000010000008       0x60 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
  *(.jcr*)
-                0x0000000010000158                . = ALIGN (0x4)
-                0x0000000010000158                __data_end__ = .
-                0x0000000000001124                __DATA_END = (__DATA_ROM + (__data_end__ - __data_start__))
+                0x0000000010000068                . = ALIGN (0x4)
+                0x0000000010000068                __data_end__ = .
+                0x0000000000001b7c                __DATA_END = (__DATA_ROM + (__data_end__ - __data_start__))
                 0x0000000000008000                text_end = (ORIGIN (m_text) + LENGTH (m_text))
                 0x0000000000000001                ASSERT ((__DATA_END <= text_end), region m_text overflowed with text and data)
 
-.igot.plt       0x0000000010000158        0x0 load address 0x0000000000001124
- .igot.plt      0x0000000010000158        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
+.igot.plt       0x0000000010000068        0x0 load address 0x0000000000001b7c
+ .igot.plt      0x0000000010000068        0x0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
 
-.bss            0x0000000010000158       0x70 load address 0x0000000000001124
-                0x0000000010000158                . = ALIGN (0x4)
-                0x0000000010000158                __START_BSS = .
-                0x0000000010000158                __bss_start__ = .
+.bss            0x0000000010000068       0x88 load address 0x0000000000001b7c
+                0x0000000010000068                . = ALIGN (0x4)
+                0x0000000010000068                __START_BSS = .
+                0x0000000010000068                __bss_start__ = .
  *(.bss)
- .bss           0x0000000010000158       0x1c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
+ .bss           0x0000000010000068       0x1c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtbegin.o
  *(.bss*)
- .bss.rxBuffer  0x0000000010000174       0x20 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x0000000010000174                rxBuffer
- .bss.rxDataCounter
-                0x0000000010000194        0x1 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x0000000010000194                rxDataCounter
- .bss.rxDataOverFlowFlag
-                0x0000000010000195        0x1 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x0000000010000195                rxDataOverFlowFlag
- .bss.rxNewLineDetected
-                0x0000000010000196        0x1 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x0000000010000196                rxNewLineDetected
- .bss.txDataCounter
-                0x0000000010000197        0x1 CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
-                0x0000000010000197                txDataCounter
+ .bss.TxBuffer  0x0000000010000084       0x20 CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+                0x0000000010000084                TxBuffer
+ .bss.g_systickCounter
+                0x00000000100000a4        0x4 CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+                0x00000000100000a4                g_systickCounter
+ .bss.sayi      0x00000000100000a8        0x2 CMakeFiles/UsartTx.elf.dir/source/main.c.obj
+                0x00000000100000a8                sayi
+ *fill*         0x00000000100000aa        0x2 
  .bss.g_Ext_Clk_Freq
-                0x0000000010000198        0x4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
-                0x0000000010000198                g_Ext_Clk_Freq
+                0x00000000100000ac        0x4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+                0x00000000100000ac                g_Ext_Clk_Freq
  .bss.g_Wdt_Osc_Freq
-                0x000000001000019c        0x4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
-                0x000000001000019c                g_Wdt_Osc_Freq
+                0x00000000100000b0        0x4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+                0x00000000100000b0                g_Wdt_Osc_Freq
  .bss.s_Sys_Pll_Freq
-                0x00000000100001a0        0x4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
+                0x00000000100000b4        0x4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
  .bss.s_usartHandle
-                0x00000000100001a4        0xc CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x00000000100000b8        0xc CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
  .bss.s_usartIsr
-                0x00000000100001b0        0x4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+                0x00000000100000c4        0x4 CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
+ .bss.heap_end.0
+                0x00000000100000c8        0x4 CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
  .bss.s_debugConsole
-                0x00000000100001b4       0x14 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
+                0x00000000100000cc       0x14 CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
+ .bss.__malloc_free_list
+                0x00000000100000e0        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000100000e0                __malloc_free_list
+ .bss.__malloc_sbrk_start
+                0x00000000100000e4        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000100000e4                __malloc_sbrk_start
+ .bss.errno     0x00000000100000e8        0x4 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
+                0x00000000100000e8                errno
+ .bss.__lock___malloc_recursive_mutex
+                0x00000000100000ec        0x1 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
+                0x00000000100000ec                __lock___malloc_recursive_mutex
  *(COMMON)
-                0x00000000100001c8                . = ALIGN (0x4)
-                0x00000000100001c8                __bss_end__ = .
-                0x00000000100001c8                __END_BSS = .
+                0x00000000100000f0                . = ALIGN (0x4)
+ *fill*         0x00000000100000ed        0x3 
+                0x00000000100000f0                __bss_end__ = .
+                0x00000000100000f0                __END_BSS = .
 
-.heap           0x00000000100001c8      0x400 load address 0x0000000000001194
-                0x00000000100001c8                . = ALIGN (0x8)
-                0x00000000100001c8                __end__ = .
-                0x00000000100001c8                PROVIDE (end = .)
-                0x00000000100001c8                __HeapBase = .
-                0x00000000100005c8                . = (. + HEAP_SIZE)
- *fill*         0x00000000100001c8      0x400 
-                0x00000000100005c8                __HeapLimit = .
-                0x00000000100005c8                __heap_limit = .
+.heap           0x00000000100000f0      0x400 load address 0x0000000000001c04
+                0x00000000100000f0                . = ALIGN (0x8)
+                0x00000000100000f0                __end__ = .
+                0x00000000100000f0                PROVIDE (end = .)
+                0x00000000100000f0                __HeapBase = .
+                0x00000000100004f0                . = (. + HEAP_SIZE)
+ *fill*         0x00000000100000f0      0x400 
+                0x00000000100004f0                __HeapLimit = .
+                0x00000000100004f0                __heap_limit = .
 
-.stack          0x00000000100005c8      0x800 load address 0x0000000000001594
-                0x00000000100005c8                . = ALIGN (0x8)
-                0x0000000010000dc8                . = (. + STACK_SIZE)
- *fill*         0x00000000100005c8      0x800 
+.stack          0x00000000100004f0      0x800 load address 0x0000000000002004
+                0x00000000100004f0                . = ALIGN (0x8)
+                0x0000000010000cf0                . = (. + STACK_SIZE)
+ *fill*         0x00000000100004f0      0x800 
                 0x0000000010001fe0                __StackTop = (ORIGIN (m_data) + LENGTH (m_data))
                 0x00000000100017e0                __StackLimit = (__StackTop - STACK_SIZE)
                 0x0000000010001fe0                PROVIDE (__stack = __StackTop)
@@ -991,7 +1049,7 @@ LOAD /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/t
  .ARM.attributes
                 0x00000000000000bd       0x2c CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
  .ARM.attributes
-                0x00000000000000e9       0x2c CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
+                0x00000000000000e9       0x2c CMakeFiles/UsartTx.elf.dir/source/main.c.obj
  .ARM.attributes
                 0x0000000000000115       0x2c CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
  .ARM.attributes
@@ -1007,25 +1065,61 @@ LOAD /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/t
  .ARM.attributes
                 0x000000000000020c       0x2c CMakeFiles/UsartTx.elf.dir/drivers/fsl_swm.c.obj
  .ARM.attributes
-                0x0000000000000238       0x2c CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
+                0x0000000000000238       0x2c CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
  .ARM.attributes
-                0x0000000000000264       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
+                0x0000000000000264       0x2c CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
  .ARM.attributes
-                0x0000000000000290       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
+                0x0000000000000290       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-errno.o)
  .ARM.attributes
-                0x00000000000002bc       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
+                0x00000000000002bc       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
  .ARM.attributes
-                0x00000000000002e8       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
+                0x00000000000002e8       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
  .ARM.attributes
-                0x0000000000000314       0x1e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_uqi.o)
+                0x0000000000000314       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
  .ARM.attributes
-                0x0000000000000332       0x1e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+                0x0000000000000340       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memcpy-stub.o)
  .ARM.attributes
-                0x0000000000000350       0x1e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+                0x000000000000036c       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
  .ARM.attributes
-                0x000000000000036e       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
+                0x0000000000000398       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o)
  .ARM.attributes
-                0x000000000000039a       0x1e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtn.o
+                0x00000000000003c4       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
+ .ARM.attributes
+                0x00000000000003f0       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
+ .ARM.attributes
+                0x000000000000041c       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sprintf.o)
+ .ARM.attributes
+                0x0000000000000448       0x1c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-strlen.o)
+ .ARM.attributes
+                0x0000000000000464       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
+ .ARM.attributes
+                0x0000000000000490       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+ .ARM.attributes
+                0x00000000000004bc       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o)
+ .ARM.attributes
+                0x00000000000004e8       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
+ .ARM.attributes
+                0x0000000000000514       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
+ .ARM.attributes
+                0x0000000000000540       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memchr-stub.o)
+ .ARM.attributes
+                0x000000000000056c       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memmove.o)
+ .ARM.attributes
+                0x0000000000000598       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-reallocr.o)
+ .ARM.attributes
+                0x00000000000005c4       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-msizer.o)
+ .ARM.attributes
+                0x00000000000005f0       0x1e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_uqi.o)
+ .ARM.attributes
+                0x000000000000060e       0x1e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
+ .ARM.attributes
+                0x000000000000062c       0x1e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x000000000000064a       0x1e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x0000000000000668       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
+ .ARM.attributes
+                0x0000000000000694       0x1e /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/crtn.o
                 0x0000000000000001                ASSERT ((__StackLimit >= __HeapLimit), region m_data overflowed with stack and heap)
 OUTPUT(release/UsartTx.elf elf32-littlearm)
 LOAD linker stubs
@@ -1035,18 +1129,34 @@ LOAD linker stubs
                                          0x4a (size before relaxing)
  .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/board/clock_config.c.obj
  .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/board/pin_mux.c.obj
- .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/source/usart_terminal.c.obj
+ .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/source/main.c.obj
  .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/component/uart/fsl_adapter_miniusart.c.obj
  .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/device/system_LPC824.c.obj
  .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/drivers/fsl_clock.c.obj
  .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/drivers/fsl_usart.c.obj
  .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/drivers/fsl_reset.c.obj
  .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/drivers/fsl_swm.c.obj
+ .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/utilities/fsl_sbrk.c.obj
  .comment       0x0000000000000049       0x4a CMakeFiles/UsartTx.elf.dir/utilities/fsl_debug_console.c.obj
 
-.debug_frame    0x0000000000000000       0xb4
- .debug_frame   0x0000000000000000       0x28 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
- .debug_frame   0x0000000000000028       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
- .debug_frame   0x0000000000000054       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
- .debug_frame   0x0000000000000074       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
- .debug_frame   0x0000000000000094       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
+.debug_frame    0x0000000000000000      0x488
+ .debug_frame   0x0000000000000000       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-errno.o)
+ .debug_frame   0x0000000000000020       0x28 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
+ .debug_frame   0x0000000000000048       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
+ .debug_frame   0x0000000000000074       0x28 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x000000000000009c       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
+ .debug_frame   0x00000000000000bc       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x00000000000000e8       0x50 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x0000000000000138       0x2c /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x0000000000000164       0x48 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-sprintf.o)
+ .debug_frame   0x00000000000001ac       0x40 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-mlock.o)
+ .debug_frame   0x00000000000001ec       0x74 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-svfprintf.o)
+ .debug_frame   0x0000000000000260       0x54 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-vfprintf_i.o)
+ .debug_frame   0x00000000000002b4       0x48 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-reent.o)
+ .debug_frame   0x00000000000002fc       0xb0 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-lock.o)
+ .debug_frame   0x00000000000003ac       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memchr-stub.o)
+ .debug_frame   0x00000000000003cc       0x28 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memmove.o)
+ .debug_frame   0x00000000000003f4       0x34 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-reallocr.o)
+ .debug_frame   0x0000000000000428       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-nano-msizer.o)
+ .debug_frame   0x0000000000000448       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+ .debug_frame   0x0000000000000468       0x20 /home/bahadira/gcc-arm-none-eabi-10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)

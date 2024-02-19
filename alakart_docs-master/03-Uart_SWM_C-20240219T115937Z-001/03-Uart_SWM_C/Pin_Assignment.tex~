@@ -1,0 +1,114 @@
+\documentclass[a4paper,12 pt,turkish]{article}
+
+\usepackage{graphicx}
+%\usepackage[turkish]{babel}  %Select Turkish as base language.
+\usepackage[utf8]{inputenc}  %Select the input encoding scheme.
+\usepackage[T1]{fontenc}     %Select the hyphenation using fontenc.
+
+%Page format commands:
+\textheight 21cm
+\textwidth 16cm
+\hoffset -1.5cm
+\voffset -1cm
+%\parskip 7.2pt           % sets spacing between paragraphs
+%\renewcommand{\baselinestretch}{1.5} % Uncomment for 1.5 spacing between lines
+%\parindent 0pt		 % sets leading space for paragraphs
+
+
+%\pagestyle{empty}       % Uncomment if don't want page numbers
+
+
+\renewcommand{\familydefault}{\sfdefault} %Causes sans-serif fonts.
+
+% Dutch style of paragraph formatting, i.e. no indents. 
+\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
+\setlength{\parindent}{0pt}
+
+
+\newcounter{qcounter}  %See below!
+
+\begin{document}
+
+\begin{center}
+  {\bf \Large LPC824 Pin Assignment}
+\end{center}
+Ahmet Onat \hfill Oct. 2023
+\hrule
+
+\section{Introduction}
+
+The LPC824 microcontroller package has 32 pins. These include:
+
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+\item Power pins
+\item Reset
+\item Pins used for programming the device
+\item Clock pins (for external crystal)
+\item General purpose input output (GPIO)
+\end{itemize}
+
+However, the procesor has many peripheral devices and each of them require several physical pins to connect to external circuits. They can read analog voltages,  generate or measure precisely timed waveforms, react to asynchronous events (interrupt - INT) and much more. There are many more functions than there are available physical pins on the chip package. To connect all of them would require many more pins and a bigger chip. This takes up area on the PCB, and is more expensive and consumes power.
+
+NXP designers have come up with a solution. It is possible to connect almost any peripheral input or output to any physical pin of the package. If a peripheral device is not used in a particular application, it would not be connected to any physical pin at all. This gives great flexibility because the same chip can be configured to have a pinout that perfectly suits any user application.
+
+When the user requires a certain combination of peripheral devices in a given design, it is possible to connect them to the physical pins that are most convenient for wiring up the circuit. See Fig. \ref{fig:SWM}. This is done completely in software, using the {\bf SWM peripheral; the SWitch Matrix (SWM)}. It is outlined in Chapter 7 of the User Manual of LPC824 microcontroller.
+
+
+
+
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[scale=0.3]{SWM_Concept.png}
+    \caption{SWitch Matrix concept diagram (UM Sec. 7.3.1)\label{fig:SWM}}
+  \end{center}
+\end{figure}
+
+\section{Switch Matrix Configuration}
+
+The SWM is configured in a very simple manner which will be explained below. Mainly, there are 12 Pin assignment registers (\verb!PINASSIGN0 - PINASSIGIN11!). Each PINASSIGN register is divided into 4 sections: Bits (0-7, 8-15, 16-23, 24-31). Each section of each PINASSIGN register represents the specific input or output of one peripheral register. To assign a chip pin to a peripheral input or output, we first read the number of that pin as GPIO (such as \verb!PIO0_4!), then find the peripheral input or output we want to connect to that physical pin, such as {\bf USART0 TXD} which is the {\bf ``transmit data''} pin for serial port peripheral 0. The steps are as follows:
+
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+  \item Turn on the clock of SWM peripheral by setting the appropriate bit of SYSCON system clock control register (\verb!bit 7!). (\verb!Sec. 5.6.14 System clock control register!)
+\item Find the input or output of the peripheral and determine if it is moveable (i.e. can be connected to any physical pin).
+\item In this case, the pin is USART 0 transmit data pin, which is moveable. This is stated in USART Basic Configuration section, Sec. 13.3 Basic configuration of the user manual states this.
+\item Find the peripheral input or output in the PINASSIGN registers. We find \verb!U0_TXD_O! in PINASSIGN0, bits 0-7. See Sec. 7.5.1 Pin assign register 0.
+\item The number of the GPIO pin is written into those bits. Since we wish to assign the transmit data connection to \verb!PIO0_4!, we write '4' into \verb!bits 0-7! of PINASSIGN0.
+\item Configure the UART peripheral See \verb!Sec.  13.3 Basic configuration!
+  \item Finally configure the GPIO pin: \verb!PIO0_4! if necessary.
+\end{enumerate}
+
+The concept of the connection can be seen in Fig.\ref{fig:SWM_FUNC}. This was taken from the User Manual 7.4 General description.
+
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[scale=0.4]{SWM_Functional_Diagram.png}
+    \caption{SWitch Matrix connection (UM Sec. 7.4)\label{fig:SWM_FUNC}}
+  \end{center}
+\end{figure}
+
+
+\section{Fixed Pins}
+
+Finally, we must mention that there are exceptions to this configuration. Some pins are not moveable. These are the analog pins (because the internal circuitry is not suited), Reset pin Programming pins etc. However, they can be enabled or disabled. This is done by setting the appropriate bits in the \verb!PINENABLE0! register (See Sec. 7.5.13 PINENABLE 0). There is a dedicated bit for each non-moveable pin on the microcontroller.
+
+This means, for example, that the \verb!RESET! pin can be configured as an ordinary pin. In {\bf Alakart}, this means that S1 can now be used as an ordinary input. It can also be assigned an input or output as described above to a peripheral device.
+
+However, beware that this means that the processor cannot be programmed as before anymore, because it must be reset using that pin from the PC. The only way to re-program Alakart after such a configuration is to press the ISP button (S2) while plugging in the USB connector to make use of ``Power-ON-Reset'' feature.
+
+Similarly, the other special pins that are active by default on power-on (SWD and SWCLK) can also be configured as normal GPIO or peripheral pins.
+
+\vspace {10ex}
+
+
+\hfill 2023/09
+
+
+
+\end{document}
+

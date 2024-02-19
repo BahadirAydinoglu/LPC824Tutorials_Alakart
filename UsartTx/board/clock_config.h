@@ -33,6 +33,57 @@ void BOARD_InitBootClocks(void);
 #endif /* __cplusplus*/
 
 /*******************************************************************************
+ ********************** Configuration BOARD_BootClockRUN ***********************
+ ******************************************************************************/
+/*******************************************************************************
+ * Definitions for BOARD_BootClockRUN configuration
+ ******************************************************************************/
+#define BOARD_BOOTCLOCKRUN_CORE_CLOCK              12000000U  /*!< Core clock frequency: 12000000Hz */
+
+
+/* Clock outputs (values are in Hz): */
+#define BOARD_BOOTCLOCKRUN_ADC_CLOCK                  12000000UL     /* Clock consumers of ADC_clock output : N/A */
+#define BOARD_BOOTCLOCKRUN_CLKOUT_CLOCK               0UL            /* Clock consumers of CLKOUT_clock output : N/A */
+#define BOARD_BOOTCLOCKRUN_I2C0_CLOCK                 12000000UL     /* Clock consumers of I2C0_clock output : I2C0 */
+#define BOARD_BOOTCLOCKRUN_I2C1_CLOCK                 12000000UL     /* Clock consumers of I2C1_clock output : I2C1 */
+#define BOARD_BOOTCLOCKRUN_I2C2_CLOCK                 12000000UL     /* Clock consumers of I2C2_clock output : I2C2 */
+#define BOARD_BOOTCLOCKRUN_I2C3_CLOCK                 12000000UL     /* Clock consumers of I2C3_clock output : I2C3 */
+#define BOARD_BOOTCLOCKRUN_IOCON0_CLOCK               0UL            /* Clock consumers of IOCON0_clock output : IOCON */
+#define BOARD_BOOTCLOCKRUN_IOCON1_CLOCK               0UL            /* Clock consumers of IOCON1_clock output : IOCON */
+#define BOARD_BOOTCLOCKRUN_IOCON2_CLOCK               0UL            /* Clock consumers of IOCON2_clock output : IOCON */
+#define BOARD_BOOTCLOCKRUN_IOCON3_CLOCK               0UL            /* Clock consumers of IOCON3_clock output : IOCON */
+#define BOARD_BOOTCLOCKRUN_IOCON4_CLOCK               0UL            /* Clock consumers of IOCON4_clock output : IOCON */
+#define BOARD_BOOTCLOCKRUN_IOCON5_CLOCK               0UL            /* Clock consumers of IOCON5_clock output : IOCON */
+#define BOARD_BOOTCLOCKRUN_IOCON6_CLOCK               0UL            /* Clock consumers of IOCON6_clock output : IOCON */
+#define BOARD_BOOTCLOCKRUN_LOWPOWER_CLOCK             10000UL        /* Clock consumers of LowPower_clock output : WKT */
+#define BOARD_BOOTCLOCKRUN_SPI0_CLOCK                 12000000UL     /* Clock consumers of SPI0_clock output : SPI0 */
+#define BOARD_BOOTCLOCKRUN_SPI1_CLOCK                 12000000UL     /* Clock consumers of SPI1_clock output : SPI1 */
+#define BOARD_BOOTCLOCKRUN_SYSPLL_CLOCK               12000000UL     /* Clock consumers of SYSPLL_clock output : N/A */
+#define BOARD_BOOTCLOCKRUN_SYSTEM_CLOCK               12000000UL     /* Clock consumers of System_clock output : ACOMP, ADC0, CRC, DMA0, FLASH_CTRL, GPIO, I2C0, I2C1, I2C2, I2C3, INPUTMUX, IOCON, MRT0, PINT, SCT0, SPI0, SPI1, SWM0, USART0, USART1, USART2, WKT, WWDT */
+#define BOARD_BOOTCLOCKRUN_UART0_CLOCK                12000000UL     /* Clock consumers of UART0_clock output : USART0 */
+#define BOARD_BOOTCLOCKRUN_UART1_CLOCK                12000000UL     /* Clock consumers of UART1_clock output : USART1 */
+#define BOARD_BOOTCLOCKRUN_UART2_CLOCK                12000000UL     /* Clock consumers of UART2_clock output : USART2 */
+#define BOARD_BOOTCLOCKRUN_WWDT_CLOCK                 0UL            /* Clock consumers of WWDT_clock output : WWDT */
+#define BOARD_BOOTCLOCKRUN_DIVTO750K_CLOCK            750000UL       /* Clock consumers of divto750k_clock output : WKT */
+
+/*******************************************************************************
+ * API for BOARD_BootClockRUN configuration
+ ******************************************************************************/
+#if defined(__cplusplus)
+extern "C" {
+#endif /* __cplusplus*/
+
+/*!
+ * @brief This function executes configuration of clocks.
+ *
+ */
+void BOARD_BootClockRUN(void);
+
+#if defined(__cplusplus)
+}
+#endif /* __cplusplus*/
+
+/*******************************************************************************
  ******************** Configuration BOARD_BootClockIRC12M **********************
  ******************************************************************************/
 /*******************************************************************************
@@ -60,9 +111,9 @@ void BOARD_InitBootClocks(void);
 #define BOARD_BOOTCLOCKIRC12M_SPI1_CLOCK              12000000UL     /* Clock consumers of SPI1_clock output : SPI1 */
 #define BOARD_BOOTCLOCKIRC12M_SYSPLL_CLOCK            12000000UL     /* Clock consumers of SYSPLL_clock output : N/A */
 #define BOARD_BOOTCLOCKIRC12M_SYSTEM_CLOCK            12000000UL     /* Clock consumers of System_clock output : ACOMP, ADC0, CRC, DMA0, FLASH_CTRL, GPIO, I2C0, I2C1, I2C2, I2C3, INPUTMUX, IOCON, MRT0, PINT, SCT0, SPI0, SPI1, SWM0, USART0, USART1, USART2, WKT, WWDT */
-#define BOARD_BOOTCLOCKIRC12M_UART0_CLOCK             0UL            /* Clock consumers of UART0_clock output : USART0 */
-#define BOARD_BOOTCLOCKIRC12M_UART1_CLOCK             0UL            /* Clock consumers of UART1_clock output : USART1 */
-#define BOARD_BOOTCLOCKIRC12M_UART2_CLOCK             0UL            /* Clock consumers of UART2_clock output : USART2 */
+#define BOARD_BOOTCLOCKIRC12M_UART0_CLOCK             12000000UL     /* Clock consumers of UART0_clock output : USART0 */
+#define BOARD_BOOTCLOCKIRC12M_UART1_CLOCK             12000000UL     /* Clock consumers of UART1_clock output : USART1 */
+#define BOARD_BOOTCLOCKIRC12M_UART2_CLOCK             12000000UL     /* Clock consumers of UART2_clock output : USART2 */
 #define BOARD_BOOTCLOCKIRC12M_WWDT_CLOCK              0UL            /* Clock consumers of WWDT_clock output : WWDT */
 #define BOARD_BOOTCLOCKIRC12M_DIVTO750K_CLOCK         750000UL       /* Clock consumers of divto750k_clock output : WKT */
 

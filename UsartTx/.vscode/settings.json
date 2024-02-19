@@ -1,6 +1,5 @@
 {
-    "cmake.configureOnOpen": false,
     "files.associations": {
-        "pin_mux.h": "c"
+        "fsl_device_registers.h": "c"
     }
 }

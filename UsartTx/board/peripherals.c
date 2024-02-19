@@ -6,15 +6,15 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Peripherals v13.0
+product: Peripherals v14.0
 processor: LPC824
 package_id: LPC824M201JHI33
 mcu_data: ksdk2_0
-processor_version: 14.0.0
+processor_version: 15.0.1
 board: LPCXpresso824
 functionalGroups:
 - name: BOARD_InitPeripherals
-  UUID: 4a296547-7ef7-4cda-955d-e13b9cfa2be0
+  UUID: 3e340350-e301-428c-ab56-aa95c9a5800f
   called_from_default_init: true
   selectedCore: core0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
@@ -26,6 +26,7 @@ component:
 - global_system_definitions:
   - user_definitions: ''
   - user_includes: ''
+  - global_init: ''
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
@@ -51,10 +52,89 @@ component:
 #include "peripherals.h"
 
 /***********************************************************************************************************************
+ * BOARD_InitPeripherals functional group
+ **********************************************************************************************************************/
+/***********************************************************************************************************************
+ * USART0 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'USART0'
+- type: 'lpc_miniusart'
+- mode: 'transfer'
+- custom_name_enabled: 'false'
+- type_id: 'lpc_miniusart_8dab9e8c7daef1c58d159a792e99242b'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'USART0'
+- config_sets:
+  - fsl_usart:
+    - usartConfig:
+      - clockSource: 'FunctionClock'
+      - clockSourceFreq: 'ClocksTool_DefaultInit'
+      - baudRate_Bps: '9600'
+      - syncMode: 'kUSART_SyncModeDisabled'
+      - parityMode: 'kUSART_ParityDisabled'
+      - stopBitCount: 'kUSART_OneStopBit'
+      - bitCountPerChar: 'kUSART_8BitsPerChar'
+      - loopback: 'false'
+      - enableRx: 'true'
+      - enableTx: 'true'
+      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
+      - enableContinuousSCLK: 'false'
+      - enableHardwareFlowControl: 'false'
+    - quick_selection: 'QS_USART_1'
+  - Transfer_cfg:
+    - transfer:
+      - init_rx_transfer: 'true'
+      - rx_transfer:
+        - data_size: '32'
+      - init_tx_transfer: 'true'
+      - tx_transfer:
+        - data_size: '32'
+      - init_callback: 'false'
+      - callback_fcn: ''
+      - user_data: ''
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const usart_config_t USART0_config = {
+  .baudRate_Bps = 9600UL,
+  .syncMode = kUSART_SyncModeDisabled,
+  .parityMode = kUSART_ParityDisabled,
+  .stopBitCount = kUSART_OneStopBit,
+  .bitCountPerChar = kUSART_8BitsPerChar,
+  .loopback = false,
+  .enableRx = true,
+  .enableTx = true,
+  .clockPolarity = kUSART_RxSampleOnFallingEdge,
+  .enableContinuousSCLK = false,
+  .enableHardwareFlowControl = false
+};
+usart_handle_t USART0_handle;
+uint8_t USART0_rxBuffer[USART0_RX_BUFFER_SIZE];
+usart_transfer_t USART0_rxTransfer = {
+  .rxData = USART0_rxBuffer,
+  .dataSize = USART0_RX_BUFFER_SIZE
+};
+uint8_t USART0_txBuffer[USART0_TX_BUFFER_SIZE];
+usart_transfer_t USART0_txTransfer = {
+  .data = USART0_txBuffer,
+  .dataSize = USART0_TX_BUFFER_SIZE
+};
+
+static void USART0_init(void) {
+  /* USART0 peripheral initialization */
+  USART_Init(USART0_PERIPHERAL, &USART0_config, USART0_CLOCK_SOURCE);
+  USART_TransferCreateHandle(USART0_PERIPHERAL, &USART0_handle, NULL, NULL);
+}
+
+/***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
 void BOARD_InitPeripherals(void)
 {
+  /* Initialize components */
+  USART0_init();
 }
 
 /***********************************************************************************************************************

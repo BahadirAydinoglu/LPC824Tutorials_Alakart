@@ -51,12 +51,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/board/clock_config.h"
 "${ProjDirPath}/board/pin_mux.c"
 "${ProjDirPath}/board/pin_mux.h"
-"${ProjDirPath}/source/usart_terminal.c"
+"${ProjDirPath}/source/main.c"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
 ${ProjDirPath}/board
-${ProjDirPath}/lpcxpresso824max/driver_examples/usart/terminal
+${ProjDirPath}/lpcxpresso824max/demo_apps/hello_world
 )
 
 

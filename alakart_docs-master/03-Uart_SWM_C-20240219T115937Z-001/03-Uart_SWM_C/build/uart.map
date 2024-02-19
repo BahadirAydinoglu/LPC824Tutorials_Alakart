@@ -1,0 +1,128 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x0000000000000000 0x0000000000008000
+ram              0x0000000010000000 0x0000000000002000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD build/main.o
+LOAD build/init.o
+                0x0000000000000000                . = ORIGIN (flash)
+
+.text           0x0000000000000000      0x31c
+ *(.vectors)
+ .vectors       0x0000000000000000       0xc0 build/init.o
+                0x0000000000000000                Vectors
+ *(.text)
+ .text          0x00000000000000c0      0x15c build/main.o
+                0x00000000000000c0                main
+                0x0000000000000160                delay
+                0x0000000000000184                print
+                0x00000000000001e0                config_uart0
+ .text          0x000000000000021c      0x100 build/init.o
+                0x000000000000021c                clock_init
+                0x000000000000029c                init
+                0x0000000000000314                Default_Handler
+
+.glue_7         0x000000000000031c        0x0
+ .glue_7        0x000000000000031c        0x0 linker stubs
+
+.glue_7t        0x000000000000031c        0x0
+ .glue_7t       0x000000000000031c        0x0 linker stubs
+
+.vfp11_veneer   0x000000000000031c        0x0
+ .vfp11_veneer  0x000000000000031c        0x0 linker stubs
+
+.v4_bx          0x000000000000031c        0x0
+ .v4_bx         0x000000000000031c        0x0 linker stubs
+
+.iplt           0x000000000000031c        0x0
+ .iplt          0x000000000000031c        0x0 build/main.o
+
+.rodata         0x000000000000031c       0x10
+ .rodata        0x000000000000031c       0x10 build/main.o
+
+.rel.dyn        0x000000000000032c        0x0
+ .rel.iplt      0x000000000000032c        0x0 build/main.o
+                0x0000000010000000                . = ORIGIN (ram)
+
+.data           0x0000000010000000        0x0 load address 0x000000000000032c
+                0x000000000000032c                INIT_DATA_VALUES = LOADADDR (.data)
+                0x0000000010000000                INIT_DATA_START = .
+ *(.data)
+ .data          0x0000000010000000        0x0 build/main.o
+ .data          0x0000000010000000        0x0 build/init.o
+                0x0000000010000000                INIT_DATA_END = .
+                0x0000000010000000                BSS_START = .
+
+.igot.plt       0x0000000010000000        0x0 load address 0x000000000000032c
+ .igot.plt      0x0000000010000000        0x0 build/main.o
+
+.bss            0x0000000010000000        0x0 load address 0x000000000000032c
+ *(.bss)
+ .bss           0x0000000010000000        0x0 build/main.o
+ .bss           0x0000000010000000        0x0 build/init.o
+                0x0000000010000000                BSS_END = .
+OUTPUT(build/uart.elf elf32-littlearm)
+LOAD linker stubs
+
+.debug_info     0x0000000000000000      0x258
+ .debug_info    0x0000000000000000      0x151 build/main.o
+ .debug_info    0x0000000000000151      0x107 build/init.o
+
+.debug_abbrev   0x0000000000000000      0x19c
+ .debug_abbrev  0x0000000000000000       0xc7 build/main.o
+ .debug_abbrev  0x00000000000000c7       0xd5 build/init.o
+
+.debug_aranges  0x0000000000000000       0x40
+ .debug_aranges
+                0x0000000000000000       0x20 build/main.o
+ .debug_aranges
+                0x0000000000000020       0x20 build/init.o
+
+.debug_line     0x0000000000000000      0x278
+ .debug_line    0x0000000000000000      0x1a0 build/main.o
+ .debug_line    0x00000000000001a0       0xd8 build/init.o
+
+.debug_str      0x0000000000000000      0x1f7
+ .debug_str     0x0000000000000000      0x187 build/main.o
+                                        0x1cc (size before relaxing)
+ .debug_str     0x0000000000000187       0x70 build/init.o
+                                        0x179 (size before relaxing)
+
+.comment        0x0000000000000000       0x49
+ .comment       0x0000000000000000       0x49 build/main.o
+                                         0x4a (size before relaxing)
+ .comment       0x0000000000000049       0x4a build/init.o
+
+.ARM.attributes
+                0x0000000000000000       0x2c
+ .ARM.attributes
+                0x0000000000000000       0x2c build/main.o
+ .ARM.attributes
+                0x000000000000002c       0x2c build/init.o
+
+.debug_frame    0x0000000000000000       0xf4
+ .debug_frame   0x0000000000000000       0x8c build/main.o
+ .debug_frame   0x000000000000008c       0x68 build/init.o
+
+Cross Reference Table
+
+Symbol                                            File
+BSS_END                                           build/init.o
+BSS_START                                         build/init.o
+Default_Handler                                   build/init.o
+INIT_DATA_END                                     build/init.o
+INIT_DATA_START                                   build/init.o
+INIT_DATA_VALUES                                  build/init.o
+Vectors                                           build/init.o
+clock_init                                        build/init.o
+config_uart0                                      build/main.o
+delay                                             build/main.o
+init                                              build/init.o
+main                                              build/main.o
+                                                  build/init.o
+print                                             build/main.o

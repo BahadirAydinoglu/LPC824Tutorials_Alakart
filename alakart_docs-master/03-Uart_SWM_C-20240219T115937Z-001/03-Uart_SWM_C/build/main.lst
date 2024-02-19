@@ -1,0 +1,485 @@
+ARM GAS  /tmp/cc498pdR.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata
+  18              		.align	2
+  19              	.LC0:
+  20 0000 48656C6C 		.ascii	"Hello world!\012\015\000\000"
+  20      6F20776F 
+  20      726C6421 
+  20      0A0D0000 
+  21              		.text
+  22              		.align	1
+  23              		.global	main
+  24              		.syntax unified
+  25              		.code	16
+  26              		.thumb_func
+  28              	main:
+  29              	.LFB0:
+  30              		.file 1 "main.c"
+   1:main.c        **** 
+   2:main.c        **** 
+   3:main.c        **** // This program demonstrates the switch matrix peripheral of LPC824.
+   4:main.c        **** // It is possible to connect the input or outputs of many peripheral devices
+   5:main.c        **** //  to any physical pin of the processor chip.
+   6:main.c        **** // In this example, serial port transmit pin is connected to
+   7:main.c        **** //  physical pin PIO0_4.
+   8:main.c        **** // On Alakart, PIO0_4 is connected to the USB serial converter to the PC.
+   9:main.c        **** // This is a minimal program and does not use any library functions.
+  10:main.c        **** 
+  11:main.c        **** // 2023 Ahmet Onat
+  12:main.c        **** 
+  13:main.c        **** 
+  14:main.c        **** #include <stdint.h> // Declarations of uint32_t etc.
+  15:main.c        **** #include "lpc824.h" // Declarations of LPC824 register names.
+  16:main.c        **** 
+  17:main.c        **** 
+  18:main.c        **** void delay(uint32_t counts); // The busy delay routine.
+  19:main.c        **** void config_uart0 (void);
+  20:main.c        **** void print (uint8_t * message);
+  21:main.c        **** 
+  22:main.c        **** int main(void) {
+  31              		.loc 1 22 16
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  /tmp/cc498pdR.s 			page 2
+
+
+  34              		@ frame_needed = 1, uses_anonymous_args = 0
+  35 0000 80B5     		push	{r7, lr}
+  36              		.cfi_def_cfa_offset 8
+  37              		.cfi_offset 7, -8
+  38              		.cfi_offset 14, -4
+  39 0002 82B0     		sub	sp, sp, #8
+  40              		.cfi_def_cfa_offset 16
+  41 0004 00AF     		add	r7, sp, #0
+  42              		.cfi_def_cfa_register 7
+  23:main.c        **** 
+  24:main.c        ****   uint32_t reg; // Dummy variable.
+  25:main.c        ****   uint8_t * message="Hello world!\n\r\0";
+  43              		.loc 1 25 13
+  44 0006 1D4B     		ldr	r3, .L3
+  45 0008 7B60     		str	r3, [r7, #4]
+  26:main.c        **** 
+  27:main.c        ****  
+  28:main.c        ****   SYSCON_SYSAHBCLKCTRL |= 0x400C0; // Enable clocks for IOCON, SWM & GPIO.
+  46              		.loc 1 28 24
+  47 000a 1D4B     		ldr	r3, .L3+4
+  48 000c 1A68     		ldr	r2, [r3]
+  49 000e 1C4B     		ldr	r3, .L3+4
+  50 0010 1C49     		ldr	r1, .L3+8
+  51 0012 0A43     		orrs	r2, r1
+  52 0014 1A60     		str	r2, [r3]
+  29:main.c        **** 
+  30:main.c        ****   
+  31:main.c        ****   SYSCON_PRESETCTRL &= ~(0x400);  // Assert  Reset of GPIO peripheral.
+  53              		.loc 1 31 21
+  54 0016 1C4B     		ldr	r3, .L3+12
+  55 0018 1A68     		ldr	r2, [r3]
+  56 001a 1B4B     		ldr	r3, .L3+12
+  57 001c 1B49     		ldr	r1, .L3+16
+  58 001e 0A40     		ands	r2, r1
+  59 0020 1A60     		str	r2, [r3]
+  32:main.c        ****   SYSCON_PRESETCTRL |=   0x400;   // Release Reset of GPIO peripheral.
+  60              		.loc 1 32 21
+  61 0022 194B     		ldr	r3, .L3+12
+  62 0024 1A68     		ldr	r2, [r3]
+  63 0026 184B     		ldr	r3, .L3+12
+  64 0028 8021     		movs	r1, #128
+  65 002a C900     		lsls	r1, r1, #3
+  66 002c 0A43     		orrs	r2, r1
+  67 002e 1A60     		str	r2, [r3]
+  33:main.c        ****   // See 5.6.2 Peripheral reset control register in User Manual.
+  34:main.c        **** 
+  35:main.c        ****   
+  36:main.c        ****   //Make Pin PIO0_16 an output. On Alakart, PIO0_16 is the blue LED:
+  37:main.c        ****   GPIO_DIR0 |= (1<<16);
+  68              		.loc 1 37 13
+  69 0030 174B     		ldr	r3, .L3+20
+  70 0032 1A68     		ldr	r2, [r3]
+  71 0034 164B     		ldr	r3, .L3+20
+  72 0036 8021     		movs	r1, #128
+  73 0038 4902     		lsls	r1, r1, #9
+  74 003a 0A43     		orrs	r2, r1
+  75 003c 1A60     		str	r2, [r3]
+ARM GAS  /tmp/cc498pdR.s 			page 3
+
+
+  38:main.c        **** 
+  39:main.c        ****   
+  40:main.c        ****   // This is the configuration of SWM:
+  41:main.c        ****   // Set PINASSIGN0 for UART0 TXD. See 7.3.1 of User Manual
+  42:main.c        ****   reg = SWM_PINASSIGN0 & (~(0xff));
+  76              		.loc 1 42 24
+  77 003e 154B     		ldr	r3, .L3+24
+  78 0040 1B68     		ldr	r3, [r3]
+  79              		.loc 1 42 7
+  80 0042 FF22     		movs	r2, #255
+  81 0044 9343     		bics	r3, r2
+  82 0046 3B60     		str	r3, [r7]
+  43:main.c        ****   SWM_PINASSIGN0= reg | 4;   // Set the lower 7 bits of PINASSIGN0 to 4: PIO0_4
+  83              		.loc 1 43 3
+  84 0048 124B     		ldr	r3, .L3+24
+  85              		.loc 1 43 23
+  86 004a 3A68     		ldr	r2, [r7]
+  87 004c 0421     		movs	r1, #4
+  88 004e 0A43     		orrs	r2, r1
+  89              		.loc 1 43 17
+  90 0050 1A60     		str	r2, [r3]
+  44:main.c        **** 
+  45:main.c        ****   
+  46:main.c        **** 
+  47:main.c        ****   config_uart0();  // Configure UART0 for correct speed and byte format.
+  91              		.loc 1 47 3
+  92 0052 FFF7FEFF 		bl	config_uart0
+  93              	.L2:
+  48:main.c        ****   
+  49:main.c        ****   while (1) { // Blink the LED in an infinite loop:
+  50:main.c        ****     
+  51:main.c        ****     GPIO_B16 = 0;    // Set pin low. (LED is ON)
+  94              		.loc 1 51 5 discriminator 1
+  95 0056 104B     		ldr	r3, .L3+28
+  96              		.loc 1 51 14 discriminator 1
+  97 0058 0022     		movs	r2, #0
+  98 005a 1A70     		strb	r2, [r3]
+  52:main.c        ****     print (message);
+  99              		.loc 1 52 5 discriminator 1
+ 100 005c 7B68     		ldr	r3, [r7, #4]
+ 101 005e 1800     		movs	r0, r3
+ 102 0060 FFF7FEFF 		bl	print
+  53:main.c        ****     delay(1000000);
+ 103              		.loc 1 53 5 discriminator 1
+ 104 0064 0D4B     		ldr	r3, .L3+32
+ 105 0066 1800     		movs	r0, r3
+ 106 0068 FFF7FEFF 		bl	delay
+  54:main.c        **** 
+  55:main.c        ****     GPIO_B16 = 1;    //Set pin high (LED is OFF)
+ 107              		.loc 1 55 5 discriminator 1
+ 108 006c 0A4B     		ldr	r3, .L3+28
+ 109              		.loc 1 55 14 discriminator 1
+ 110 006e 0122     		movs	r2, #1
+ 111 0070 1A70     		strb	r2, [r3]
+  56:main.c        ****     delay(1000000);
+ 112              		.loc 1 56 5 discriminator 1
+ 113 0072 0A4B     		ldr	r3, .L3+32
+ARM GAS  /tmp/cc498pdR.s 			page 4
+
+
+ 114 0074 1800     		movs	r0, r3
+ 115 0076 FFF7FEFF 		bl	delay
+  51:main.c        ****     print (message);
+ 116              		.loc 1 51 14 discriminator 1
+ 117 007a ECE7     		b	.L2
+ 118              	.L4:
+ 119              		.align	2
+ 120              	.L3:
+ 121 007c 00000000 		.word	.LC0
+ 122 0080 80800440 		.word	1074036864
+ 123 0084 C0000400 		.word	262336
+ 124 0088 04800440 		.word	1074036740
+ 125 008c FFFBFFFF 		.word	-1025
+ 126 0090 002000A0 		.word	-1610604544
+ 127 0094 00C00040 		.word	1073790976
+ 128 0098 100000A0 		.word	-1610612720
+ 129 009c 40420F00 		.word	1000000
+ 130              		.cfi_endproc
+ 131              	.LFE0:
+ 133              		.align	1
+ 134              		.global	delay
+ 135              		.syntax unified
+ 136              		.code	16
+ 137              		.thumb_func
+ 139              	delay:
+ 140              	.LFB1:
+  57:main.c        ****   }
+  58:main.c        **** 
+  59:main.c        **** }
+  60:main.c        **** 
+  61:main.c        **** 
+  62:main.c        **** // Delay timing is provided by a busy wait:
+  63:main.c        **** void delay(uint32_t counts) {
+ 141              		.loc 1 63 29
+ 142              		.cfi_startproc
+ 143              		@ args = 0, pretend = 0, frame = 16
+ 144              		@ frame_needed = 1, uses_anonymous_args = 0
+ 145 00a0 80B5     		push	{r7, lr}
+ 146              		.cfi_def_cfa_offset 8
+ 147              		.cfi_offset 7, -8
+ 148              		.cfi_offset 14, -4
+ 149 00a2 84B0     		sub	sp, sp, #16
+ 150              		.cfi_def_cfa_offset 24
+ 151 00a4 00AF     		add	r7, sp, #0
+ 152              		.cfi_def_cfa_register 7
+ 153 00a6 7860     		str	r0, [r7, #4]
+  64:main.c        **** 
+  65:main.c        ****   uint32_t wait;
+  66:main.c        ****   for (wait=counts; wait>0; --wait){
+ 154              		.loc 1 66 12
+ 155 00a8 7B68     		ldr	r3, [r7, #4]
+ 156 00aa FB60     		str	r3, [r7, #12]
+ 157              		.loc 1 66 3
+ 158 00ac 02E0     		b	.L6
+ 159              	.L7:
+ 160              		.loc 1 66 29 discriminator 3
+ 161 00ae FB68     		ldr	r3, [r7, #12]
+ARM GAS  /tmp/cc498pdR.s 			page 5
+
+
+ 162 00b0 013B     		subs	r3, r3, #1
+ 163 00b2 FB60     		str	r3, [r7, #12]
+ 164              	.L6:
+ 165              		.loc 1 66 3 discriminator 1
+ 166 00b4 FB68     		ldr	r3, [r7, #12]
+ 167 00b6 002B     		cmp	r3, #0
+ 168 00b8 F9D1     		bne	.L7
+  67:main.c        ****   }
+  68:main.c        **** 
+  69:main.c        **** }
+ 169              		.loc 1 69 1
+ 170 00ba C046     		nop
+ 171 00bc C046     		nop
+ 172 00be BD46     		mov	sp, r7
+ 173 00c0 04B0     		add	sp, sp, #16
+ 174              		@ sp needed
+ 175 00c2 80BD     		pop	{r7, pc}
+ 176              		.cfi_endproc
+ 177              	.LFE1:
+ 179              		.align	1
+ 180              		.global	print
+ 181              		.syntax unified
+ 182              		.code	16
+ 183              		.thumb_func
+ 185              	print:
+ 186              	.LFB2:
+  70:main.c        **** 
+  71:main.c        **** 
+  72:main.c        **** 
+  73:main.c        **** void print (uint8_t * message){
+ 187              		.loc 1 73 31
+ 188              		.cfi_startproc
+ 189              		@ args = 0, pretend = 0, frame = 16
+ 190              		@ frame_needed = 1, uses_anonymous_args = 0
+ 191 00c4 80B5     		push	{r7, lr}
+ 192              		.cfi_def_cfa_offset 8
+ 193              		.cfi_offset 7, -8
+ 194              		.cfi_offset 14, -4
+ 195 00c6 84B0     		sub	sp, sp, #16
+ 196              		.cfi_def_cfa_offset 24
+ 197 00c8 00AF     		add	r7, sp, #0
+ 198              		.cfi_def_cfa_register 7
+ 199 00ca 7860     		str	r0, [r7, #4]
+  74:main.c        **** 
+  75:main.c        ****   uint8_t i;
+  76:main.c        ****   i=0;
+ 200              		.loc 1 76 4
+ 201 00cc 0F23     		movs	r3, #15
+ 202 00ce FB18     		adds	r3, r7, r3
+ 203 00d0 0022     		movs	r2, #0
+ 204 00d2 1A70     		strb	r2, [r3]
+  77:main.c        ****   
+  78:main.c        ****   while(message[i]!='\0'){
+ 205              		.loc 1 78 8
+ 206 00d4 13E0     		b	.L9
+ 207              	.L11:
+  79:main.c        ****     USART0_TXDAT=message[i];
+ARM GAS  /tmp/cc498pdR.s 			page 6
+
+
+ 208              		.loc 1 79 25
+ 209 00d6 0F23     		movs	r3, #15
+ 210 00d8 FB18     		adds	r3, r7, r3
+ 211 00da 1B78     		ldrb	r3, [r3]
+ 212 00dc 7A68     		ldr	r2, [r7, #4]
+ 213 00de D318     		adds	r3, r2, r3
+ 214 00e0 1A78     		ldrb	r2, [r3]
+ 215              		.loc 1 79 5
+ 216 00e2 0D4B     		ldr	r3, .L12
+ 217              		.loc 1 79 17
+ 218 00e4 1A60     		str	r2, [r3]
+  80:main.c        ****     // Check if transmission has ended. See: 13.6.3 USART Status register:
+  81:main.c        ****     while ((USART0_STAT& 0b0100)==0);
+ 219              		.loc 1 81 11
+ 220 00e6 C046     		nop
+ 221              	.L10:
+ 222              		.loc 1 81 13 discriminator 1
+ 223 00e8 0C4B     		ldr	r3, .L12+4
+ 224 00ea 1B68     		ldr	r3, [r3]
+ 225              		.loc 1 81 24 discriminator 1
+ 226 00ec 0422     		movs	r2, #4
+ 227 00ee 1340     		ands	r3, r2
+ 228              		.loc 1 81 11 discriminator 1
+ 229 00f0 FAD0     		beq	.L10
+  82:main.c        ****     ++i;
+ 230              		.loc 1 82 5
+ 231 00f2 0F22     		movs	r2, #15
+ 232 00f4 BB18     		adds	r3, r7, r2
+ 233 00f6 BA18     		adds	r2, r7, r2
+ 234 00f8 1278     		ldrb	r2, [r2]
+ 235 00fa 0132     		adds	r2, r2, #1
+ 236 00fc 1A70     		strb	r2, [r3]
+ 237              	.L9:
+  78:main.c        ****     USART0_TXDAT=message[i];
+ 238              		.loc 1 78 16
+ 239 00fe 0F23     		movs	r3, #15
+ 240 0100 FB18     		adds	r3, r7, r3
+ 241 0102 1B78     		ldrb	r3, [r3]
+ 242 0104 7A68     		ldr	r2, [r7, #4]
+ 243 0106 D318     		adds	r3, r2, r3
+ 244 0108 1B78     		ldrb	r3, [r3]
+  78:main.c        ****     USART0_TXDAT=message[i];
+ 245              		.loc 1 78 8
+ 246 010a 002B     		cmp	r3, #0
+ 247 010c E3D1     		bne	.L11
+  83:main.c        ****   }
+  84:main.c        ****   
+  85:main.c        **** 
+  86:main.c        **** }
+ 248              		.loc 1 86 1
+ 249 010e C046     		nop
+ 250 0110 C046     		nop
+ 251 0112 BD46     		mov	sp, r7
+ 252 0114 04B0     		add	sp, sp, #16
+ 253              		@ sp needed
+ 254 0116 80BD     		pop	{r7, pc}
+ 255              	.L13:
+ARM GAS  /tmp/cc498pdR.s 			page 7
+
+
+ 256              		.align	2
+ 257              	.L12:
+ 258 0118 1C400640 		.word	1074151452
+ 259 011c 08400640 		.word	1074151432
+ 260              		.cfi_endproc
+ 261              	.LFE2:
+ 263              		.align	1
+ 264              		.global	config_uart0
+ 265              		.syntax unified
+ 266              		.code	16
+ 267              		.thumb_func
+ 269              	config_uart0:
+ 270              	.LFB3:
+  87:main.c        **** 
+  88:main.c        **** 
+  89:main.c        **** void config_uart0 (void){
+ 271              		.loc 1 89 25
+ 272              		.cfi_startproc
+ 273              		@ args = 0, pretend = 0, frame = 0
+ 274              		@ frame_needed = 1, uses_anonymous_args = 0
+ 275 0120 80B5     		push	{r7, lr}
+ 276              		.cfi_def_cfa_offset 8
+ 277              		.cfi_offset 7, -8
+ 278              		.cfi_offset 14, -4
+ 279 0122 00AF     		add	r7, sp, #0
+ 280              		.cfi_def_cfa_register 7
+  90:main.c        **** 
+  91:main.c        **** 
+  92:main.c        ****   // The following steps set up the serial port USART0:
+  93:main.c        ****    // See User Manual
+  94:main.c        ****   // 13.3 Basic Configuration (USART)
+  95:main.c        **** 
+  96:main.c        ****   // 1. Turn the peripheral on:
+  97:main.c        ****   SYSCON_SYSAHBCLKCTRL |= 0x4000; // Enable clock for USART0.
+ 281              		.loc 1 97 24
+ 282 0124 094B     		ldr	r3, .L15
+ 283 0126 1A68     		ldr	r2, [r3]
+ 284 0128 084B     		ldr	r3, .L15
+ 285 012a 8021     		movs	r1, #128
+ 286 012c C901     		lsls	r1, r1, #7
+ 287 012e 0A43     		orrs	r2, r1
+ 288 0130 1A60     		str	r2, [r3]
+  98:main.c        **** 
+  99:main.c        ****   // 2. Set speed (baud rate) to 115200bps:
+ 100:main.c        ****   // See Sec. 13.7.1.1 and 13.6.9 in User Manual.
+ 101:main.c        ****   // Obtain a preliminary clock by first dividing the processor main clock
+ 102:main.c        ****   // Processor main clock is 60MHz. (60000000)
+ 103:main.c        ****   // Divide by 8 to obtain 7,500,000 Hz. intermediate clock.
+ 104:main.c        ****   SYSCON_UARTCLKDIV=8; // USART clock div register.
+ 289              		.loc 1 104 3
+ 290 0132 074B     		ldr	r3, .L15+4
+ 291              		.loc 1 104 20
+ 292 0134 0822     		movs	r2, #8
+ 293 0136 1A60     		str	r2, [r3]
+ 105:main.c        ****  
+ 106:main.c        ****   // Baud rate generator value is calculated from:
+ 107:main.c        ****   // Intermediate clock /16 (always divided) = 468750Hz
+ARM GAS  /tmp/cc498pdR.s 			page 8
+
+
+ 108:main.c        ****   // To obtain 115200 baud transmission speed, we must divide further:
+ 109:main.c        ****   // 468750/115200=4.069 ~= 4
+ 110:main.c        ****   // Baud rate generator should be set to one less than this value.
+ 111:main.c        ****   USART0_BRG=3;  //(4-1)  Baud rate generator register value.
+ 294              		.loc 1 111 3
+ 295 0138 064B     		ldr	r3, .L15+8
+ 296              		.loc 1 111 13
+ 297 013a 0322     		movs	r2, #3
+ 298 013c 1A60     		str	r2, [r3]
+ 112:main.c        **** 
+ 113:main.c        ****   // 3. Enable USART & configure byte format for 8 bit, no parity, 1 stop bit:
+ 114:main.c        ****   // (See 13.6.1 USART Configuration register)
+ 115:main.c        ****   // (Bit 0) Enable USART 
+ 116:main.c        ****   // (Bit 1) not used.
+ 117:main.c        ****   // (Bit 2:3) Data Length 00 => 8 bits.
+ 118:main.c        ****   // (Bit 4:5) Parity 00 => No parity (default)
+ 119:main.c        ****   // (Bit 6) Stop bit  0 => 1:  (default)
+ 120:main.c        ****   // (Bit 7) Reserved
+ 121:main.c        ****   // The remaining bits are left at default values.
+ 122:main.c        ****   USART0_CFG=0b00000101;
+ 299              		.loc 1 122 3
+ 300 013e 064B     		ldr	r3, .L15+12
+ 301              		.loc 1 122 13
+ 302 0140 0522     		movs	r2, #5
+ 303 0142 1A60     		str	r2, [r3]
+ 123:main.c        **** 
+ 124:main.c        **** }
+ 304              		.loc 1 124 1
+ 305 0144 C046     		nop
+ 306 0146 BD46     		mov	sp, r7
+ 307              		@ sp needed
+ 308 0148 80BD     		pop	{r7, pc}
+ 309              	.L16:
+ 310 014a C046     		.align	2
+ 311              	.L15:
+ 312 014c 80800440 		.word	1074036864
+ 313 0150 94800440 		.word	1074036884
+ 314 0154 20400640 		.word	1074151456
+ 315 0158 00400640 		.word	1074151424
+ 316              		.cfi_endproc
+ 317              	.LFE3:
+ 319              	.Letext0:
+ 320              		.file 2 "/home/bahadira/gcc-arm-none-eabi-10.3/arm-none-eabi/include/machine/_default_types.h"
+ 321              		.file 3 "/home/bahadira/gcc-arm-none-eabi-10.3/arm-none-eabi/include/sys/_stdint.h"
+ARM GAS  /tmp/cc498pdR.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/cc498pdR.s:18     .rodata:0000000000000000 $d
+     /tmp/cc498pdR.s:22     .text:0000000000000000 $t
+     /tmp/cc498pdR.s:28     .text:0000000000000000 main
+     /tmp/cc498pdR.s:269    .text:0000000000000120 config_uart0
+     /tmp/cc498pdR.s:185    .text:00000000000000c4 print
+     /tmp/cc498pdR.s:139    .text:00000000000000a0 delay
+     /tmp/cc498pdR.s:121    .text:000000000000007c $d
+     /tmp/cc498pdR.s:133    .text:00000000000000a0 $t
+     /tmp/cc498pdR.s:258    .text:0000000000000118 $d
+     /tmp/cc498pdR.s:263    .text:0000000000000120 $t
+     /tmp/cc498pdR.s:312    .text:000000000000014c $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,1725 @@
+ARM GAS  /tmp/cchJaJTX.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"xprintf.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.align	1
+  18              		.global	strlen
+  19              		.syntax unified
+  20              		.code	16
+  21              		.thumb_func
+  23              	strlen:
+  24              	.LFB0:
+  25              		.file 1 "xprintf.c"
+   1:xprintf.c     **** /*------------------------------------------------------------------------/
+   2:xprintf.c     **** /  Universal String Handler for Console Input and Output
+   3:xprintf.c     **** /-------------------------------------------------------------------------/
+   4:xprintf.c     **** /
+   5:xprintf.c     **** / Copyright (C) 2021, ChaN, all right reserved.
+   6:xprintf.c     **** /
+   7:xprintf.c     **** / xprintf module is an open source software. Redistribution and use of
+   8:xprintf.c     **** / xprintf module in source and binary forms, with or without modification,
+   9:xprintf.c     **** / are permitted provided that the following condition is met:
+  10:xprintf.c     **** /
+  11:xprintf.c     **** / 1. Redistributions of source code must retain the above copyright notice,
+  12:xprintf.c     **** /    this condition and the following disclaimer.
+  13:xprintf.c     **** /
+  14:xprintf.c     **** / This software is provided by the copyright holder and contributors "AS IS"
+  15:xprintf.c     **** / and any warranties related to this software are DISCLAIMED.
+  16:xprintf.c     **** / The copyright owner or contributors be NOT LIABLE for any damages caused
+  17:xprintf.c     **** / by use of this software.
+  18:xprintf.c     **** /
+  19:xprintf.c     **** /-------------------------------------------------------------------------*/
+  20:xprintf.c     **** 
+  21:xprintf.c     **** #include "xprintf.h"
+  22:xprintf.c     **** 
+  23:xprintf.c     **** #define SZB_OUTPUT	32
+  24:xprintf.c     **** 
+  25:xprintf.c     **** // AO! : Strlen was not implemented correctly...
+  26:xprintf.c     **** size_t strlen(const char *str) {
+  26              		.loc 1 26 32
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 16
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 80B5     		push	{r7, lr}
+  31              		.cfi_def_cfa_offset 8
+  32              		.cfi_offset 7, -8
+ARM GAS  /tmp/cchJaJTX.s 			page 2
+
+
+  33              		.cfi_offset 14, -4
+  34 0002 84B0     		sub	sp, sp, #16
+  35              		.cfi_def_cfa_offset 24
+  36 0004 00AF     		add	r7, sp, #0
+  37              		.cfi_def_cfa_register 7
+  38 0006 7860     		str	r0, [r7, #4]
+  27:xprintf.c     ****   int len;
+  28:xprintf.c     ****   for (len = 0; str[len]; len++);
+  39              		.loc 1 28 12
+  40 0008 0023     		movs	r3, #0
+  41 000a FB60     		str	r3, [r7, #12]
+  42              		.loc 1 28 3
+  43 000c 02E0     		b	.L2
+  44              	.L3:
+  45              		.loc 1 28 30 discriminator 3
+  46 000e FB68     		ldr	r3, [r7, #12]
+  47 0010 0133     		adds	r3, r3, #1
+  48 0012 FB60     		str	r3, [r7, #12]
+  49              	.L2:
+  50              		.loc 1 28 20 discriminator 1
+  51 0014 FB68     		ldr	r3, [r7, #12]
+  52 0016 7A68     		ldr	r2, [r7, #4]
+  53 0018 D318     		adds	r3, r2, r3
+  54 001a 1B78     		ldrb	r3, [r3]
+  55              		.loc 1 28 3 discriminator 1
+  56 001c 002B     		cmp	r3, #0
+  57 001e F6D1     		bne	.L3
+  29:xprintf.c     **** }
+  58              		.loc 1 29 1
+  59 0020 C046     		nop
+  60 0022 1800     		movs	r0, r3
+  61 0024 BD46     		mov	sp, r7
+  62 0026 04B0     		add	sp, sp, #16
+  63              		@ sp needed
+  64 0028 80BD     		pop	{r7, pc}
+  65              		.cfi_endproc
+  66              	.LFE0:
+  68              		.global	xfunc_output
+  69              		.bss
+  70              		.align	2
+  73              	xfunc_output:
+  74 0000 00000000 		.space	4
+  75              		.align	2
+  76              	strptr:
+  77 0004 00000000 		.space	4
+  79              		.text
+  80              		.align	1
+  81              		.global	xputc
+  82              		.syntax unified
+  83              		.code	16
+  84              		.thumb_func
+  86              	xputc:
+  87              	.LFB1:
+  30:xprintf.c     **** 
+  31:xprintf.c     **** 
+  32:xprintf.c     **** #if XF_USE_OUTPUT
+  33:xprintf.c     **** #include <stdarg.h>
+ARM GAS  /tmp/cchJaJTX.s 			page 3
+
+
+  34:xprintf.c     **** void (*xfunc_output)(int);	/* Pointer to the default output device */
+  35:xprintf.c     **** static char *strptr;		/* Pointer to the output memory (used by xsprintf) */
+  36:xprintf.c     **** 
+  37:xprintf.c     **** 
+  38:xprintf.c     **** #if XF_USE_FP
+  39:xprintf.c     **** /*----------------------------------------------*/
+  40:xprintf.c     **** /* Floating point output                        */
+  41:xprintf.c     **** /*----------------------------------------------*/
+  42:xprintf.c     **** #include <math.h>
+  43:xprintf.c     **** 
+  44:xprintf.c     **** 
+  45:xprintf.c     **** static int ilog10 (double n)	/* Calculate log10(n) in integer output */
+  46:xprintf.c     **** {
+  47:xprintf.c     **** 	int rv = 0;
+  48:xprintf.c     **** 
+  49:xprintf.c     **** 	while (n >= 10) {	/* Decimate digit in right shift */
+  50:xprintf.c     **** 		if (n >= 100000) {
+  51:xprintf.c     **** 			n /= 100000; rv += 5;
+  52:xprintf.c     **** 		} else {
+  53:xprintf.c     **** 			n /= 10; rv++;
+  54:xprintf.c     **** 		}
+  55:xprintf.c     **** 	}
+  56:xprintf.c     **** 	while (n < 1) {		/* Decimate digit in left shift */
+  57:xprintf.c     **** 		if (n < 0.00001) {
+  58:xprintf.c     **** 			n *= 100000; rv -= 5;
+  59:xprintf.c     **** 		} else {
+  60:xprintf.c     **** 			n *= 10; rv--;
+  61:xprintf.c     **** 		}
+  62:xprintf.c     **** 	}
+  63:xprintf.c     **** 	return rv;
+  64:xprintf.c     **** }
+  65:xprintf.c     **** 
+  66:xprintf.c     **** 
+  67:xprintf.c     **** static double i10x (int n)	/* Calculate 10^n */
+  68:xprintf.c     **** {
+  69:xprintf.c     **** 	double rv = 1;
+  70:xprintf.c     **** 
+  71:xprintf.c     **** 	while (n > 0) {		/* Left shift */
+  72:xprintf.c     **** 		if (n >= 5) {
+  73:xprintf.c     **** 			rv *= 100000; n -= 5;
+  74:xprintf.c     **** 		} else {
+  75:xprintf.c     **** 			rv *= 10; n--;
+  76:xprintf.c     **** 		}
+  77:xprintf.c     **** 	}
+  78:xprintf.c     **** 	while (n < 0) {		/* Right shift */
+  79:xprintf.c     **** 		if (n <= -5) {
+  80:xprintf.c     **** 			rv /= 100000; n += 5;
+  81:xprintf.c     **** 		} else {
+  82:xprintf.c     **** 			rv /= 10; n++;
+  83:xprintf.c     **** 		}
+  84:xprintf.c     **** 	}
+  85:xprintf.c     **** 	return rv;
+  86:xprintf.c     **** }
+  87:xprintf.c     **** 
+  88:xprintf.c     **** 
+  89:xprintf.c     **** static void ftoa (
+  90:xprintf.c     **** 	char* buf,	/* Buffer to output the generated string */
+ARM GAS  /tmp/cchJaJTX.s 			page 4
+
+
+  91:xprintf.c     **** 	double val,	/* Real number to output */
+  92:xprintf.c     **** 	int prec,	/* Number of fractinal digits */
+  93:xprintf.c     **** 	char fmt	/* Notation */
+  94:xprintf.c     **** )
+  95:xprintf.c     **** {
+  96:xprintf.c     **** 	int d;
+  97:xprintf.c     **** 	int e = 0, m = 0;
+  98:xprintf.c     **** 	char sign = 0;
+  99:xprintf.c     **** 	double w;
+ 100:xprintf.c     **** 	const char *er = 0;
+ 101:xprintf.c     **** 
+ 102:xprintf.c     **** 
+ 103:xprintf.c     **** 	if (isnan(val)) {			/* Not a number? */
+ 104:xprintf.c     **** 		er = "NaN";
+ 105:xprintf.c     **** 	} else {
+ 106:xprintf.c     **** 		if (prec < 0) prec = 6;	/* Default precision (6 fractional digits) */
+ 107:xprintf.c     **** 		if (val < 0) {			/* Nagative value? */
+ 108:xprintf.c     **** 			val = -val; sign = '-';
+ 109:xprintf.c     **** 		} else {
+ 110:xprintf.c     **** 			sign = '+';
+ 111:xprintf.c     **** 		}
+ 112:xprintf.c     **** 		if (isinf(val)) {		/* Infinite? */
+ 113:xprintf.c     **** 			er = "INF";
+ 114:xprintf.c     **** 		} else {
+ 115:xprintf.c     **** 			if (fmt == 'f') {	/* Decimal notation? */
+ 116:xprintf.c     **** 				val += i10x(-prec) / 2;	/* Round (nearest) */
+ 117:xprintf.c     **** 				m = ilog10(val);
+ 118:xprintf.c     **** 				if (m < 0) m = 0;
+ 119:xprintf.c     **** 				if (m + prec + 3 >= SZB_OUTPUT) er = "OV";	/* Buffer overflow? */
+ 120:xprintf.c     **** 			} else {			/* E notation */
+ 121:xprintf.c     **** 				if (val != 0) {		/* Not a true zero? */
+ 122:xprintf.c     **** 					val += i10x(ilog10(val) - prec) / 2;	/* Round (nearest) */
+ 123:xprintf.c     **** 					e = ilog10(val);
+ 124:xprintf.c     **** 					if (e > 99 || prec + 6 >= SZB_OUTPUT) {	/* Buffer overflow or E > +99? */
+ 125:xprintf.c     **** 						er = "OV";
+ 126:xprintf.c     **** 					} else {
+ 127:xprintf.c     **** 						if (e < -99) e = -99;
+ 128:xprintf.c     **** 						val /= i10x(e);	/* Normalize */
+ 129:xprintf.c     **** 					}
+ 130:xprintf.c     **** 				}
+ 131:xprintf.c     **** 			}
+ 132:xprintf.c     **** 		}
+ 133:xprintf.c     **** 		if (!er) {	/* Not error condition */
+ 134:xprintf.c     **** 			if (sign == '-') *buf++ = sign;	/* Add a - if negative value */
+ 135:xprintf.c     **** 			do {				/* Put decimal number */
+ 136:xprintf.c     **** 				w = i10x(m);				/* Snip the highest digit d */
+ 137:xprintf.c     **** 				d = val / w; val -= d * w;
+ 138:xprintf.c     **** 				if (m == -1) *buf++ = XF_DPC;	/* Insert a decimal separarot if get into fractional part */
+ 139:xprintf.c     **** 				*buf++ = '0' + d;			/* Put the digit */
+ 140:xprintf.c     **** 			} while (--m >= -prec);			/* Output all digits specified by prec */
+ 141:xprintf.c     **** 			if (fmt != 'f') {	/* Put exponent if needed */
+ 142:xprintf.c     **** 				*buf++ = fmt;
+ 143:xprintf.c     **** 				if (e < 0) {
+ 144:xprintf.c     **** 					e = -e; *buf++ = '-';
+ 145:xprintf.c     **** 				} else {
+ 146:xprintf.c     **** 					*buf++ = '+';
+ 147:xprintf.c     **** 				}
+ARM GAS  /tmp/cchJaJTX.s 			page 5
+
+
+ 148:xprintf.c     **** 				*buf++ = '0' + e / 10;
+ 149:xprintf.c     **** 				*buf++ = '0' + e % 10;
+ 150:xprintf.c     **** 			}
+ 151:xprintf.c     **** 		}
+ 152:xprintf.c     **** 	}
+ 153:xprintf.c     **** 	if (er) {	/* Error condition? */
+ 154:xprintf.c     **** 		if (sign) *buf++ = sign;		/* Add sign if needed */
+ 155:xprintf.c     **** 		do *buf++ = *er++; while (*er);	/* Put error symbol */
+ 156:xprintf.c     **** 	}
+ 157:xprintf.c     **** 	*buf = 0;	/* Term */
+ 158:xprintf.c     **** }
+ 159:xprintf.c     **** #endif	/* XF_USE_FLOAT */
+ 160:xprintf.c     **** 
+ 161:xprintf.c     **** 
+ 162:xprintf.c     **** /*----------------------------------------------*/
+ 163:xprintf.c     **** /* Put a character                              */
+ 164:xprintf.c     **** /*----------------------------------------------*/
+ 165:xprintf.c     **** 
+ 166:xprintf.c     **** void xputc (
+ 167:xprintf.c     **** 	int chr				/* Character to be output */
+ 168:xprintf.c     **** )
+ 169:xprintf.c     **** {
+  88              		.loc 1 169 1
+  89              		.cfi_startproc
+  90              		@ args = 0, pretend = 0, frame = 8
+  91              		@ frame_needed = 1, uses_anonymous_args = 0
+  92 002a 80B5     		push	{r7, lr}
+  93              		.cfi_def_cfa_offset 8
+  94              		.cfi_offset 7, -8
+  95              		.cfi_offset 14, -4
+  96 002c 82B0     		sub	sp, sp, #8
+  97              		.cfi_def_cfa_offset 16
+  98 002e 00AF     		add	r7, sp, #0
+  99              		.cfi_def_cfa_register 7
+ 100 0030 7860     		str	r0, [r7, #4]
+ 170:xprintf.c     **** 	xfputc(xfunc_output, chr);	/* Output it to the default output device */
+ 101              		.loc 1 170 2
+ 102 0032 054B     		ldr	r3, .L5
+ 103 0034 1B68     		ldr	r3, [r3]
+ 104 0036 7A68     		ldr	r2, [r7, #4]
+ 105 0038 1100     		movs	r1, r2
+ 106 003a 1800     		movs	r0, r3
+ 107 003c FFF7FEFF 		bl	xfputc
+ 171:xprintf.c     **** }
+ 108              		.loc 1 171 1
+ 109 0040 C046     		nop
+ 110 0042 BD46     		mov	sp, r7
+ 111 0044 02B0     		add	sp, sp, #8
+ 112              		@ sp needed
+ 113 0046 80BD     		pop	{r7, pc}
+ 114              	.L6:
+ 115              		.align	2
+ 116              	.L5:
+ 117 0048 00000000 		.word	xfunc_output
+ 118              		.cfi_endproc
+ 119              	.LFE1:
+ 121              		.align	1
+ARM GAS  /tmp/cchJaJTX.s 			page 6
+
+
+ 122              		.global	xfputc
+ 123              		.syntax unified
+ 124              		.code	16
+ 125              		.thumb_func
+ 127              	xfputc:
+ 128              	.LFB2:
+ 172:xprintf.c     **** 
+ 173:xprintf.c     **** 
+ 174:xprintf.c     **** void xfputc (			/* Put a character to the specified device */
+ 175:xprintf.c     **** 	void(*func)(int),	/* Pointer to the output function (null:strptr) */
+ 176:xprintf.c     **** 	int chr				/* Character to be output */
+ 177:xprintf.c     **** )
+ 178:xprintf.c     **** {
+ 129              		.loc 1 178 1
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 8
+ 132              		@ frame_needed = 1, uses_anonymous_args = 0
+ 133 004c 80B5     		push	{r7, lr}
+ 134              		.cfi_def_cfa_offset 8
+ 135              		.cfi_offset 7, -8
+ 136              		.cfi_offset 14, -4
+ 137 004e 82B0     		sub	sp, sp, #8
+ 138              		.cfi_def_cfa_offset 16
+ 139 0050 00AF     		add	r7, sp, #0
+ 140              		.cfi_def_cfa_register 7
+ 141 0052 7860     		str	r0, [r7, #4]
+ 142 0054 3960     		str	r1, [r7]
+ 179:xprintf.c     **** 	if (XF_CRLF && chr == '\n') xfputc(func, '\r');	/* CR -> CRLF */
+ 180:xprintf.c     **** 
+ 181:xprintf.c     **** 	if (func) {
+ 143              		.loc 1 181 5
+ 144 0056 7B68     		ldr	r3, [r7, #4]
+ 145 0058 002B     		cmp	r3, #0
+ 146 005a 04D0     		beq	.L8
+ 182:xprintf.c     **** 		func(chr);		/* Write a character to the output device */
+ 147              		.loc 1 182 3
+ 148 005c 3A68     		ldr	r2, [r7]
+ 149 005e 7B68     		ldr	r3, [r7, #4]
+ 150 0060 1000     		movs	r0, r2
+ 151 0062 9847     		blx	r3
+ 152              	.LVL0:
+ 183:xprintf.c     **** 	} else if (strptr) {
+ 184:xprintf.c     **** 		 *strptr++ = chr;	/* Write a character to the memory */
+ 185:xprintf.c     **** 	}
+ 186:xprintf.c     **** }
+ 153              		.loc 1 186 1
+ 154 0064 0BE0     		b	.L10
+ 155              	.L8:
+ 183:xprintf.c     **** 	} else if (strptr) {
+ 156              		.loc 1 183 13
+ 157 0066 084B     		ldr	r3, .L11
+ 158 0068 1B68     		ldr	r3, [r3]
+ 183:xprintf.c     **** 	} else if (strptr) {
+ 159              		.loc 1 183 12
+ 160 006a 002B     		cmp	r3, #0
+ 161 006c 07D0     		beq	.L10
+ 184:xprintf.c     **** 	}
+ARM GAS  /tmp/cchJaJTX.s 			page 7
+
+
+ 162              		.loc 1 184 11
+ 163 006e 064B     		ldr	r3, .L11
+ 164 0070 1B68     		ldr	r3, [r3]
+ 165 0072 591C     		adds	r1, r3, #1
+ 166 0074 044A     		ldr	r2, .L11
+ 167 0076 1160     		str	r1, [r2]
+ 184:xprintf.c     **** 	}
+ 168              		.loc 1 184 14
+ 169 0078 3A68     		ldr	r2, [r7]
+ 170 007a D2B2     		uxtb	r2, r2
+ 171 007c 1A70     		strb	r2, [r3]
+ 172              	.L10:
+ 173              		.loc 1 186 1
+ 174 007e C046     		nop
+ 175 0080 BD46     		mov	sp, r7
+ 176 0082 02B0     		add	sp, sp, #8
+ 177              		@ sp needed
+ 178 0084 80BD     		pop	{r7, pc}
+ 179              	.L12:
+ 180 0086 C046     		.align	2
+ 181              	.L11:
+ 182 0088 04000000 		.word	strptr
+ 183              		.cfi_endproc
+ 184              	.LFE2:
+ 186              		.align	1
+ 187              		.global	xputs
+ 188              		.syntax unified
+ 189              		.code	16
+ 190              		.thumb_func
+ 192              	xputs:
+ 193              	.LFB3:
+ 187:xprintf.c     **** 
+ 188:xprintf.c     **** 
+ 189:xprintf.c     **** 
+ 190:xprintf.c     **** /*----------------------------------------------*/
+ 191:xprintf.c     **** /* Put a null-terminated string                 */
+ 192:xprintf.c     **** /*----------------------------------------------*/
+ 193:xprintf.c     **** 
+ 194:xprintf.c     **** void xputs (			/* Put a string to the default device */
+ 195:xprintf.c     **** 	const char* str		/* Pointer to the string */
+ 196:xprintf.c     **** )
+ 197:xprintf.c     **** {
+ 194              		.loc 1 197 1
+ 195              		.cfi_startproc
+ 196              		@ args = 0, pretend = 0, frame = 8
+ 197              		@ frame_needed = 1, uses_anonymous_args = 0
+ 198 008c 80B5     		push	{r7, lr}
+ 199              		.cfi_def_cfa_offset 8
+ 200              		.cfi_offset 7, -8
+ 201              		.cfi_offset 14, -4
+ 202 008e 82B0     		sub	sp, sp, #8
+ 203              		.cfi_def_cfa_offset 16
+ 204 0090 00AF     		add	r7, sp, #0
+ 205              		.cfi_def_cfa_register 7
+ 206 0092 7860     		str	r0, [r7, #4]
+ 198:xprintf.c     **** 	xfputs(xfunc_output, str);
+ 207              		.loc 1 198 2
+ARM GAS  /tmp/cchJaJTX.s 			page 8
+
+
+ 208 0094 054B     		ldr	r3, .L14
+ 209 0096 1B68     		ldr	r3, [r3]
+ 210 0098 7A68     		ldr	r2, [r7, #4]
+ 211 009a 1100     		movs	r1, r2
+ 212 009c 1800     		movs	r0, r3
+ 213 009e FFF7FEFF 		bl	xfputs
+ 199:xprintf.c     **** }
+ 214              		.loc 1 199 1
+ 215 00a2 C046     		nop
+ 216 00a4 BD46     		mov	sp, r7
+ 217 00a6 02B0     		add	sp, sp, #8
+ 218              		@ sp needed
+ 219 00a8 80BD     		pop	{r7, pc}
+ 220              	.L15:
+ 221 00aa C046     		.align	2
+ 222              	.L14:
+ 223 00ac 00000000 		.word	xfunc_output
+ 224              		.cfi_endproc
+ 225              	.LFE3:
+ 227              		.align	1
+ 228              		.global	xfputs
+ 229              		.syntax unified
+ 230              		.code	16
+ 231              		.thumb_func
+ 233              	xfputs:
+ 234              	.LFB4:
+ 200:xprintf.c     **** 
+ 201:xprintf.c     **** 
+ 202:xprintf.c     **** void xfputs (			/* Put a string to the specified device */
+ 203:xprintf.c     **** 	void(*func)(int),	/* Pointer to the output function */
+ 204:xprintf.c     **** 	const char*	str		/* Pointer to the string */
+ 205:xprintf.c     **** )
+ 206:xprintf.c     **** {
+ 235              		.loc 1 206 1
+ 236              		.cfi_startproc
+ 237              		@ args = 0, pretend = 0, frame = 8
+ 238              		@ frame_needed = 1, uses_anonymous_args = 0
+ 239 00b0 80B5     		push	{r7, lr}
+ 240              		.cfi_def_cfa_offset 8
+ 241              		.cfi_offset 7, -8
+ 242              		.cfi_offset 14, -4
+ 243 00b2 82B0     		sub	sp, sp, #8
+ 244              		.cfi_def_cfa_offset 16
+ 245 00b4 00AF     		add	r7, sp, #0
+ 246              		.cfi_def_cfa_register 7
+ 247 00b6 7860     		str	r0, [r7, #4]
+ 248 00b8 3960     		str	r1, [r7]
+ 207:xprintf.c     **** 	while (*str) {			/* Put the string */
+ 249              		.loc 1 207 8
+ 250 00ba 09E0     		b	.L17
+ 251              	.L18:
+ 208:xprintf.c     **** 		xfputc(func, *str++);
+ 252              		.loc 1 208 20
+ 253 00bc 3B68     		ldr	r3, [r7]
+ 254 00be 5A1C     		adds	r2, r3, #1
+ 255 00c0 3A60     		str	r2, [r7]
+ 256              		.loc 1 208 16
+ARM GAS  /tmp/cchJaJTX.s 			page 9
+
+
+ 257 00c2 1B78     		ldrb	r3, [r3]
+ 258              		.loc 1 208 3
+ 259 00c4 1A00     		movs	r2, r3
+ 260 00c6 7B68     		ldr	r3, [r7, #4]
+ 261 00c8 1100     		movs	r1, r2
+ 262 00ca 1800     		movs	r0, r3
+ 263 00cc FFF7FEFF 		bl	xfputc
+ 264              	.L17:
+ 207:xprintf.c     **** 	while (*str) {			/* Put the string */
+ 265              		.loc 1 207 9
+ 266 00d0 3B68     		ldr	r3, [r7]
+ 267 00d2 1B78     		ldrb	r3, [r3]
+ 207:xprintf.c     **** 	while (*str) {			/* Put the string */
+ 268              		.loc 1 207 8
+ 269 00d4 002B     		cmp	r3, #0
+ 270 00d6 F1D1     		bne	.L18
+ 209:xprintf.c     **** 	}
+ 210:xprintf.c     **** }
+ 271              		.loc 1 210 1
+ 272 00d8 C046     		nop
+ 273 00da C046     		nop
+ 274 00dc BD46     		mov	sp, r7
+ 275 00de 02B0     		add	sp, sp, #8
+ 276              		@ sp needed
+ 277 00e0 80BD     		pop	{r7, pc}
+ 278              		.cfi_endproc
+ 279              	.LFE4:
+ 281              		.section	.rodata
+ 282              		.align	2
+ 283              	.LC4:
+ 284 0000 00       		.ascii	"\000"
+ 285              		.global	__aeabi_uidivmod
+ 286              		.global	__aeabi_uidiv
+ 287              		.text
+ 288              		.align	1
+ 289              		.syntax unified
+ 290              		.code	16
+ 291              		.thumb_func
+ 293              	xvfprintf:
+ 294              	.LFB5:
+ 211:xprintf.c     **** 
+ 212:xprintf.c     **** 
+ 213:xprintf.c     **** 
+ 214:xprintf.c     **** /*----------------------------------------------*/
+ 215:xprintf.c     **** /* Formatted string output                      */
+ 216:xprintf.c     **** /*----------------------------------------------*/
+ 217:xprintf.c     **** /*  xprintf("%d", 1234);			"1234"
+ 218:xprintf.c     ****     xprintf("%6d,%3d%%", -200, 5);	"  -200,  5%"
+ 219:xprintf.c     ****     xprintf("%-6u", 100);			"100   "
+ 220:xprintf.c     ****     xprintf("%ld", 12345678);		"12345678"
+ 221:xprintf.c     ****     xprintf("%llu", 0x100000000);	"4294967296"	<XF_USE_LLI>
+ 222:xprintf.c     ****     xprintf("%lld", -1LL);			"-1"			<XF_USE_LLI>
+ 223:xprintf.c     ****     xprintf("%04x", 0xA3);			"00a3"
+ 224:xprintf.c     ****     xprintf("%08lX", 0x123ABC);		"00123ABC"
+ 225:xprintf.c     ****     xprintf("%016b", 0x550F);		"0101010100001111"
+ 226:xprintf.c     ****     xprintf("%*d", 6, 100);			"   100"
+ 227:xprintf.c     ****     xprintf("%s", "String");		"String"
+ARM GAS  /tmp/cchJaJTX.s 			page 10
+
+
+ 228:xprintf.c     ****     xprintf("%5s", "abc");			"  abc"
+ 229:xprintf.c     ****     xprintf("%-5s", "abc");			"abc  "
+ 230:xprintf.c     ****     xprintf("%-5s", "abcdefg");		"abcdefg"
+ 231:xprintf.c     ****     xprintf("%-5.5s", "abcdefg");	"abcde"
+ 232:xprintf.c     ****     xprintf("%-.5s", "abcdefg");	"abcde"
+ 233:xprintf.c     ****     xprintf("%-5.5s", "abc");		"abc  "
+ 234:xprintf.c     ****     xprintf("%c", 'a');				"a"
+ 235:xprintf.c     ****     xprintf("%12f", 10.0);			"   10.000000"	<XF_USE_FP>
+ 236:xprintf.c     ****     xprintf("%.4E", 123.45678);		"1.2346E+02"	<XF_USE_FP>
+ 237:xprintf.c     **** */
+ 238:xprintf.c     **** 
+ 239:xprintf.c     **** static void xvfprintf (
+ 240:xprintf.c     **** 	void(*func)(int),	/* Pointer to the output function */
+ 241:xprintf.c     **** 	const char*	fmt,	/* Pointer to the format string */
+ 242:xprintf.c     **** 	va_list arp			/* Pointer to arguments */
+ 243:xprintf.c     **** )
+ 244:xprintf.c     **** {
+ 295              		.loc 1 244 1
+ 296              		.cfi_startproc
+ 297              		@ args = 0, pretend = 0, frame = 96
+ 298              		@ frame_needed = 1, uses_anonymous_args = 0
+ 299 00e2 90B5     		push	{r4, r7, lr}
+ 300              		.cfi_def_cfa_offset 12
+ 301              		.cfi_offset 4, -12
+ 302              		.cfi_offset 7, -8
+ 303              		.cfi_offset 14, -4
+ 304 00e4 99B0     		sub	sp, sp, #100
+ 305              		.cfi_def_cfa_offset 112
+ 306 00e6 00AF     		add	r7, sp, #0
+ 307              		.cfi_def_cfa_register 7
+ 308 00e8 F860     		str	r0, [r7, #12]
+ 309 00ea B960     		str	r1, [r7, #8]
+ 310 00ec 7A60     		str	r2, [r7, #4]
+ 311              	.L73:
+ 245:xprintf.c     **** 	unsigned int r, i, j, w, f;
+ 246:xprintf.c     **** 	int n, prec;
+ 247:xprintf.c     **** 	char str[SZB_OUTPUT], c, d, *p, pad;
+ 248:xprintf.c     **** #if XF_USE_LLI
+ 249:xprintf.c     **** 	long long v;
+ 250:xprintf.c     **** 	unsigned long long uv;
+ 251:xprintf.c     **** #else
+ 252:xprintf.c     **** 	long v;
+ 253:xprintf.c     **** 	unsigned long uv;
+ 254:xprintf.c     **** #endif
+ 255:xprintf.c     **** 
+ 256:xprintf.c     **** 	for (;;) {
+ 257:xprintf.c     **** 		c = *fmt++;					/* Get a format character */
+ 312              		.loc 1 257 11
+ 313 00ee BB68     		ldr	r3, [r7, #8]
+ 314 00f0 5A1C     		adds	r2, r3, #1
+ 315 00f2 BA60     		str	r2, [r7, #8]
+ 316              		.loc 1 257 5
+ 317 00f4 4321     		movs	r1, #67
+ 318 00f6 7A18     		adds	r2, r7, r1
+ 319 00f8 1B78     		ldrb	r3, [r3]
+ 320 00fa 1370     		strb	r3, [r2]
+ 258:xprintf.c     **** 		if (!c) break;				/* End of format? */
+ARM GAS  /tmp/cchJaJTX.s 			page 11
+
+
+ 321              		.loc 1 258 6
+ 322 00fc 0A00     		movs	r2, r1
+ 323 00fe BB18     		adds	r3, r7, r2
+ 324 0100 1B78     		ldrb	r3, [r3]
+ 325 0102 002B     		cmp	r3, #0
+ 326 0104 00D1     		bne	.LCB244
+ 327 0106 D5E1     		b	.L74	@long jump
+ 328              	.LCB244:
+ 259:xprintf.c     **** 		if (c != '%') {				/* Pass it through if not a % sequense */
+ 329              		.loc 1 259 6
+ 330 0108 BB18     		adds	r3, r7, r2
+ 331 010a 1B78     		ldrb	r3, [r3]
+ 332 010c 252B     		cmp	r3, #37
+ 333 010e 07D0     		beq	.L22
+ 260:xprintf.c     **** 			xfputc(func, c); continue;
+ 334              		.loc 1 260 4
+ 335 0110 BB18     		adds	r3, r7, r2
+ 336 0112 1A78     		ldrb	r2, [r3]
+ 337 0114 FB68     		ldr	r3, [r7, #12]
+ 338 0116 1100     		movs	r1, r2
+ 339 0118 1800     		movs	r0, r3
+ 340 011a FFF7FEFF 		bl	xfputc
+ 341 011e C8E1     		b	.L23
+ 342              	.L22:
+ 261:xprintf.c     **** 		}
+ 262:xprintf.c     **** 		f = w = 0;			 		/* Clear parms */
+ 343              		.loc 1 262 9
+ 344 0120 0023     		movs	r3, #0
+ 345 0122 3B65     		str	r3, [r7, #80]
+ 346              		.loc 1 262 5
+ 347 0124 3B6D     		ldr	r3, [r7, #80]
+ 348 0126 FB64     		str	r3, [r7, #76]
+ 263:xprintf.c     **** 		pad = ' '; prec = -1;
+ 349              		.loc 1 263 7
+ 350 0128 3B20     		movs	r0, #59
+ 351 012a 3B18     		adds	r3, r7, r0
+ 352 012c 2022     		movs	r2, #32
+ 353 012e 1A70     		strb	r2, [r3]
+ 354              		.loc 1 263 19
+ 355 0130 0123     		movs	r3, #1
+ 356 0132 5B42     		rsbs	r3, r3, #0
+ 357 0134 7B64     		str	r3, [r7, #68]
+ 264:xprintf.c     **** 		c = *fmt++;					/* Get first char of the sequense */
+ 358              		.loc 1 264 11
+ 359 0136 BB68     		ldr	r3, [r7, #8]
+ 360 0138 5A1C     		adds	r2, r3, #1
+ 361 013a BA60     		str	r2, [r7, #8]
+ 362              		.loc 1 264 5
+ 363 013c 4321     		movs	r1, #67
+ 364 013e 7A18     		adds	r2, r7, r1
+ 365 0140 1B78     		ldrb	r3, [r3]
+ 366 0142 1370     		strb	r3, [r2]
+ 265:xprintf.c     **** 		if (c == '0') {				/* Flag: left '0' padded */
+ 367              		.loc 1 265 6
+ 368 0144 7B18     		adds	r3, r7, r1
+ 369 0146 1B78     		ldrb	r3, [r3]
+ 370 0148 302B     		cmp	r3, #48
+ARM GAS  /tmp/cchJaJTX.s 			page 12
+
+
+ 371 014a 09D1     		bne	.L24
+ 266:xprintf.c     **** 			pad = '0'; c = *fmt++;
+ 372              		.loc 1 266 8
+ 373 014c 3B18     		adds	r3, r7, r0
+ 374 014e 3022     		movs	r2, #48
+ 375 0150 1A70     		strb	r2, [r3]
+ 376              		.loc 1 266 23
+ 377 0152 BB68     		ldr	r3, [r7, #8]
+ 378 0154 5A1C     		adds	r2, r3, #1
+ 379 0156 BA60     		str	r2, [r7, #8]
+ 380              		.loc 1 266 17
+ 381 0158 7A18     		adds	r2, r7, r1
+ 382 015a 1B78     		ldrb	r3, [r3]
+ 383 015c 1370     		strb	r3, [r2]
+ 384 015e 0CE0     		b	.L25
+ 385              	.L24:
+ 267:xprintf.c     **** 		} else {
+ 268:xprintf.c     **** 			if (c == '-') {			/* Flag: left justified */
+ 386              		.loc 1 268 7
+ 387 0160 4321     		movs	r1, #67
+ 388 0162 7B18     		adds	r3, r7, r1
+ 389 0164 1B78     		ldrb	r3, [r3]
+ 390 0166 2D2B     		cmp	r3, #45
+ 391 0168 07D1     		bne	.L25
+ 269:xprintf.c     **** 				f = 2; c = *fmt++;
+ 392              		.loc 1 269 7
+ 393 016a 0223     		movs	r3, #2
+ 394 016c FB64     		str	r3, [r7, #76]
+ 395              		.loc 1 269 20
+ 396 016e BB68     		ldr	r3, [r7, #8]
+ 397 0170 5A1C     		adds	r2, r3, #1
+ 398 0172 BA60     		str	r2, [r7, #8]
+ 399              		.loc 1 269 14
+ 400 0174 7A18     		adds	r2, r7, r1
+ 401 0176 1B78     		ldrb	r3, [r3]
+ 402 0178 1370     		strb	r3, [r2]
+ 403              	.L25:
+ 270:xprintf.c     **** 			}
+ 271:xprintf.c     **** 		}
+ 272:xprintf.c     **** 		if (c == '*') {				/* Minimum width from an argument */
+ 404              		.loc 1 272 6
+ 405 017a 4323     		movs	r3, #67
+ 406 017c FB18     		adds	r3, r7, r3
+ 407 017e 1B78     		ldrb	r3, [r3]
+ 408 0180 2A2B     		cmp	r3, #42
+ 409 0182 28D1     		bne	.L29
+ 273:xprintf.c     **** 			n = va_arg(arp, int);
+ 410              		.loc 1 273 6
+ 411 0184 7B68     		ldr	r3, [r7, #4]
+ 412 0186 1A1D     		adds	r2, r3, #4
+ 413 0188 7A60     		str	r2, [r7, #4]
+ 414 018a 1B68     		ldr	r3, [r3]
+ 415 018c BB64     		str	r3, [r7, #72]
+ 274:xprintf.c     **** 			if (n < 0) {			/* Flag: left justified */
+ 416              		.loc 1 274 7
+ 417 018e BB6C     		ldr	r3, [r7, #72]
+ 418 0190 002B     		cmp	r3, #0
+ARM GAS  /tmp/cchJaJTX.s 			page 13
+
+
+ 419 0192 04DA     		bge	.L27
+ 275:xprintf.c     **** 				n = 0 - n; f = 2;
+ 420              		.loc 1 275 7
+ 421 0194 BB6C     		ldr	r3, [r7, #72]
+ 422 0196 5B42     		rsbs	r3, r3, #0
+ 423 0198 BB64     		str	r3, [r7, #72]
+ 424              		.loc 1 275 18
+ 425 019a 0223     		movs	r3, #2
+ 426 019c FB64     		str	r3, [r7, #76]
+ 427              	.L27:
+ 276:xprintf.c     **** 			}
+ 277:xprintf.c     **** 			w = n; c = *fmt++;
+ 428              		.loc 1 277 6
+ 429 019e BB6C     		ldr	r3, [r7, #72]
+ 430 01a0 3B65     		str	r3, [r7, #80]
+ 431              		.loc 1 277 19
+ 432 01a2 BB68     		ldr	r3, [r7, #8]
+ 433 01a4 5A1C     		adds	r2, r3, #1
+ 434 01a6 BA60     		str	r2, [r7, #8]
+ 435              		.loc 1 277 13
+ 436 01a8 4322     		movs	r2, #67
+ 437 01aa BA18     		adds	r2, r7, r2
+ 438 01ac 1B78     		ldrb	r3, [r3]
+ 439 01ae 1370     		strb	r3, [r2]
+ 440 01b0 1AE0     		b	.L28
+ 441              	.L30:
+ 278:xprintf.c     **** 		} else {
+ 279:xprintf.c     **** 			while (c >= '0' && c <= '9') {	/* Minimum width */
+ 280:xprintf.c     **** 				w = w * 10 + c - '0';
+ 442              		.loc 1 280 11
+ 443 01b2 3A6D     		ldr	r2, [r7, #80]
+ 444 01b4 1300     		movs	r3, r2
+ 445 01b6 9B00     		lsls	r3, r3, #2
+ 446 01b8 9B18     		adds	r3, r3, r2
+ 447 01ba 5B00     		lsls	r3, r3, #1
+ 448 01bc 1A00     		movs	r2, r3
+ 449              		.loc 1 280 16
+ 450 01be 4321     		movs	r1, #67
+ 451 01c0 7B18     		adds	r3, r7, r1
+ 452 01c2 1B78     		ldrb	r3, [r3]
+ 453 01c4 D318     		adds	r3, r2, r3
+ 454              		.loc 1 280 7
+ 455 01c6 303B     		subs	r3, r3, #48
+ 456 01c8 3B65     		str	r3, [r7, #80]
+ 281:xprintf.c     **** 				c = *fmt++;
+ 457              		.loc 1 281 13
+ 458 01ca BB68     		ldr	r3, [r7, #8]
+ 459 01cc 5A1C     		adds	r2, r3, #1
+ 460 01ce BA60     		str	r2, [r7, #8]
+ 461              		.loc 1 281 7
+ 462 01d0 7A18     		adds	r2, r7, r1
+ 463 01d2 1B78     		ldrb	r3, [r3]
+ 464 01d4 1370     		strb	r3, [r2]
+ 465              	.L29:
+ 279:xprintf.c     **** 				w = w * 10 + c - '0';
+ 466              		.loc 1 279 10
+ 467 01d6 4322     		movs	r2, #67
+ARM GAS  /tmp/cchJaJTX.s 			page 14
+
+
+ 468 01d8 BB18     		adds	r3, r7, r2
+ 469 01da 1B78     		ldrb	r3, [r3]
+ 470 01dc 2F2B     		cmp	r3, #47
+ 471 01de 03D9     		bls	.L28
+ 279:xprintf.c     **** 				w = w * 10 + c - '0';
+ 472              		.loc 1 279 20 discriminator 1
+ 473 01e0 BB18     		adds	r3, r7, r2
+ 474 01e2 1B78     		ldrb	r3, [r3]
+ 475 01e4 392B     		cmp	r3, #57
+ 476 01e6 E4D9     		bls	.L30
+ 477              	.L28:
+ 282:xprintf.c     **** 			}
+ 283:xprintf.c     **** 		}
+ 284:xprintf.c     **** 		if (c == '.') {				/* Precision */
+ 478              		.loc 1 284 6
+ 479 01e8 4321     		movs	r1, #67
+ 480 01ea 7B18     		adds	r3, r7, r1
+ 481 01ec 1B78     		ldrb	r3, [r3]
+ 482 01ee 2E2B     		cmp	r3, #46
+ 483 01f0 33D1     		bne	.L31
+ 285:xprintf.c     **** 			c = *fmt++;
+ 484              		.loc 1 285 12
+ 485 01f2 BB68     		ldr	r3, [r7, #8]
+ 486 01f4 5A1C     		adds	r2, r3, #1
+ 487 01f6 BA60     		str	r2, [r7, #8]
+ 488              		.loc 1 285 6
+ 489 01f8 7A18     		adds	r2, r7, r1
+ 490 01fa 1B78     		ldrb	r3, [r3]
+ 491 01fc 1370     		strb	r3, [r2]
+ 286:xprintf.c     **** 			if (c == '*') {				/* Precision from an argument */
+ 492              		.loc 1 286 7
+ 493 01fe 7B18     		adds	r3, r7, r1
+ 494 0200 1B78     		ldrb	r3, [r3]
+ 495 0202 2A2B     		cmp	r3, #42
+ 496 0204 0BD1     		bne	.L32
+ 287:xprintf.c     **** 				prec = va_arg(arp, int);
+ 497              		.loc 1 287 10
+ 498 0206 7B68     		ldr	r3, [r7, #4]
+ 499 0208 1A1D     		adds	r2, r3, #4
+ 500 020a 7A60     		str	r2, [r7, #4]
+ 501 020c 1B68     		ldr	r3, [r3]
+ 502 020e 7B64     		str	r3, [r7, #68]
+ 288:xprintf.c     **** 				c = *fmt++;
+ 503              		.loc 1 288 13
+ 504 0210 BB68     		ldr	r3, [r7, #8]
+ 505 0212 5A1C     		adds	r2, r3, #1
+ 506 0214 BA60     		str	r2, [r7, #8]
+ 507              		.loc 1 288 7
+ 508 0216 7A18     		adds	r2, r7, r1
+ 509 0218 1B78     		ldrb	r3, [r3]
+ 510 021a 1370     		strb	r3, [r2]
+ 511 021c 1DE0     		b	.L31
+ 512              	.L32:
+ 289:xprintf.c     **** 			} else {
+ 290:xprintf.c     **** 				prec = 0;
+ 513              		.loc 1 290 10
+ 514 021e 0023     		movs	r3, #0
+ARM GAS  /tmp/cchJaJTX.s 			page 15
+
+
+ 515 0220 7B64     		str	r3, [r7, #68]
+ 291:xprintf.c     **** 				while (c >= '0' && c <= '9') {
+ 516              		.loc 1 291 11
+ 517 0222 11E0     		b	.L33
+ 518              	.L34:
+ 292:xprintf.c     **** 					prec = prec * 10 + c - '0';
+ 519              		.loc 1 292 18
+ 520 0224 7A6C     		ldr	r2, [r7, #68]
+ 521 0226 1300     		movs	r3, r2
+ 522 0228 9B00     		lsls	r3, r3, #2
+ 523 022a 9B18     		adds	r3, r3, r2
+ 524 022c 5B00     		lsls	r3, r3, #1
+ 525 022e 1A00     		movs	r2, r3
+ 526              		.loc 1 292 23
+ 527 0230 4321     		movs	r1, #67
+ 528 0232 7B18     		adds	r3, r7, r1
+ 529 0234 1B78     		ldrb	r3, [r3]
+ 530 0236 D318     		adds	r3, r2, r3
+ 531              		.loc 1 292 11
+ 532 0238 303B     		subs	r3, r3, #48
+ 533 023a 7B64     		str	r3, [r7, #68]
+ 293:xprintf.c     **** 					c = *fmt++;
+ 534              		.loc 1 293 14
+ 535 023c BB68     		ldr	r3, [r7, #8]
+ 536 023e 5A1C     		adds	r2, r3, #1
+ 537 0240 BA60     		str	r2, [r7, #8]
+ 538              		.loc 1 293 8
+ 539 0242 7A18     		adds	r2, r7, r1
+ 540 0244 1B78     		ldrb	r3, [r3]
+ 541 0246 1370     		strb	r3, [r2]
+ 542              	.L33:
+ 291:xprintf.c     **** 				while (c >= '0' && c <= '9') {
+ 543              		.loc 1 291 11
+ 544 0248 4322     		movs	r2, #67
+ 545 024a BB18     		adds	r3, r7, r2
+ 546 024c 1B78     		ldrb	r3, [r3]
+ 547 024e 2F2B     		cmp	r3, #47
+ 548 0250 03D9     		bls	.L31
+ 291:xprintf.c     **** 				while (c >= '0' && c <= '9') {
+ 549              		.loc 1 291 21 discriminator 1
+ 550 0252 BB18     		adds	r3, r7, r2
+ 551 0254 1B78     		ldrb	r3, [r3]
+ 552 0256 392B     		cmp	r3, #57
+ 553 0258 E4D9     		bls	.L34
+ 554              	.L31:
+ 294:xprintf.c     **** 				}
+ 295:xprintf.c     **** 			}
+ 296:xprintf.c     **** 		}
+ 297:xprintf.c     **** 		if (c == 'l') {		/* Prefix: Size is long */
+ 555              		.loc 1 297 6
+ 556 025a 4321     		movs	r1, #67
+ 557 025c 7B18     		adds	r3, r7, r1
+ 558 025e 1B78     		ldrb	r3, [r3]
+ 559 0260 6C2B     		cmp	r3, #108
+ 560 0262 09D1     		bne	.L35
+ 298:xprintf.c     **** 			f |= 4; c = *fmt++;
+ 561              		.loc 1 298 6
+ARM GAS  /tmp/cchJaJTX.s 			page 16
+
+
+ 562 0264 FB6C     		ldr	r3, [r7, #76]
+ 563 0266 0422     		movs	r2, #4
+ 564 0268 1343     		orrs	r3, r2
+ 565 026a FB64     		str	r3, [r7, #76]
+ 566              		.loc 1 298 20
+ 567 026c BB68     		ldr	r3, [r7, #8]
+ 568 026e 5A1C     		adds	r2, r3, #1
+ 569 0270 BA60     		str	r2, [r7, #8]
+ 570              		.loc 1 298 14
+ 571 0272 7A18     		adds	r2, r7, r1
+ 572 0274 1B78     		ldrb	r3, [r3]
+ 573 0276 1370     		strb	r3, [r2]
+ 574              	.L35:
+ 299:xprintf.c     **** #if XF_USE_LLI
+ 300:xprintf.c     **** 			if (c == 'l') {	/* Prefix: Size is long long */
+ 301:xprintf.c     **** 				f |= 8; c = *fmt++;
+ 302:xprintf.c     **** 			}
+ 303:xprintf.c     **** #endif
+ 304:xprintf.c     **** 		}
+ 305:xprintf.c     **** 		if (!c) break;				/* End of format? */
+ 575              		.loc 1 305 6
+ 576 0278 4322     		movs	r2, #67
+ 577 027a BB18     		adds	r3, r7, r2
+ 578 027c 1B78     		ldrb	r3, [r3]
+ 579 027e 002B     		cmp	r3, #0
+ 580 0280 00D1     		bne	.LCB473
+ 581 0282 19E1     		b	.L75	@long jump
+ 582              	.LCB473:
+ 306:xprintf.c     **** 		switch (c) {				/* Type is... */
+ 583              		.loc 1 306 3
+ 584 0284 BB18     		adds	r3, r7, r2
+ 585 0286 1B78     		ldrb	r3, [r3]
+ 586 0288 583B     		subs	r3, r3, #88
+ 587 028a 202B     		cmp	r3, #32
+ 588 028c 00D9     		bls	.LCB479
+ 589 028e 6AE0     		b	.L37	@long jump
+ 590              	.LCB479:
+ 591 0290 9A00     		lsls	r2, r3, #2
+ 592 0292 8C4B     		ldr	r3, .L77
+ 593 0294 D318     		adds	r3, r2, r3
+ 594 0296 1B68     		ldr	r3, [r3]
+ 595 0298 9F46     		mov	pc, r3
+ 596              		.section	.rodata
+ 597 0001 000000   		.align	2
+ 598              	.L39:
+ 599 0004 AC020000 		.word	.L38
+ 600 0008 66030000 		.word	.L37
+ 601 000c 66030000 		.word	.L37
+ 602 0010 66030000 		.word	.L37
+ 603 0014 66030000 		.word	.L37
+ 604 0018 66030000 		.word	.L37
+ 605 001c 66030000 		.word	.L37
+ 606 0020 66030000 		.word	.L37
+ 607 0024 66030000 		.word	.L37
+ 608 0028 66030000 		.word	.L37
+ 609 002c 9A020000 		.word	.L44
+ 610 0030 B2020000 		.word	.L43
+ARM GAS  /tmp/cchJaJTX.s 			page 17
+
+
+ 611 0034 A6020000 		.word	.L40
+ 612 0038 66030000 		.word	.L37
+ 613 003c 66030000 		.word	.L37
+ 614 0040 66030000 		.word	.L37
+ 615 0044 66030000 		.word	.L37
+ 616 0048 66030000 		.word	.L37
+ 617 004c 66030000 		.word	.L37
+ 618 0050 66030000 		.word	.L37
+ 619 0054 66030000 		.word	.L37
+ 620 0058 66030000 		.word	.L37
+ 621 005c 66030000 		.word	.L37
+ 622 0060 A0020000 		.word	.L42
+ 623 0064 66030000 		.word	.L37
+ 624 0068 66030000 		.word	.L37
+ 625 006c 66030000 		.word	.L37
+ 626 0070 CA020000 		.word	.L41
+ 627 0074 66030000 		.word	.L37
+ 628 0078 A6020000 		.word	.L40
+ 629 007c 66030000 		.word	.L37
+ 630 0080 66030000 		.word	.L37
+ 631 0084 AC020000 		.word	.L38
+ 632              		.text
+ 633              	.L44:
+ 307:xprintf.c     **** 		case 'b':					/* Unsigned binary */
+ 308:xprintf.c     **** 			r = 2; break;
+ 634              		.loc 1 308 6
+ 635 029a 0223     		movs	r3, #2
+ 636 029c FB65     		str	r3, [r7, #92]
+ 637              		.loc 1 308 4
+ 638 029e 6BE0     		b	.L45
+ 639              	.L42:
+ 309:xprintf.c     **** 		case 'o':					/* Unsigned octal */
+ 310:xprintf.c     **** 			r = 8; break;
+ 640              		.loc 1 310 6
+ 641 02a0 0823     		movs	r3, #8
+ 642 02a2 FB65     		str	r3, [r7, #92]
+ 643              		.loc 1 310 4
+ 644 02a4 68E0     		b	.L45
+ 645              	.L40:
+ 311:xprintf.c     **** 		case 'd':					/* Signed decimal */
+ 312:xprintf.c     **** 		case 'u':					/* Unsigned decimal */
+ 313:xprintf.c     **** 			r = 10; break;
+ 646              		.loc 1 313 6
+ 647 02a6 0A23     		movs	r3, #10
+ 648 02a8 FB65     		str	r3, [r7, #92]
+ 649              		.loc 1 313 4
+ 650 02aa 65E0     		b	.L45
+ 651              	.L38:
+ 314:xprintf.c     **** 		case 'x':					/* Hexdecimal (lower case) */
+ 315:xprintf.c     **** 		case 'X':					/* Hexdecimal (upper case) */
+ 316:xprintf.c     **** 			r = 16; break;
+ 652              		.loc 1 316 6
+ 653 02ac 1023     		movs	r3, #16
+ 654 02ae FB65     		str	r3, [r7, #92]
+ 655              		.loc 1 316 4
+ 656 02b0 62E0     		b	.L45
+ 657              	.L43:
+ARM GAS  /tmp/cchJaJTX.s 			page 18
+
+
+ 317:xprintf.c     **** 		case 'c':					/* A character */
+ 318:xprintf.c     **** 			xfputc(func, (char)va_arg(arp, int)); continue;
+ 658              		.loc 1 318 23
+ 659 02b2 7B68     		ldr	r3, [r7, #4]
+ 660 02b4 1A1D     		adds	r2, r3, #4
+ 661 02b6 7A60     		str	r2, [r7, #4]
+ 662 02b8 1B68     		ldr	r3, [r3]
+ 663              		.loc 1 318 17
+ 664 02ba DBB2     		uxtb	r3, r3
+ 665              		.loc 1 318 4
+ 666 02bc 1A00     		movs	r2, r3
+ 667 02be FB68     		ldr	r3, [r7, #12]
+ 668 02c0 1100     		movs	r1, r2
+ 669 02c2 1800     		movs	r0, r3
+ 670 02c4 FFF7FEFF 		bl	xfputc
+ 671 02c8 F3E0     		b	.L23
+ 672              	.L41:
+ 319:xprintf.c     **** 		case 's':					/* String */
+ 320:xprintf.c     **** 			p = va_arg(arp, char*);		/* Get a pointer argument */
+ 673              		.loc 1 320 6
+ 674 02ca 7B68     		ldr	r3, [r7, #4]
+ 675 02cc 1A1D     		adds	r2, r3, #4
+ 676 02ce 7A60     		str	r2, [r7, #4]
+ 677 02d0 1B68     		ldr	r3, [r3]
+ 678 02d2 FB63     		str	r3, [r7, #60]
+ 321:xprintf.c     **** 			if (!p) p = "";				/* Null ptr generates a null string */
+ 679              		.loc 1 321 7
+ 680 02d4 FB6B     		ldr	r3, [r7, #60]
+ 681 02d6 002B     		cmp	r3, #0
+ 682 02d8 01D1     		bne	.L46
+ 683              		.loc 1 321 14 discriminator 1
+ 684 02da 7B4B     		ldr	r3, .L77+4
+ 685 02dc FB63     		str	r3, [r7, #60]
+ 686              	.L46:
+ 322:xprintf.c     **** 			j = strlen(p);
+ 687              		.loc 1 322 8
+ 688 02de FB6B     		ldr	r3, [r7, #60]
+ 689 02e0 1800     		movs	r0, r3
+ 690 02e2 FFF7FEFF 		bl	strlen
+ 691 02e6 0300     		movs	r3, r0
+ 692 02e8 7B65     		str	r3, [r7, #84]
+ 323:xprintf.c     **** 			if (prec >= 0 && j > (unsigned int)prec) j = prec;	/* Limited length of string body */
+ 693              		.loc 1 323 7
+ 694 02ea 7B6C     		ldr	r3, [r7, #68]
+ 695 02ec 002B     		cmp	r3, #0
+ 696 02ee 11DB     		blt	.L48
+ 697              		.loc 1 323 25 discriminator 1
+ 698 02f0 7B6C     		ldr	r3, [r7, #68]
+ 699              		.loc 1 323 18 discriminator 1
+ 700 02f2 7A6D     		ldr	r2, [r7, #84]
+ 701 02f4 9A42     		cmp	r2, r3
+ 702 02f6 0DD9     		bls	.L48
+ 703              		.loc 1 323 47 discriminator 2
+ 704 02f8 7B6C     		ldr	r3, [r7, #68]
+ 705 02fa 7B65     		str	r3, [r7, #84]
+ 324:xprintf.c     **** 			for ( ; !(f & 2) && j < w; j++) xfputc(func, pad);	/* Left pads */
+ 706              		.loc 1 324 4 discriminator 2
+ARM GAS  /tmp/cchJaJTX.s 			page 19
+
+
+ 707 02fc 0AE0     		b	.L48
+ 708              	.L50:
+ 709              		.loc 1 324 36 discriminator 3
+ 710 02fe 3B23     		movs	r3, #59
+ 711 0300 FB18     		adds	r3, r7, r3
+ 712 0302 1A78     		ldrb	r2, [r3]
+ 713 0304 FB68     		ldr	r3, [r7, #12]
+ 714 0306 1100     		movs	r1, r2
+ 715 0308 1800     		movs	r0, r3
+ 716 030a FFF7FEFF 		bl	xfputc
+ 717              		.loc 1 324 32 discriminator 3
+ 718 030e 7B6D     		ldr	r3, [r7, #84]
+ 719 0310 0133     		adds	r3, r3, #1
+ 720 0312 7B65     		str	r3, [r7, #84]
+ 721              	.L48:
+ 722              		.loc 1 324 16 discriminator 1
+ 723 0314 FB6C     		ldr	r3, [r7, #76]
+ 724 0316 0222     		movs	r2, #2
+ 725 0318 1340     		ands	r3, r2
+ 726              		.loc 1 324 4 discriminator 1
+ 727 031a 0ED1     		bne	.L51
+ 728              		.loc 1 324 21 discriminator 2
+ 729 031c 7A6D     		ldr	r2, [r7, #84]
+ 730 031e 3B6D     		ldr	r3, [r7, #80]
+ 731 0320 9A42     		cmp	r2, r3
+ 732 0322 ECD3     		bcc	.L50
+ 325:xprintf.c     **** 			while (*p && prec--) xfputc(func, *p++);/* String body */
+ 733              		.loc 1 325 10
+ 734 0324 09E0     		b	.L51
+ 735              	.L53:
+ 736              		.loc 1 325 40 discriminator 3
+ 737 0326 FB6B     		ldr	r3, [r7, #60]
+ 738 0328 5A1C     		adds	r2, r3, #1
+ 739 032a FA63     		str	r2, [r7, #60]
+ 740              		.loc 1 325 38 discriminator 3
+ 741 032c 1B78     		ldrb	r3, [r3]
+ 742              		.loc 1 325 25 discriminator 3
+ 743 032e 1A00     		movs	r2, r3
+ 744 0330 FB68     		ldr	r3, [r7, #12]
+ 745 0332 1100     		movs	r1, r2
+ 746 0334 1800     		movs	r0, r3
+ 747 0336 FFF7FEFF 		bl	xfputc
+ 748              	.L51:
+ 749              		.loc 1 325 11 discriminator 1
+ 750 033a FB6B     		ldr	r3, [r7, #60]
+ 751 033c 1B78     		ldrb	r3, [r3]
+ 752              		.loc 1 325 10 discriminator 1
+ 753 033e 002B     		cmp	r3, #0
+ 754 0340 0AD0     		beq	.L54
+ 755              		.loc 1 325 21 discriminator 2
+ 756 0342 7B6C     		ldr	r3, [r7, #68]
+ 757 0344 5A1E     		subs	r2, r3, #1
+ 758 0346 7A64     		str	r2, [r7, #68]
+ 759              		.loc 1 325 14 discriminator 2
+ 760 0348 002B     		cmp	r3, #0
+ 761 034a ECD1     		bne	.L53
+ 326:xprintf.c     **** 			while (j++ < w) xfputc(func, ' ');		/* Right pads */
+ARM GAS  /tmp/cchJaJTX.s 			page 20
+
+
+ 762              		.loc 1 326 10
+ 763 034c 04E0     		b	.L54
+ 764              	.L55:
+ 765              		.loc 1 326 20 discriminator 2
+ 766 034e FB68     		ldr	r3, [r7, #12]
+ 767 0350 2021     		movs	r1, #32
+ 768 0352 1800     		movs	r0, r3
+ 769 0354 FFF7FEFF 		bl	xfputc
+ 770              	.L54:
+ 771              		.loc 1 326 12 discriminator 1
+ 772 0358 7B6D     		ldr	r3, [r7, #84]
+ 773 035a 5A1C     		adds	r2, r3, #1
+ 774 035c 7A65     		str	r2, [r7, #84]
+ 775              		.loc 1 326 10 discriminator 1
+ 776 035e 3A6D     		ldr	r2, [r7, #80]
+ 777 0360 9A42     		cmp	r2, r3
+ 778 0362 F4D8     		bhi	.L55
+ 327:xprintf.c     **** 			continue;
+ 779              		.loc 1 327 4
+ 780 0364 A5E0     		b	.L23
+ 781              	.L37:
+ 328:xprintf.c     **** #if XF_USE_FP
+ 329:xprintf.c     **** 		case 'f':					/* Float (decimal) */
+ 330:xprintf.c     **** 		case 'e':					/* Float (e) */
+ 331:xprintf.c     **** 		case 'E':					/* Float (E) */
+ 332:xprintf.c     **** 			ftoa(p = str, va_arg(arp, double), prec, c);	/* Make fp string */
+ 333:xprintf.c     **** 			for (j = strlen(p); !(f & 2) && j < w; j++) xfputc(func, pad);	/* Left pads */
+ 334:xprintf.c     **** 			while (*p) xfputc(func, *p++);		/* Value */
+ 335:xprintf.c     **** 			while (j++ < w) xfputc(func, ' ');	/* Right pads */
+ 336:xprintf.c     **** 			continue;
+ 337:xprintf.c     **** #endif
+ 338:xprintf.c     **** 		default:					/* Unknown type (passthrough) */
+ 339:xprintf.c     **** 			xfputc(func, c); continue;
+ 782              		.loc 1 339 4
+ 783 0366 4323     		movs	r3, #67
+ 784 0368 FB18     		adds	r3, r7, r3
+ 785 036a 1A78     		ldrb	r2, [r3]
+ 786 036c FB68     		ldr	r3, [r7, #12]
+ 787 036e 1100     		movs	r1, r2
+ 788 0370 1800     		movs	r0, r3
+ 789 0372 FFF7FEFF 		bl	xfputc
+ 790 0376 9CE0     		b	.L23
+ 791              	.L45:
+ 340:xprintf.c     **** 		}
+ 341:xprintf.c     **** 
+ 342:xprintf.c     **** 		/* Get an integer argument and put it in numeral */
+ 343:xprintf.c     **** #if XF_USE_LLI
+ 344:xprintf.c     **** 		if (f & 8) {	/* long long argument? */
+ 345:xprintf.c     **** 			v = (long long)va_arg(arp, long long);
+ 346:xprintf.c     **** 		} else {
+ 347:xprintf.c     **** 			if (f & 4) {	/* long argument? */
+ 348:xprintf.c     **** 				v = (c == 'd') ? (long long)va_arg(arp, long) : (long long)va_arg(arp, unsigned long);
+ 349:xprintf.c     **** 			} else {		/* int/short/char argument */
+ 350:xprintf.c     **** 				v = (c == 'd') ? (long long)va_arg(arp, int) : (long long)va_arg(arp, unsigned int);
+ 351:xprintf.c     **** 			}
+ 352:xprintf.c     **** 		}
+ 353:xprintf.c     **** #else
+ARM GAS  /tmp/cchJaJTX.s 			page 21
+
+
+ 354:xprintf.c     **** 		if (f & 4) {	/* long argument? */
+ 792              		.loc 1 354 9
+ 793 0378 FB6C     		ldr	r3, [r7, #76]
+ 794 037a 0422     		movs	r2, #4
+ 795 037c 1340     		ands	r3, r2
+ 796              		.loc 1 354 6
+ 797 037e 05D0     		beq	.L56
+ 355:xprintf.c     **** 			v = (long)va_arg(arp, long);
+ 798              		.loc 1 355 6
+ 799 0380 7B68     		ldr	r3, [r7, #4]
+ 800 0382 1A1D     		adds	r2, r3, #4
+ 801 0384 7A60     		str	r2, [r7, #4]
+ 802 0386 1B68     		ldr	r3, [r3]
+ 803 0388 7B63     		str	r3, [r7, #52]
+ 804 038a 0EE0     		b	.L57
+ 805              	.L56:
+ 356:xprintf.c     **** 		} else {		/* int/short/char argument */
+ 357:xprintf.c     **** 			v = (c == 'd') ? (long)va_arg(arp, int) : (long)va_arg(arp, unsigned int);
+ 806              		.loc 1 357 44
+ 807 038c 4323     		movs	r3, #67
+ 808 038e FB18     		adds	r3, r7, r3
+ 809 0390 1B78     		ldrb	r3, [r3]
+ 810 0392 642B     		cmp	r3, #100
+ 811 0394 04D1     		bne	.L58
+ 812 0396 7B68     		ldr	r3, [r7, #4]
+ 813 0398 1A1D     		adds	r2, r3, #4
+ 814 039a 7A60     		str	r2, [r7, #4]
+ 815 039c 1B68     		ldr	r3, [r3]
+ 816 039e 03E0     		b	.L59
+ 817              	.L58:
+ 818              		.loc 1 357 52
+ 819 03a0 7B68     		ldr	r3, [r7, #4]
+ 820 03a2 1A1D     		adds	r2, r3, #4
+ 821 03a4 7A60     		str	r2, [r7, #4]
+ 822 03a6 1B68     		ldr	r3, [r3]
+ 823              	.L59:
+ 824              		.loc 1 357 6 discriminator 4
+ 825 03a8 7B63     		str	r3, [r7, #52]
+ 826              	.L57:
+ 358:xprintf.c     **** 		}
+ 359:xprintf.c     **** #endif
+ 360:xprintf.c     **** 		if (c == 'd' && v < 0) {	/* Negative value? */
+ 827              		.loc 1 360 6
+ 828 03aa 4323     		movs	r3, #67
+ 829 03ac FB18     		adds	r3, r7, r3
+ 830 03ae 1B78     		ldrb	r3, [r3]
+ 831 03b0 642B     		cmp	r3, #100
+ 832 03b2 09D1     		bne	.L60
+ 833              		.loc 1 360 16 discriminator 1
+ 834 03b4 7B6B     		ldr	r3, [r7, #52]
+ 835 03b6 002B     		cmp	r3, #0
+ 836 03b8 06DA     		bge	.L60
+ 361:xprintf.c     **** 		  v = 0 - v; f |= 1;      //AO!: v is now a positive number. f: sign flag.
+ 837              		.loc 1 361 7
+ 838 03ba 7B6B     		ldr	r3, [r7, #52]
+ 839 03bc 5B42     		rsbs	r3, r3, #0
+ 840 03be 7B63     		str	r3, [r7, #52]
+ARM GAS  /tmp/cchJaJTX.s 			page 22
+
+
+ 841              		.loc 1 361 18
+ 842 03c0 FB6C     		ldr	r3, [r7, #76]
+ 843 03c2 0122     		movs	r2, #1
+ 844 03c4 1343     		orrs	r3, r2
+ 845 03c6 FB64     		str	r3, [r7, #76]
+ 846              	.L60:
+ 362:xprintf.c     **** 		}
+ 363:xprintf.c     **** 		i = 0; uv = v;
+ 847              		.loc 1 363 5
+ 848 03c8 0023     		movs	r3, #0
+ 849 03ca BB65     		str	r3, [r7, #88]
+ 850              		.loc 1 363 13
+ 851 03cc 7B6B     		ldr	r3, [r7, #52]
+ 852 03ce 3B63     		str	r3, [r7, #48]
+ 853              	.L65:
+ 364:xprintf.c     **** 		do {	/* Make an integer number string */
+ 365:xprintf.c     **** 			d = (char)(uv % r); uv /= r;
+ 854              		.loc 1 365 18
+ 855 03d0 3B6B     		ldr	r3, [r7, #48]
+ 856 03d2 F96D     		ldr	r1, [r7, #92]
+ 857 03d4 1800     		movs	r0, r3
+ 858 03d6 FFF7FEFF 		bl	__aeabi_uidivmod
+ 859 03da 0B00     		movs	r3, r1
+ 860 03dc 1A00     		movs	r2, r3
+ 861              		.loc 1 365 6
+ 862 03de 4224     		movs	r4, #66
+ 863 03e0 3B19     		adds	r3, r7, r4
+ 864 03e2 1A70     		strb	r2, [r3]
+ 865              		.loc 1 365 27
+ 866 03e4 F96D     		ldr	r1, [r7, #92]
+ 867 03e6 386B     		ldr	r0, [r7, #48]
+ 868 03e8 FFF7FEFF 		bl	__aeabi_uidiv
+ 869 03ec 0300     		movs	r3, r0
+ 870 03ee 3B63     		str	r3, [r7, #48]
+ 366:xprintf.c     **** 			if (d > 9) d += (c == 'x') ? 0x27 : 0x07;
+ 871              		.loc 1 366 7
+ 872 03f0 3B19     		adds	r3, r7, r4
+ 873 03f2 1B78     		ldrb	r3, [r3]
+ 874 03f4 092B     		cmp	r3, #9
+ 875 03f6 0DD9     		bls	.L61
+ 876              		.loc 1 366 17 discriminator 1
+ 877 03f8 4323     		movs	r3, #67
+ 878 03fa FB18     		adds	r3, r7, r3
+ 879 03fc 1B78     		ldrb	r3, [r3]
+ 880 03fe 782B     		cmp	r3, #120
+ 881 0400 01D1     		bne	.L62
+ 882              		.loc 1 366 17 is_stmt 0 discriminator 2
+ 883 0402 2723     		movs	r3, #39
+ 884 0404 00E0     		b	.L63
+ 885              	.L62:
+ 886              		.loc 1 366 17 discriminator 3
+ 887 0406 0723     		movs	r3, #7
+ 888              	.L63:
+ 889              		.loc 1 366 17 discriminator 5
+ 890 0408 4221     		movs	r1, #66
+ 891 040a 7A18     		adds	r2, r7, r1
+ 892 040c 7918     		adds	r1, r7, r1
+ARM GAS  /tmp/cchJaJTX.s 			page 23
+
+
+ 893 040e 0978     		ldrb	r1, [r1]
+ 894 0410 5B18     		adds	r3, r3, r1
+ 895 0412 1370     		strb	r3, [r2]
+ 896              	.L61:
+ 367:xprintf.c     **** 			str[i++] = d + '0';
+ 897              		.loc 1 367 9 is_stmt 1
+ 898 0414 BB6D     		ldr	r3, [r7, #88]
+ 899 0416 5A1C     		adds	r2, r3, #1
+ 900 0418 BA65     		str	r2, [r7, #88]
+ 901              		.loc 1 367 17
+ 902 041a 4222     		movs	r2, #66
+ 903 041c BA18     		adds	r2, r7, r2
+ 904 041e 1278     		ldrb	r2, [r2]
+ 905 0420 3032     		adds	r2, r2, #48
+ 906 0422 D1B2     		uxtb	r1, r2
+ 907              		.loc 1 367 13
+ 908 0424 1022     		movs	r2, #16
+ 909 0426 BA18     		adds	r2, r7, r2
+ 910 0428 D154     		strb	r1, [r2, r3]
+ 368:xprintf.c     **** 		} while (uv != 0 && i < sizeof str);
+ 911              		.loc 1 368 3
+ 912 042a 3B6B     		ldr	r3, [r7, #48]
+ 913 042c 002B     		cmp	r3, #0
+ 914 042e 02D0     		beq	.L64
+ 915              		.loc 1 368 20 discriminator 1
+ 916 0430 BB6D     		ldr	r3, [r7, #88]
+ 917 0432 1F2B     		cmp	r3, #31
+ 918 0434 CCD9     		bls	.L65
+ 919              	.L64:
+ 369:xprintf.c     **** 		if (f & 1) str[i++] = '-';					/* Sign */
+ 920              		.loc 1 369 9
+ 921 0436 FB6C     		ldr	r3, [r7, #76]
+ 922 0438 0122     		movs	r2, #1
+ 923 043a 1340     		ands	r3, r2
+ 924              		.loc 1 369 6
+ 925 043c 06D0     		beq	.L66
+ 926              		.loc 1 369 19 discriminator 1
+ 927 043e BB6D     		ldr	r3, [r7, #88]
+ 928 0440 5A1C     		adds	r2, r3, #1
+ 929 0442 BA65     		str	r2, [r7, #88]
+ 930              		.loc 1 369 23 discriminator 1
+ 931 0444 1022     		movs	r2, #16
+ 932 0446 BA18     		adds	r2, r7, r2
+ 933 0448 2D21     		movs	r1, #45
+ 934 044a D154     		strb	r1, [r2, r3]
+ 935              	.L66:
+ 370:xprintf.c     **** 		for (j = i; !(f & 2) && j < w; j++) xfputc(func, pad);	/* Left pads */
+ 936              		.loc 1 370 10
+ 937 044c BB6D     		ldr	r3, [r7, #88]
+ 938 044e 7B65     		str	r3, [r7, #84]
+ 939              		.loc 1 370 3
+ 940 0450 0AE0     		b	.L67
+ 941              	.L69:
+ 942              		.loc 1 370 39 discriminator 4
+ 943 0452 3B23     		movs	r3, #59
+ 944 0454 FB18     		adds	r3, r7, r3
+ 945 0456 1A78     		ldrb	r2, [r3]
+ARM GAS  /tmp/cchJaJTX.s 			page 24
+
+
+ 946 0458 FB68     		ldr	r3, [r7, #12]
+ 947 045a 1100     		movs	r1, r2
+ 948 045c 1800     		movs	r0, r3
+ 949 045e FFF7FEFF 		bl	xfputc
+ 950              		.loc 1 370 35 discriminator 4
+ 951 0462 7B6D     		ldr	r3, [r7, #84]
+ 952 0464 0133     		adds	r3, r3, #1
+ 953 0466 7B65     		str	r3, [r7, #84]
+ 954              	.L67:
+ 955              		.loc 1 370 19 discriminator 1
+ 956 0468 FB6C     		ldr	r3, [r7, #76]
+ 957 046a 0222     		movs	r2, #2
+ 958 046c 1340     		ands	r3, r2
+ 959              		.loc 1 370 3 discriminator 1
+ 960 046e 03D1     		bne	.L70
+ 961              		.loc 1 370 24 discriminator 3
+ 962 0470 7A6D     		ldr	r2, [r7, #84]
+ 963 0472 3B6D     		ldr	r3, [r7, #80]
+ 964 0474 9A42     		cmp	r2, r3
+ 965 0476 ECD3     		bcc	.L69
+ 966              	.L70:
+ 371:xprintf.c     **** 		do xfputc(func, str[--i]); while (i != 0);	/* Value */
+ 967              		.loc 1 371 6 discriminator 1
+ 968 0478 BB6D     		ldr	r3, [r7, #88]
+ 969 047a 013B     		subs	r3, r3, #1
+ 970 047c BB65     		str	r3, [r7, #88]
+ 971              		.loc 1 371 22 discriminator 1
+ 972 047e 1023     		movs	r3, #16
+ 973 0480 FA18     		adds	r2, r7, r3
+ 974 0482 BB6D     		ldr	r3, [r7, #88]
+ 975 0484 D318     		adds	r3, r2, r3
+ 976 0486 1B78     		ldrb	r3, [r3]
+ 977              		.loc 1 371 6 discriminator 1
+ 978 0488 1A00     		movs	r2, r3
+ 979 048a FB68     		ldr	r3, [r7, #12]
+ 980 048c 1100     		movs	r1, r2
+ 981 048e 1800     		movs	r0, r3
+ 982 0490 FFF7FEFF 		bl	xfputc
+ 983              		.loc 1 371 3 discriminator 1
+ 984 0494 BB6D     		ldr	r3, [r7, #88]
+ 985 0496 002B     		cmp	r3, #0
+ 986 0498 EED1     		bne	.L70
+ 372:xprintf.c     **** 		while (j++ < w) xfputc(func, ' ');			/* Right pads */
+ 987              		.loc 1 372 9
+ 988 049a 04E0     		b	.L71
+ 989              	.L72:
+ 990              		.loc 1 372 19 discriminator 2
+ 991 049c FB68     		ldr	r3, [r7, #12]
+ 992 049e 2021     		movs	r1, #32
+ 993 04a0 1800     		movs	r0, r3
+ 994 04a2 FFF7FEFF 		bl	xfputc
+ 995              	.L71:
+ 996              		.loc 1 372 11 discriminator 1
+ 997 04a6 7B6D     		ldr	r3, [r7, #84]
+ 998 04a8 5A1C     		adds	r2, r3, #1
+ 999 04aa 7A65     		str	r2, [r7, #84]
+ 1000              		.loc 1 372 9 discriminator 1
+ARM GAS  /tmp/cchJaJTX.s 			page 25
+
+
+ 1001 04ac 3A6D     		ldr	r2, [r7, #80]
+ 1002 04ae 9A42     		cmp	r2, r3
+ 1003 04b0 F4D8     		bhi	.L72
+ 1004              	.L23:
+ 257:xprintf.c     **** 		if (!c) break;				/* End of format? */
+ 1005              		.loc 1 257 5
+ 1006 04b2 1CE6     		b	.L73
+ 1007              	.L74:
+ 258:xprintf.c     **** 		if (c != '%') {				/* Pass it through if not a % sequense */
+ 1008              		.loc 1 258 3
+ 1009 04b4 C046     		nop
+ 1010 04b6 00E0     		b	.L76
+ 1011              	.L75:
+ 305:xprintf.c     **** 		switch (c) {				/* Type is... */
+ 1012              		.loc 1 305 3
+ 1013 04b8 C046     		nop
+ 1014              	.L76:
+ 373:xprintf.c     **** 	}
+ 374:xprintf.c     **** }
+ 1015              		.loc 1 374 1
+ 1016 04ba C046     		nop
+ 1017 04bc BD46     		mov	sp, r7
+ 1018 04be 19B0     		add	sp, sp, #100
+ 1019              		@ sp needed
+ 1020 04c0 90BD     		pop	{r4, r7, pc}
+ 1021              	.L78:
+ 1022 04c2 C046     		.align	2
+ 1023              	.L77:
+ 1024 04c4 04000000 		.word	.L39
+ 1025 04c8 00000000 		.word	.LC4
+ 1026              		.cfi_endproc
+ 1027              	.LFE5:
+ 1029              		.align	1
+ 1030              		.global	xprintf
+ 1031              		.syntax unified
+ 1032              		.code	16
+ 1033              		.thumb_func
+ 1035              	xprintf:
+ 1036              	.LFB6:
+ 375:xprintf.c     **** 
+ 376:xprintf.c     **** 
+ 377:xprintf.c     **** void xprintf (			/* Put a formatted string to the default device */
+ 378:xprintf.c     **** 	const char*	fmt,	/* Pointer to the format string */
+ 379:xprintf.c     **** 	...					/* Optional arguments */
+ 380:xprintf.c     **** )
+ 381:xprintf.c     **** {
+ 1037              		.loc 1 381 1
+ 1038              		.cfi_startproc
+ 1039              		@ args = 4, pretend = 16, frame = 8
+ 1040              		@ frame_needed = 1, uses_anonymous_args = 1
+ 1041 04cc 0FB4     		push	{r0, r1, r2, r3}
+ 1042              		.cfi_def_cfa_offset 16
+ 1043 04ce 80B5     		push	{r7, lr}
+ 1044              		.cfi_def_cfa_offset 24
+ 1045              		.cfi_offset 7, -24
+ 1046              		.cfi_offset 14, -20
+ 1047 04d0 82B0     		sub	sp, sp, #8
+ARM GAS  /tmp/cchJaJTX.s 			page 26
+
+
+ 1048              		.cfi_def_cfa_offset 32
+ 1049 04d2 00AF     		add	r7, sp, #0
+ 1050              		.cfi_def_cfa_register 7
+ 382:xprintf.c     **** 	va_list arp;
+ 383:xprintf.c     **** 
+ 384:xprintf.c     **** 
+ 385:xprintf.c     **** 	va_start(arp, fmt);
+ 1051              		.loc 1 385 2
+ 1052 04d4 1423     		movs	r3, #20
+ 1053 04d6 FB18     		adds	r3, r7, r3
+ 1054 04d8 7B60     		str	r3, [r7, #4]
+ 386:xprintf.c     **** 	xvfprintf(xfunc_output, fmt, arp);
+ 1055              		.loc 1 386 2
+ 1056 04da 074B     		ldr	r3, .L80
+ 1057 04dc 1B68     		ldr	r3, [r3]
+ 1058 04de 7A68     		ldr	r2, [r7, #4]
+ 1059 04e0 3969     		ldr	r1, [r7, #16]
+ 1060 04e2 1800     		movs	r0, r3
+ 1061 04e4 FFF7FDFD 		bl	xvfprintf
+ 387:xprintf.c     **** 	va_end(arp);
+ 388:xprintf.c     **** }
+ 1062              		.loc 1 388 1
+ 1063 04e8 C046     		nop
+ 1064 04ea BD46     		mov	sp, r7
+ 1065 04ec 02B0     		add	sp, sp, #8
+ 1066              		@ sp needed
+ 1067 04ee 80BC     		pop	{r7}
+ 1068 04f0 08BC     		pop	{r3}
+ 1069 04f2 04B0     		add	sp, sp, #16
+ 1070 04f4 1847     		bx	r3
+ 1071              	.L81:
+ 1072 04f6 C046     		.align	2
+ 1073              	.L80:
+ 1074 04f8 00000000 		.word	xfunc_output
+ 1075              		.cfi_endproc
+ 1076              	.LFE6:
+ 1078              		.align	1
+ 1079              		.global	xfprintf
+ 1080              		.syntax unified
+ 1081              		.code	16
+ 1082              		.thumb_func
+ 1084              	xfprintf:
+ 1085              	.LFB7:
+ 389:xprintf.c     **** 
+ 390:xprintf.c     **** 
+ 391:xprintf.c     **** void xfprintf (			/* Put a formatted string to the specified device */
+ 392:xprintf.c     **** 	void(*func)(int),	/* Pointer to the output function */
+ 393:xprintf.c     **** 	const char*	fmt,	/* Pointer to the format string */
+ 394:xprintf.c     **** 	...					/* Optional arguments */
+ 395:xprintf.c     **** )
+ 396:xprintf.c     **** {
+ 1086              		.loc 1 396 1
+ 1087              		.cfi_startproc
+ 1088              		@ args = 4, pretend = 12, frame = 16
+ 1089              		@ frame_needed = 1, uses_anonymous_args = 1
+ 1090 04fc 0EB4     		push	{r1, r2, r3}
+ 1091              		.cfi_def_cfa_offset 12
+ARM GAS  /tmp/cchJaJTX.s 			page 27
+
+
+ 1092 04fe 80B5     		push	{r7, lr}
+ 1093              		.cfi_def_cfa_offset 20
+ 1094              		.cfi_offset 7, -20
+ 1095              		.cfi_offset 14, -16
+ 1096 0500 85B0     		sub	sp, sp, #20
+ 1097              		.cfi_def_cfa_offset 40
+ 1098 0502 00AF     		add	r7, sp, #0
+ 1099              		.cfi_def_cfa_register 7
+ 1100 0504 7860     		str	r0, [r7, #4]
+ 397:xprintf.c     **** 	va_list arp;
+ 398:xprintf.c     **** 
+ 399:xprintf.c     **** 
+ 400:xprintf.c     **** 	va_start(arp, fmt);
+ 1101              		.loc 1 400 2
+ 1102 0506 2023     		movs	r3, #32
+ 1103 0508 FB18     		adds	r3, r7, r3
+ 1104 050a FB60     		str	r3, [r7, #12]
+ 401:xprintf.c     **** 	xvfprintf(func, fmt, arp);
+ 1105              		.loc 1 401 2
+ 1106 050c FA68     		ldr	r2, [r7, #12]
+ 1107 050e F969     		ldr	r1, [r7, #28]
+ 1108 0510 7B68     		ldr	r3, [r7, #4]
+ 1109 0512 1800     		movs	r0, r3
+ 1110 0514 FFF7E5FD 		bl	xvfprintf
+ 402:xprintf.c     **** 	va_end(arp);
+ 403:xprintf.c     **** }
+ 1111              		.loc 1 403 1
+ 1112 0518 C046     		nop
+ 1113 051a BD46     		mov	sp, r7
+ 1114 051c 05B0     		add	sp, sp, #20
+ 1115              		@ sp needed
+ 1116 051e 80BC     		pop	{r7}
+ 1117 0520 08BC     		pop	{r3}
+ 1118 0522 03B0     		add	sp, sp, #12
+ 1119 0524 1847     		bx	r3
+ 1120              		.cfi_endproc
+ 1121              	.LFE7:
+ 1123              		.align	1
+ 1124              		.global	xsprintf
+ 1125              		.syntax unified
+ 1126              		.code	16
+ 1127              		.thumb_func
+ 1129              	xsprintf:
+ 1130              	.LFB8:
+ 404:xprintf.c     **** 
+ 405:xprintf.c     **** 
+ 406:xprintf.c     **** void xsprintf (			/* Put a formatted string to the memory */
+ 407:xprintf.c     **** 	char* buff,			/* Pointer to the output buffer */
+ 408:xprintf.c     **** 	const char*	fmt,	/* Pointer to the format string */
+ 409:xprintf.c     **** 	...					/* Optional arguments */
+ 410:xprintf.c     **** )
+ 411:xprintf.c     **** {
+ 1131              		.loc 1 411 1
+ 1132              		.cfi_startproc
+ 1133              		@ args = 4, pretend = 12, frame = 16
+ 1134              		@ frame_needed = 1, uses_anonymous_args = 1
+ 1135 0526 0EB4     		push	{r1, r2, r3}
+ARM GAS  /tmp/cchJaJTX.s 			page 28
+
+
+ 1136              		.cfi_def_cfa_offset 12
+ 1137 0528 80B5     		push	{r7, lr}
+ 1138              		.cfi_def_cfa_offset 20
+ 1139              		.cfi_offset 7, -20
+ 1140              		.cfi_offset 14, -16
+ 1141 052a 85B0     		sub	sp, sp, #20
+ 1142              		.cfi_def_cfa_offset 40
+ 1143 052c 00AF     		add	r7, sp, #0
+ 1144              		.cfi_def_cfa_register 7
+ 1145 052e 7860     		str	r0, [r7, #4]
+ 412:xprintf.c     **** 	va_list arp;
+ 413:xprintf.c     **** 
+ 414:xprintf.c     **** 
+ 415:xprintf.c     **** 	strptr = buff;		/* Enable destination for memory */
+ 1146              		.loc 1 415 9
+ 1147 0530 0C4B     		ldr	r3, .L84
+ 1148 0532 7A68     		ldr	r2, [r7, #4]
+ 1149 0534 1A60     		str	r2, [r3]
+ 416:xprintf.c     **** 	va_start(arp, fmt);
+ 1150              		.loc 1 416 2
+ 1151 0536 2023     		movs	r3, #32
+ 1152 0538 FB18     		adds	r3, r7, r3
+ 1153 053a FB60     		str	r3, [r7, #12]
+ 417:xprintf.c     **** 	xvfprintf(0, fmt, arp);
+ 1154              		.loc 1 417 2
+ 1155 053c FA68     		ldr	r2, [r7, #12]
+ 1156 053e FB69     		ldr	r3, [r7, #28]
+ 1157 0540 1900     		movs	r1, r3
+ 1158 0542 0020     		movs	r0, #0
+ 1159 0544 FFF7CDFD 		bl	xvfprintf
+ 418:xprintf.c     **** 	va_end(arp);
+ 419:xprintf.c     **** 	*strptr = 0;		/* Terminate output string */
+ 1160              		.loc 1 419 2
+ 1161 0548 064B     		ldr	r3, .L84
+ 1162 054a 1B68     		ldr	r3, [r3]
+ 1163              		.loc 1 419 10
+ 1164 054c 0022     		movs	r2, #0
+ 1165 054e 1A70     		strb	r2, [r3]
+ 420:xprintf.c     **** 	strptr = 0;			/* Disable destination for memory */
+ 1166              		.loc 1 420 9
+ 1167 0550 044B     		ldr	r3, .L84
+ 1168 0552 0022     		movs	r2, #0
+ 1169 0554 1A60     		str	r2, [r3]
+ 421:xprintf.c     **** }
+ 1170              		.loc 1 421 1
+ 1171 0556 C046     		nop
+ 1172 0558 BD46     		mov	sp, r7
+ 1173 055a 05B0     		add	sp, sp, #20
+ 1174              		@ sp needed
+ 1175 055c 80BC     		pop	{r7}
+ 1176 055e 08BC     		pop	{r3}
+ 1177 0560 03B0     		add	sp, sp, #12
+ 1178 0562 1847     		bx	r3
+ 1179              	.L85:
+ 1180              		.align	2
+ 1181              	.L84:
+ 1182 0564 04000000 		.word	strptr
+ARM GAS  /tmp/cchJaJTX.s 			page 29
+
+
+ 1183              		.cfi_endproc
+ 1184              	.LFE8:
+ 1186              	.Letext0:
+ 1187              		.file 2 "/home/bahadira/gcc-arm-none-eabi-10.3/lib/gcc/arm-none-eabi/10.3.1/include/stddef.h"
+ 1188              		.file 3 "/home/bahadira/gcc-arm-none-eabi-10.3/lib/gcc/arm-none-eabi/10.3.1/include/stdarg.h"
+ 1189              		.file 4 "/home/bahadira/gcc-arm-none-eabi-10.3/arm-none-eabi/include/string.h"
+ 1190              		.file 5 "<built-in>"
+ 1191              		.file 6 "xprintf.h"
+ARM GAS  /tmp/cchJaJTX.s 			page 30
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 xprintf.c
+     /tmp/cchJaJTX.s:17     .text:0000000000000000 $t
+     /tmp/cchJaJTX.s:23     .text:0000000000000000 strlen
+     /tmp/cchJaJTX.s:73     .bss:0000000000000000 xfunc_output
+     /tmp/cchJaJTX.s:70     .bss:0000000000000000 $d
+     /tmp/cchJaJTX.s:76     .bss:0000000000000004 strptr
+     /tmp/cchJaJTX.s:86     .text:000000000000002a xputc
+     /tmp/cchJaJTX.s:127    .text:000000000000004c xfputc
+     /tmp/cchJaJTX.s:117    .text:0000000000000048 $d
+     /tmp/cchJaJTX.s:121    .text:000000000000004c $t
+     /tmp/cchJaJTX.s:182    .text:0000000000000088 $d
+     /tmp/cchJaJTX.s:186    .text:000000000000008c $t
+     /tmp/cchJaJTX.s:192    .text:000000000000008c xputs
+     /tmp/cchJaJTX.s:233    .text:00000000000000b0 xfputs
+     /tmp/cchJaJTX.s:223    .text:00000000000000ac $d
+     /tmp/cchJaJTX.s:227    .text:00000000000000b0 $t
+     /tmp/cchJaJTX.s:282    .rodata:0000000000000000 $d
+     /tmp/cchJaJTX.s:293    .text:00000000000000e2 xvfprintf
+     /tmp/cchJaJTX.s:1024   .text:00000000000004c4 $d
+     /tmp/cchJaJTX.s:1029   .text:00000000000004cc $t
+     /tmp/cchJaJTX.s:1035   .text:00000000000004cc xprintf
+     /tmp/cchJaJTX.s:1074   .text:00000000000004f8 $d
+     /tmp/cchJaJTX.s:1078   .text:00000000000004fc $t
+     /tmp/cchJaJTX.s:1084   .text:00000000000004fc xfprintf
+     /tmp/cchJaJTX.s:1129   .text:0000000000000526 xsprintf
+     /tmp/cchJaJTX.s:1182   .text:0000000000000564 $d
+
+UNDEFINED SYMBOLS
+__aeabi_uidivmod
+__aeabi_uidiv

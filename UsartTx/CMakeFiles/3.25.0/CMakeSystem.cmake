@@ -3,7 +3,7 @@ set(CMAKE_HOST_SYSTEM_NAME "Linux")
 set(CMAKE_HOST_SYSTEM_VERSION "5.15.0-94-generic")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
-include("/home/bahadira/Seafile/BahadirFiles/Firmwares/AlakartTutorials/UsartTx/armgcc.cmake")
+include("/home/bahadira/Seafile/BahadirFiles/Firmwares/LPC824Tutorials_Alakart/UsartTx/armgcc.cmake")
 
 set(CMAKE_SYSTEM "Generic")
 set(CMAKE_SYSTEM_NAME "Generic")

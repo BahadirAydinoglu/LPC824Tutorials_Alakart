@@ -32,19 +32,12 @@ void BOARD_InitBootPins(void);
 #define IOCON_PIO_OD_DI 0x00u        /*!<@brief Disables Open-drain function */
 #define IOCON_PIO_SMODE_BYPASS 0x00u /*!<@brief Bypass input filter */
 
-/*! @name PIO0_18 (number 31), P3[21]/J2[4]/U2[32]/TARGET_RX-P0_18
+/*! @name PIO0_4 (number 4), SW1/P3[9]/J2[7]/P0_4-ISP_U_TXD-WAKEUP
   @{ */
-#define BOARD_INITPINS_DEBUG_UART_RX_PORT 0U                   /*!<@brief PORT device index: 0 */
-#define BOARD_INITPINS_DEBUG_UART_RX_PIN 18U                   /*!<@brief PORT pin number */
-#define BOARD_INITPINS_DEBUG_UART_RX_PIN_MASK (1U << 18U)      /*!<@brief PORT pin mask */
-                                                               /* @} */
-
-/*! @name PIO0_7 (number 22), P3[14]/U2[31]/TARGET_TX-P0_7
-  @{ */
-#define BOARD_INITPINS_DEBUG_UART_TX_PORT 0U                  /*!<@brief PORT device index: 0 */
-#define BOARD_INITPINS_DEBUG_UART_TX_PIN 7U                   /*!<@brief PORT pin number */
-#define BOARD_INITPINS_DEBUG_UART_TX_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
-                                                              /* @} */
+#define BOARD_SW1_PORT 0U                  /*!<@brief PORT device index: 0 */
+#define BOARD_SW1_PIN 4U                   /*!<@brief PORT pin number */
+#define BOARD_SW1_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
+                                           /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

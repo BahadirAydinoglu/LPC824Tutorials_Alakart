@@ -1,0 +1,925 @@
+ARM GAS  /tmp/ccAFfyHl.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	delaytime
+  18              		.bss
+  19              		.align	2
+  22              	delaytime:
+  23 0000 00000000 		.space	4
+  24              		.section	.rodata
+  25              		.align	2
+  26              	.LC0:
+  27 0000 48656C6C 		.ascii	"Hello world!\012\015\000\000"
+  27      6F20776F 
+  27      726C6421 
+  27      0A0D0000 
+  28              		.align	2
+  29              	.LC4:
+  30 0010 54657374 		.ascii	"Test xprintf\015\012\000"
+  30      20787072 
+  30      696E7466 
+  30      0D0A00
+  31 001f 00       		.align	2
+  32              	.LC6:
+  33 0020 526F6D20 		.ascii	"Rom Driver Table: %X\012\015\000"
+  33      44726976 
+  33      65722054 
+  33      61626C65 
+  33      3A202558 
+  34 0037 00       		.align	2
+  35              	.LC8:
+  36 0038 53657269 		.ascii	"Serial Routines are at: %X\012\015\000"
+  36      616C2052 
+  36      6F757469 
+  36      6E657320 
+  36      61726520 
+  37 0055 000000   		.align	2
+  38              	.LC10:
+  39 0058 53504920 		.ascii	"SPI Routines are at: %X\012\015\000"
+  39      526F7574 
+  39      696E6573 
+  39      20617265 
+  39      2061743A 
+  40              		.text
+  41              		.align	1
+ARM GAS  /tmp/ccAFfyHl.s 			page 2
+
+
+  42              		.global	main
+  43              		.syntax unified
+  44              		.code	16
+  45              		.thumb_func
+  47              	main:
+  48              	.LFB0:
+  49              		.file 1 "main.c"
+   1:main.c        **** 
+   2:main.c        **** 
+   3:main.c        **** // This program demonstrates the switch matrix peripheral of LPC824.
+   4:main.c        **** // It is possible to connect the input or outputs of many peripheral devices
+   5:main.c        **** //  to any physical pin of the processor chip.
+   6:main.c        **** // In this example, serial port transmit pin is connected to
+   7:main.c        **** //  physical pin PIO0_4.
+   8:main.c        **** // On Alakart, PIO0_4 is connected to the USB serial converter to the PC.
+   9:main.c        **** // This is a minimal program and does not use any library functions.
+  10:main.c        **** 
+  11:main.c        **** // 2023 Ahmet Onat
+  12:main.c        **** 
+  13:main.c        **** 
+  14:main.c        **** #include <stdint.h> // Declarations of uint32_t etc.
+  15:main.c        **** #include "lpc824.h" // Declarations of LPC824 register names.
+  16:main.c        **** #include "xprintf.h" // For simple printout of numbers.
+  17:main.c        **** 
+  18:main.c        **** void delay(uint32_t counts); // The busy delay routine.
+  19:main.c        **** void config_uart0 (void);
+  20:main.c        **** 
+  21:main.c        **** void uart_putch (uint8_t character);
+  22:main.c        **** 
+  23:main.c        **** uint8_t uart_getch (void); // Dummy function.
+  24:main.c        **** void print (uint8_t * message);
+  25:main.c        **** 
+  26:main.c        **** #define BLU_LED_ON  GPIO_B16 = 0
+  27:main.c        **** #define BLU_LED_OFF  GPIO_B16 = 1
+  28:main.c        **** 
+  29:main.c        **** #define SYSTEM_CORE_CLOCK 30000000UL   //Declare system clock as 30MHz
+  30:main.c        **** // (The clock speed has been set in "init.c" file to 30MHz.)
+  31:main.c        **** 
+  32:main.c        **** static inline uint32_t SysTickConfig(uint32_t ticks);
+  33:main.c        **** void SysTick_Handler(void);  //our systick interrupt handler
+  34:main.c        **** void delay_ms(uint32_t ms);//delay (ms)
+  35:main.c        **** 
+  36:main.c        **** volatile uint32_t delaytime; // This is decremented by SysTick_Handler.
+  37:main.c        **** 
+  38:main.c        **** 
+  39:main.c        **** int main(void) {
+  50              		.loc 1 39 16
+  51              		.cfi_startproc
+  52              		@ args = 0, pretend = 0, frame = 16
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54 0000 80B5     		push	{r7, lr}
+  55              		.cfi_def_cfa_offset 8
+  56              		.cfi_offset 7, -8
+  57              		.cfi_offset 14, -4
+  58 0002 84B0     		sub	sp, sp, #16
+  59              		.cfi_def_cfa_offset 24
+  60 0004 00AF     		add	r7, sp, #0
+ARM GAS  /tmp/ccAFfyHl.s 			page 3
+
+
+  61              		.cfi_def_cfa_register 7
+  40:main.c        **** 
+  41:main.c        ****   uint32_t reg; // Dummy variable.
+  42:main.c        ****   uint8_t * message="Hello world!\n\r\0";
+  62              		.loc 1 42 13
+  63 0006 2E4B     		ldr	r3, .L3
+  64 0008 FB60     		str	r3, [r7, #12]
+  43:main.c        **** 
+  44:main.c        ****   //  xdev_in(uart_getch);
+  45:main.c        ****   
+  46:main.c        ****   SYSCON_SYSAHBCLKCTRL |= 0x400C0; // Enable clocks for IOCON, SWM & GPIO.
+  65              		.loc 1 46 24
+  66 000a 2E4B     		ldr	r3, .L3+4
+  67 000c 1A68     		ldr	r2, [r3]
+  68 000e 2D4B     		ldr	r3, .L3+4
+  69 0010 2D49     		ldr	r1, .L3+8
+  70 0012 0A43     		orrs	r2, r1
+  71 0014 1A60     		str	r2, [r3]
+  47:main.c        **** 
+  48:main.c        ****   
+  49:main.c        ****   SYSCON_PRESETCTRL &= ~(0x400);  // Assert  Reset of GPIO peripheral.
+  72              		.loc 1 49 21
+  73 0016 2D4B     		ldr	r3, .L3+12
+  74 0018 1A68     		ldr	r2, [r3]
+  75 001a 2C4B     		ldr	r3, .L3+12
+  76 001c 2C49     		ldr	r1, .L3+16
+  77 001e 0A40     		ands	r2, r1
+  78 0020 1A60     		str	r2, [r3]
+  50:main.c        ****   SYSCON_PRESETCTRL |=   0x400;   // Release Reset of GPIO peripheral.
+  79              		.loc 1 50 21
+  80 0022 2A4B     		ldr	r3, .L3+12
+  81 0024 1A68     		ldr	r2, [r3]
+  82 0026 294B     		ldr	r3, .L3+12
+  83 0028 8021     		movs	r1, #128
+  84 002a C900     		lsls	r1, r1, #3
+  85 002c 0A43     		orrs	r2, r1
+  86 002e 1A60     		str	r2, [r3]
+  51:main.c        ****   // See 5.6.2 Peripheral reset control register in User Manual.
+  52:main.c        **** 
+  53:main.c        ****   
+  54:main.c        ****   //Make Pin PIO0_16 an output. On Alakart, PIO0_16 is the blue LED:
+  55:main.c        ****   GPIO_DIR0 |= (1<<16);
+  87              		.loc 1 55 13
+  88 0030 284B     		ldr	r3, .L3+20
+  89 0032 1A68     		ldr	r2, [r3]
+  90 0034 274B     		ldr	r3, .L3+20
+  91 0036 8021     		movs	r1, #128
+  92 0038 4902     		lsls	r1, r1, #9
+  93 003a 0A43     		orrs	r2, r1
+  94 003c 1A60     		str	r2, [r3]
+  56:main.c        **** 
+  57:main.c        ****   
+  58:main.c        ****   // This is the configuration of SWM:
+  59:main.c        ****   // Set PINASSIGN0 for UART0 TXD. See 7.3.1 of User Manual
+  60:main.c        ****   reg = SWM_PINASSIGN0 & (~(0xff));
+  95              		.loc 1 60 24
+  96 003e 264B     		ldr	r3, .L3+24
+ARM GAS  /tmp/ccAFfyHl.s 			page 4
+
+
+  97 0040 1B68     		ldr	r3, [r3]
+  98              		.loc 1 60 7
+  99 0042 FF22     		movs	r2, #255
+ 100 0044 9343     		bics	r3, r2
+ 101 0046 BB60     		str	r3, [r7, #8]
+  61:main.c        ****   SWM_PINASSIGN0= reg | 4;   // Set the lower 7 bits of PINASSIGN0 to 4: PIO0_4
+ 102              		.loc 1 61 3
+ 103 0048 234B     		ldr	r3, .L3+24
+ 104              		.loc 1 61 23
+ 105 004a BA68     		ldr	r2, [r7, #8]
+ 106 004c 0421     		movs	r1, #4
+ 107 004e 0A43     		orrs	r2, r1
+ 108              		.loc 1 61 17
+ 109 0050 1A60     		str	r2, [r3]
+  62:main.c        **** 
+  63:main.c        ****   SysTickConfig(SYSTEM_CORE_CLOCK/1000);  //setup systick clock interrupt @1ms
+ 110              		.loc 1 63 3
+ 111 0052 224B     		ldr	r3, .L3+28
+ 112 0054 1800     		movs	r0, r3
+ 113 0056 00F0F7F8 		bl	SysTickConfig
+  64:main.c        **** 
+  65:main.c        ****   config_uart0();  // Configure UART0 for correct speed and byte format.
+ 114              		.loc 1 65 3
+ 115 005a FFF7FEFF 		bl	config_uart0
+  66:main.c        **** 
+  67:main.c        ****   xdev_out(uart_putch);
+ 116              		.loc 1 67 3
+ 117 005e 204B     		ldr	r3, .L3+32
+ 118 0060 204A     		ldr	r2, .L3+36
+ 119 0062 1A60     		str	r2, [r3]
+  68:main.c        **** 
+  69:main.c        ****   
+  70:main.c        ****   xprintf("Test xprintf\r\n");
+ 120              		.loc 1 70 3
+ 121 0064 204B     		ldr	r3, .L3+40
+ 122 0066 1800     		movs	r0, r3
+ 123 0068 FFF7FEFF 		bl	xprintf
+  71:main.c        ****   //  uart_putch('A');
+  72:main.c        **** 
+  73:main.c        **** #define  ROM_DRIVER_TABLE_BASE  *((uint32_t*) (0x1FFF1FF8))
+  74:main.c        **** #define  SERIAL_ROM_API_BASE  *((uint32_t*) (0x1FFF1FF8)+9)
+  75:main.c        ****   // Serial is Base+0x24 = Base+36 -> Base+ (9*4) words.
+  76:main.c        **** #define  SPI_ROM_API_BASE  *((uint32_t*) (0x1FFF1FF8)+7)
+  77:main.c        ****   // SPI is Base+0x1C = Base+28 -> Base+ (7*4) words.
+  78:main.c        **** 
+  79:main.c        **** 
+  80:main.c        ****   BLU_LED_OFF;
+ 124              		.loc 1 80 3
+ 125 006c 1F4B     		ldr	r3, .L3+44
+ 126 006e 0122     		movs	r2, #1
+ 127 0070 1A70     		strb	r2, [r3]
+  81:main.c        ****   xprintf("Rom Driver Table: %X\n\r", ROM_DRIVER_TABLE_BASE);
+ 128              		.loc 1 81 3
+ 129 0072 1F4B     		ldr	r3, .L3+48
+ 130 0074 1A68     		ldr	r2, [r3]
+ 131 0076 1F4B     		ldr	r3, .L3+52
+ 132 0078 1100     		movs	r1, r2
+ARM GAS  /tmp/ccAFfyHl.s 			page 5
+
+
+ 133 007a 1800     		movs	r0, r3
+ 134 007c FFF7FEFF 		bl	xprintf
+  82:main.c        **** 
+  83:main.c        ****   uint32_t * serial_ptr = SERIAL_ROM_API_BASE;
+ 135              		.loc 1 83 27
+ 136 0080 1D4B     		ldr	r3, .L3+56
+ 137 0082 1B68     		ldr	r3, [r3]
+ 138              		.loc 1 83 14
+ 139 0084 7B60     		str	r3, [r7, #4]
+  84:main.c        **** 
+  85:main.c        ****   xprintf("Serial Routines are at: %X\n\r",  serial_ptr);
+ 140              		.loc 1 85 3
+ 141 0086 7A68     		ldr	r2, [r7, #4]
+ 142 0088 1C4B     		ldr	r3, .L3+60
+ 143 008a 1100     		movs	r1, r2
+ 144 008c 1800     		movs	r0, r3
+ 145 008e FFF7FEFF 		bl	xprintf
+  86:main.c        **** 
+  87:main.c        ****   uint32_t * spi_ptr= SPI_ROM_API_BASE;
+ 146              		.loc 1 87 23
+ 147 0092 1B4B     		ldr	r3, .L3+64
+ 148 0094 1B68     		ldr	r3, [r3]
+ 149              		.loc 1 87 14
+ 150 0096 3B60     		str	r3, [r7]
+  88:main.c        **** 
+  89:main.c        ****   xprintf("SPI Routines are at: %X\n\r", spi_ptr);
+ 151              		.loc 1 89 3
+ 152 0098 3A68     		ldr	r2, [r7]
+ 153 009a 1A4B     		ldr	r3, .L3+68
+ 154 009c 1100     		movs	r1, r2
+ 155 009e 1800     		movs	r0, r3
+ 156 00a0 FFF7FEFF 		bl	xprintf
+ 157              	.L2:
+  90:main.c        ****   
+  91:main.c        ****   
+  92:main.c        ****   
+  93:main.c        ****   while (1) { // Blink the LED in an infinite loop:
+  94:main.c        ****     
+  95:main.c        ****     BLU_LED_ON;
+ 158              		.loc 1 95 5 discriminator 1
+ 159 00a4 114B     		ldr	r3, .L3+44
+ 160 00a6 0022     		movs	r2, #0
+ 161 00a8 1A70     		strb	r2, [r3]
+  96:main.c        ****     //GPIO_B16 = 0;    // Set pin low. (LED is ON)
+  97:main.c        ****     delay_ms(200);
+ 162              		.loc 1 97 5 discriminator 1
+ 163 00aa C820     		movs	r0, #200
+ 164 00ac FFF7FEFF 		bl	delay_ms
+  98:main.c        **** 
+  99:main.c        ****     BLU_LED_OFF;
+ 165              		.loc 1 99 5 discriminator 1
+ 166 00b0 0E4B     		ldr	r3, .L3+44
+ 167 00b2 0122     		movs	r2, #1
+ 168 00b4 1A70     		strb	r2, [r3]
+ 100:main.c        ****     //GPIO_B16 = 1;    //Set pin high (LED is OFF)
+ 101:main.c        ****     delay_ms(200);
+ 169              		.loc 1 101 5 discriminator 1
+ARM GAS  /tmp/ccAFfyHl.s 			page 6
+
+
+ 170 00b6 C820     		movs	r0, #200
+ 171 00b8 FFF7FEFF 		bl	delay_ms
+  95:main.c        ****     //GPIO_B16 = 0;    // Set pin low. (LED is ON)
+ 172              		.loc 1 95 5 discriminator 1
+ 173 00bc F2E7     		b	.L2
+ 174              	.L4:
+ 175 00be C046     		.align	2
+ 176              	.L3:
+ 177 00c0 00000000 		.word	.LC0
+ 178 00c4 80800440 		.word	1074036864
+ 179 00c8 C0000400 		.word	262336
+ 180 00cc 04800440 		.word	1074036740
+ 181 00d0 FFFBFFFF 		.word	-1025
+ 182 00d4 002000A0 		.word	-1610604544
+ 183 00d8 00C00040 		.word	1073790976
+ 184 00dc 30750000 		.word	30000
+ 185 00e0 00000000 		.word	xfunc_output
+ 186 00e4 00000000 		.word	uart_putch
+ 187 00e8 10000000 		.word	.LC4
+ 188 00ec 100000A0 		.word	-1610612720
+ 189 00f0 F81FFF1F 		.word	536813560
+ 190 00f4 20000000 		.word	.LC6
+ 191 00f8 1C20FF1F 		.word	536813596
+ 192 00fc 38000000 		.word	.LC8
+ 193 0100 1420FF1F 		.word	536813588
+ 194 0104 58000000 		.word	.LC10
+ 195              		.cfi_endproc
+ 196              	.LFE0:
+ 198              		.align	1
+ 199              		.global	delay
+ 200              		.syntax unified
+ 201              		.code	16
+ 202              		.thumb_func
+ 204              	delay:
+ 205              	.LFB1:
+ 102:main.c        ****   }
+ 103:main.c        **** 
+ 104:main.c        **** }
+ 105:main.c        **** 
+ 106:main.c        **** 
+ 107:main.c        **** // Delay timing is provided by a busy wait:
+ 108:main.c        **** void delay(uint32_t counts) {
+ 206              		.loc 1 108 29
+ 207              		.cfi_startproc
+ 208              		@ args = 0, pretend = 0, frame = 16
+ 209              		@ frame_needed = 1, uses_anonymous_args = 0
+ 210 0108 80B5     		push	{r7, lr}
+ 211              		.cfi_def_cfa_offset 8
+ 212              		.cfi_offset 7, -8
+ 213              		.cfi_offset 14, -4
+ 214 010a 84B0     		sub	sp, sp, #16
+ 215              		.cfi_def_cfa_offset 24
+ 216 010c 00AF     		add	r7, sp, #0
+ 217              		.cfi_def_cfa_register 7
+ 218 010e 7860     		str	r0, [r7, #4]
+ 109:main.c        **** 
+ 110:main.c        ****   uint32_t wait;
+ARM GAS  /tmp/ccAFfyHl.s 			page 7
+
+
+ 111:main.c        ****   for (wait=counts; wait>0; --wait){
+ 219              		.loc 1 111 12
+ 220 0110 7B68     		ldr	r3, [r7, #4]
+ 221 0112 FB60     		str	r3, [r7, #12]
+ 222              		.loc 1 111 3
+ 223 0114 02E0     		b	.L6
+ 224              	.L7:
+ 225              		.loc 1 111 29 discriminator 3
+ 226 0116 FB68     		ldr	r3, [r7, #12]
+ 227 0118 013B     		subs	r3, r3, #1
+ 228 011a FB60     		str	r3, [r7, #12]
+ 229              	.L6:
+ 230              		.loc 1 111 3 discriminator 1
+ 231 011c FB68     		ldr	r3, [r7, #12]
+ 232 011e 002B     		cmp	r3, #0
+ 233 0120 F9D1     		bne	.L7
+ 112:main.c        ****   }
+ 113:main.c        **** 
+ 114:main.c        **** }
+ 234              		.loc 1 114 1
+ 235 0122 C046     		nop
+ 236 0124 C046     		nop
+ 237 0126 BD46     		mov	sp, r7
+ 238 0128 04B0     		add	sp, sp, #16
+ 239              		@ sp needed
+ 240 012a 80BD     		pop	{r7, pc}
+ 241              		.cfi_endproc
+ 242              	.LFE1:
+ 244              		.align	1
+ 245              		.global	uart_putch
+ 246              		.syntax unified
+ 247              		.code	16
+ 248              		.thumb_func
+ 250              	uart_putch:
+ 251              	.LFB2:
+ 115:main.c        **** 
+ 116:main.c        **** 
+ 117:main.c        **** void uart_putch (uint8_t character){
+ 252              		.loc 1 117 36
+ 253              		.cfi_startproc
+ 254              		@ args = 0, pretend = 0, frame = 8
+ 255              		@ frame_needed = 1, uses_anonymous_args = 0
+ 256 012c 80B5     		push	{r7, lr}
+ 257              		.cfi_def_cfa_offset 8
+ 258              		.cfi_offset 7, -8
+ 259              		.cfi_offset 14, -4
+ 260 012e 82B0     		sub	sp, sp, #8
+ 261              		.cfi_def_cfa_offset 16
+ 262 0130 00AF     		add	r7, sp, #0
+ 263              		.cfi_def_cfa_register 7
+ 264 0132 0200     		movs	r2, r0
+ 265 0134 FB1D     		adds	r3, r7, #7
+ 266 0136 1A70     		strb	r2, [r3]
+ 118:main.c        ****   // Check if transmission has ended. See: 13.6.3 USART Status register:
+ 119:main.c        ****   while ((USART0_STAT& 0b0100)==0);
+ 267              		.loc 1 119 9
+ 268 0138 C046     		nop
+ARM GAS  /tmp/ccAFfyHl.s 			page 8
+
+
+ 269              	.L9:
+ 270              		.loc 1 119 11 discriminator 1
+ 271 013a 064B     		ldr	r3, .L10
+ 272 013c 1B68     		ldr	r3, [r3]
+ 273              		.loc 1 119 22 discriminator 1
+ 274 013e 0422     		movs	r2, #4
+ 275 0140 1340     		ands	r3, r2
+ 276              		.loc 1 119 9 discriminator 1
+ 277 0142 FAD0     		beq	.L9
+ 120:main.c        ****   USART0_TXDAT=character;
+ 278              		.loc 1 120 3
+ 279 0144 044B     		ldr	r3, .L10+4
+ 280              		.loc 1 120 15
+ 281 0146 FA1D     		adds	r2, r7, #7
+ 282 0148 1278     		ldrb	r2, [r2]
+ 283 014a 1A60     		str	r2, [r3]
+ 121:main.c        **** 
+ 122:main.c        **** }
+ 284              		.loc 1 122 1
+ 285 014c C046     		nop
+ 286 014e BD46     		mov	sp, r7
+ 287 0150 02B0     		add	sp, sp, #8
+ 288              		@ sp needed
+ 289 0152 80BD     		pop	{r7, pc}
+ 290              	.L11:
+ 291              		.align	2
+ 292              	.L10:
+ 293 0154 08400640 		.word	1074151432
+ 294 0158 1C400640 		.word	1074151452
+ 295              		.cfi_endproc
+ 296              	.LFE2:
+ 298              		.align	1
+ 299              		.global	uart_getch
+ 300              		.syntax unified
+ 301              		.code	16
+ 302              		.thumb_func
+ 304              	uart_getch:
+ 305              	.LFB3:
+ 123:main.c        **** 
+ 124:main.c        **** 
+ 125:main.c        **** uint8_t uart_getch (void){ // Dummy function.
+ 306              		.loc 1 125 26
+ 307              		.cfi_startproc
+ 308              		@ args = 0, pretend = 0, frame = 0
+ 309              		@ frame_needed = 1, uses_anonymous_args = 0
+ 310 015c 80B5     		push	{r7, lr}
+ 311              		.cfi_def_cfa_offset 8
+ 312              		.cfi_offset 7, -8
+ 313              		.cfi_offset 14, -4
+ 314 015e 00AF     		add	r7, sp, #0
+ 315              		.cfi_def_cfa_register 7
+ 126:main.c        **** 
+ 127:main.c        ****   return 65;
+ 316              		.loc 1 127 10
+ 317 0160 4123     		movs	r3, #65
+ 128:main.c        **** }
+ 318              		.loc 1 128 1
+ARM GAS  /tmp/ccAFfyHl.s 			page 9
+
+
+ 319 0162 1800     		movs	r0, r3
+ 320 0164 BD46     		mov	sp, r7
+ 321              		@ sp needed
+ 322 0166 80BD     		pop	{r7, pc}
+ 323              		.cfi_endproc
+ 324              	.LFE3:
+ 326              		.align	1
+ 327              		.global	print
+ 328              		.syntax unified
+ 329              		.code	16
+ 330              		.thumb_func
+ 332              	print:
+ 333              	.LFB4:
+ 129:main.c        **** 
+ 130:main.c        **** 
+ 131:main.c        **** void print (uint8_t * message){
+ 334              		.loc 1 131 31
+ 335              		.cfi_startproc
+ 336              		@ args = 0, pretend = 0, frame = 16
+ 337              		@ frame_needed = 1, uses_anonymous_args = 0
+ 338 0168 80B5     		push	{r7, lr}
+ 339              		.cfi_def_cfa_offset 8
+ 340              		.cfi_offset 7, -8
+ 341              		.cfi_offset 14, -4
+ 342 016a 84B0     		sub	sp, sp, #16
+ 343              		.cfi_def_cfa_offset 24
+ 344 016c 00AF     		add	r7, sp, #0
+ 345              		.cfi_def_cfa_register 7
+ 346 016e 7860     		str	r0, [r7, #4]
+ 132:main.c        **** 
+ 133:main.c        ****   uint8_t i;
+ 134:main.c        ****   i=0;
+ 347              		.loc 1 134 4
+ 348 0170 0F23     		movs	r3, #15
+ 349 0172 FB18     		adds	r3, r7, r3
+ 350 0174 0022     		movs	r2, #0
+ 351 0176 1A70     		strb	r2, [r3]
+ 135:main.c        ****   
+ 136:main.c        ****   while(message[i]!='\0'){
+ 352              		.loc 1 136 8
+ 353 0178 13E0     		b	.L15
+ 354              	.L17:
+ 137:main.c        ****     USART0_TXDAT=message[i];
+ 355              		.loc 1 137 25
+ 356 017a 0F23     		movs	r3, #15
+ 357 017c FB18     		adds	r3, r7, r3
+ 358 017e 1B78     		ldrb	r3, [r3]
+ 359 0180 7A68     		ldr	r2, [r7, #4]
+ 360 0182 D318     		adds	r3, r2, r3
+ 361 0184 1A78     		ldrb	r2, [r3]
+ 362              		.loc 1 137 5
+ 363 0186 0D4B     		ldr	r3, .L18
+ 364              		.loc 1 137 17
+ 365 0188 1A60     		str	r2, [r3]
+ 138:main.c        ****     // Check if transmission has ended. See: 13.6.3 USART Status register:
+ 139:main.c        ****     while ((USART0_STAT& 0b0100)==0);
+ 366              		.loc 1 139 11
+ARM GAS  /tmp/ccAFfyHl.s 			page 10
+
+
+ 367 018a C046     		nop
+ 368              	.L16:
+ 369              		.loc 1 139 13 discriminator 1
+ 370 018c 0C4B     		ldr	r3, .L18+4
+ 371 018e 1B68     		ldr	r3, [r3]
+ 372              		.loc 1 139 24 discriminator 1
+ 373 0190 0422     		movs	r2, #4
+ 374 0192 1340     		ands	r3, r2
+ 375              		.loc 1 139 11 discriminator 1
+ 376 0194 FAD0     		beq	.L16
+ 140:main.c        ****     ++i;
+ 377              		.loc 1 140 5
+ 378 0196 0F22     		movs	r2, #15
+ 379 0198 BB18     		adds	r3, r7, r2
+ 380 019a BA18     		adds	r2, r7, r2
+ 381 019c 1278     		ldrb	r2, [r2]
+ 382 019e 0132     		adds	r2, r2, #1
+ 383 01a0 1A70     		strb	r2, [r3]
+ 384              	.L15:
+ 136:main.c        ****     USART0_TXDAT=message[i];
+ 385              		.loc 1 136 16
+ 386 01a2 0F23     		movs	r3, #15
+ 387 01a4 FB18     		adds	r3, r7, r3
+ 388 01a6 1B78     		ldrb	r3, [r3]
+ 389 01a8 7A68     		ldr	r2, [r7, #4]
+ 390 01aa D318     		adds	r3, r2, r3
+ 391 01ac 1B78     		ldrb	r3, [r3]
+ 136:main.c        ****     USART0_TXDAT=message[i];
+ 392              		.loc 1 136 8
+ 393 01ae 002B     		cmp	r3, #0
+ 394 01b0 E3D1     		bne	.L17
+ 141:main.c        ****   }
+ 142:main.c        ****   
+ 143:main.c        **** 
+ 144:main.c        **** }
+ 395              		.loc 1 144 1
+ 396 01b2 C046     		nop
+ 397 01b4 C046     		nop
+ 398 01b6 BD46     		mov	sp, r7
+ 399 01b8 04B0     		add	sp, sp, #16
+ 400              		@ sp needed
+ 401 01ba 80BD     		pop	{r7, pc}
+ 402              	.L19:
+ 403              		.align	2
+ 404              	.L18:
+ 405 01bc 1C400640 		.word	1074151452
+ 406 01c0 08400640 		.word	1074151432
+ 407              		.cfi_endproc
+ 408              	.LFE4:
+ 410              		.align	1
+ 411              		.global	config_uart0
+ 412              		.syntax unified
+ 413              		.code	16
+ 414              		.thumb_func
+ 416              	config_uart0:
+ 417              	.LFB5:
+ 145:main.c        **** 
+ARM GAS  /tmp/ccAFfyHl.s 			page 11
+
+
+ 146:main.c        **** 
+ 147:main.c        **** void config_uart0 (void){
+ 418              		.loc 1 147 25
+ 419              		.cfi_startproc
+ 420              		@ args = 0, pretend = 0, frame = 0
+ 421              		@ frame_needed = 1, uses_anonymous_args = 0
+ 422 01c4 80B5     		push	{r7, lr}
+ 423              		.cfi_def_cfa_offset 8
+ 424              		.cfi_offset 7, -8
+ 425              		.cfi_offset 14, -4
+ 426 01c6 00AF     		add	r7, sp, #0
+ 427              		.cfi_def_cfa_register 7
+ 148:main.c        **** 
+ 149:main.c        **** 
+ 150:main.c        ****   // The following steps set up the serial port USART0:
+ 151:main.c        ****    // See User Manual
+ 152:main.c        ****   // 13.3 Basic Configuration (USART)
+ 153:main.c        **** 
+ 154:main.c        ****   // 1. Turn the peripheral on:
+ 155:main.c        ****   SYSCON_SYSAHBCLKCTRL |= 0x4000; // Enable clock for USART0.
+ 428              		.loc 1 155 24
+ 429 01c8 094B     		ldr	r3, .L21
+ 430 01ca 1A68     		ldr	r2, [r3]
+ 431 01cc 084B     		ldr	r3, .L21
+ 432 01ce 8021     		movs	r1, #128
+ 433 01d0 C901     		lsls	r1, r1, #7
+ 434 01d2 0A43     		orrs	r2, r1
+ 435 01d4 1A60     		str	r2, [r3]
+ 156:main.c        **** 
+ 157:main.c        ****   // 2. Set speed (baud rate) to 115200bps:
+ 158:main.c        ****   // See Sec. 13.7.1.1 and 13.6.9 in User Manual.
+ 159:main.c        ****   // Obtain a preliminary clock by first dividing the processor main clock
+ 160:main.c        ****   // Processor main clock is 60MHz. (60000000)
+ 161:main.c        ****   // Divide by 8 to obtain 7,500,000 Hz. intermediate clock.
+ 162:main.c        ****   SYSCON_UARTCLKDIV=8; // USART clock div register.
+ 436              		.loc 1 162 3
+ 437 01d6 074B     		ldr	r3, .L21+4
+ 438              		.loc 1 162 20
+ 439 01d8 0822     		movs	r2, #8
+ 440 01da 1A60     		str	r2, [r3]
+ 163:main.c        ****  
+ 164:main.c        ****   // Baud rate generator value is calculated from:
+ 165:main.c        ****   // Intermediate clock /16 (always divided) = 468750Hz
+ 166:main.c        ****   // To obtain 115200 baud transmission speed, we must divide further:
+ 167:main.c        ****   // 468750/115200=4.069 ~= 4
+ 168:main.c        ****   // Baud rate generator should be set to one less than this value.
+ 169:main.c        ****   USART0_BRG=3;  //(4-1)  Baud rate generator register value.
+ 441              		.loc 1 169 3
+ 442 01dc 064B     		ldr	r3, .L21+8
+ 443              		.loc 1 169 13
+ 444 01de 0322     		movs	r2, #3
+ 445 01e0 1A60     		str	r2, [r3]
+ 170:main.c        **** 
+ 171:main.c        ****   // 3. Enable USART & configure byte format for 8 bit, no parity, 1 stop bit:
+ 172:main.c        ****   // (See 13.6.1 USART Configuration register)
+ 173:main.c        ****   // (Bit 0) Enable USART 
+ 174:main.c        ****   // (Bit 1) not used.
+ARM GAS  /tmp/ccAFfyHl.s 			page 12
+
+
+ 175:main.c        ****   // (Bit 2:3) Data Length 00 => 8 bits.
+ 176:main.c        ****   // (Bit 4:5) Parity 00 => No parity (default)
+ 177:main.c        ****   // (Bit 6) Stop bit  0 => 1:  (default)
+ 178:main.c        ****   // (Bit 7) Reserved
+ 179:main.c        ****   // The remaining bits are left at default values.
+ 180:main.c        ****   USART0_CFG=0b00000101;
+ 446              		.loc 1 180 3
+ 447 01e2 064B     		ldr	r3, .L21+12
+ 448              		.loc 1 180 13
+ 449 01e4 0522     		movs	r2, #5
+ 450 01e6 1A60     		str	r2, [r3]
+ 181:main.c        **** 
+ 182:main.c        **** }
+ 451              		.loc 1 182 1
+ 452 01e8 C046     		nop
+ 453 01ea BD46     		mov	sp, r7
+ 454              		@ sp needed
+ 455 01ec 80BD     		pop	{r7, pc}
+ 456              	.L22:
+ 457 01ee C046     		.align	2
+ 458              	.L21:
+ 459 01f0 80800440 		.word	1074036864
+ 460 01f4 94800440 		.word	1074036884
+ 461 01f8 20400640 		.word	1074151456
+ 462 01fc 00400640 		.word	1074151424
+ 463              		.cfi_endproc
+ 464              	.LFE5:
+ 466              		.align	1
+ 467              		.global	SysTick_Handler
+ 468              		.syntax unified
+ 469              		.code	16
+ 470              		.thumb_func
+ 472              	SysTick_Handler:
+ 473              	.LFB6:
+ 183:main.c        **** 
+ 184:main.c        **** 
+ 185:main.c        ****  //The interrupt handler for SysTick system time-base timer.
+ 186:main.c        **** void SysTick_Handler(void) { 
+ 474              		.loc 1 186 28
+ 475              		.cfi_startproc
+ 476              		@ args = 0, pretend = 0, frame = 0
+ 477              		@ frame_needed = 1, uses_anonymous_args = 0
+ 478 0200 80B5     		push	{r7, lr}
+ 479              		.cfi_def_cfa_offset 8
+ 480              		.cfi_offset 7, -8
+ 481              		.cfi_offset 14, -4
+ 482 0202 00AF     		add	r7, sp, #0
+ 483              		.cfi_def_cfa_register 7
+ 187:main.c        ****   if (delaytime!=0){ // If delaytime has been set somewhere in the program,
+ 484              		.loc 1 187 16
+ 485 0204 054B     		ldr	r3, .L26
+ 486 0206 1B68     		ldr	r3, [r3]
+ 487              		.loc 1 187 6
+ 488 0208 002B     		cmp	r3, #0
+ 489 020a 04D0     		beq	.L25
+ 188:main.c        ****     --delaytime;     //  decrement it every time SysTick event occurs (1ms).
+ 490              		.loc 1 188 5
+ARM GAS  /tmp/ccAFfyHl.s 			page 13
+
+
+ 491 020c 034B     		ldr	r3, .L26
+ 492 020e 1B68     		ldr	r3, [r3]
+ 493 0210 5A1E     		subs	r2, r3, #1
+ 494 0212 024B     		ldr	r3, .L26
+ 495 0214 1A60     		str	r2, [r3]
+ 496              	.L25:
+ 189:main.c        ****   }
+ 190:main.c        **** }
+ 497              		.loc 1 190 1
+ 498 0216 C046     		nop
+ 499 0218 BD46     		mov	sp, r7
+ 500              		@ sp needed
+ 501 021a 80BD     		pop	{r7, pc}
+ 502              	.L27:
+ 503              		.align	2
+ 504              	.L26:
+ 505 021c 00000000 		.word	delaytime
+ 506              		.cfi_endproc
+ 507              	.LFE6:
+ 509              		.align	1
+ 510              		.global	delay_ms
+ 511              		.syntax unified
+ 512              		.code	16
+ 513              		.thumb_func
+ 515              	delay_ms:
+ 516              	.LFB7:
+ 191:main.c        **** 
+ 192:main.c        **** 
+ 193:main.c        **** void delay_ms(uint32_t ms) {//delay (ms)
+ 517              		.loc 1 193 28
+ 518              		.cfi_startproc
+ 519              		@ args = 0, pretend = 0, frame = 8
+ 520              		@ frame_needed = 1, uses_anonymous_args = 0
+ 521 0220 80B5     		push	{r7, lr}
+ 522              		.cfi_def_cfa_offset 8
+ 523              		.cfi_offset 7, -8
+ 524              		.cfi_offset 14, -4
+ 525 0222 82B0     		sub	sp, sp, #8
+ 526              		.cfi_def_cfa_offset 16
+ 527 0224 00AF     		add	r7, sp, #0
+ 528              		.cfi_def_cfa_register 7
+ 529 0226 7860     		str	r0, [r7, #4]
+ 194:main.c        **** 
+ 195:main.c        ****   delaytime=ms;        // Set the delay time to the number of millisecs of wait
+ 530              		.loc 1 195 12
+ 531 0228 064B     		ldr	r3, .L30
+ 532 022a 7A68     		ldr	r2, [r7, #4]
+ 533 022c 1A60     		str	r2, [r3]
+ 196:main.c        ****   while(delaytime!=0){}// Wait here until the delay time expires.
+ 534              		.loc 1 196 8
+ 535 022e C046     		nop
+ 536              	.L29:
+ 537              		.loc 1 196 18 discriminator 1
+ 538 0230 044B     		ldr	r3, .L30
+ 539 0232 1B68     		ldr	r3, [r3]
+ 540              		.loc 1 196 8 discriminator 1
+ 541 0234 002B     		cmp	r3, #0
+ARM GAS  /tmp/ccAFfyHl.s 			page 14
+
+
+ 542 0236 FBD1     		bne	.L29
+ 197:main.c        **** 
+ 198:main.c        **** }
+ 543              		.loc 1 198 1
+ 544 0238 C046     		nop
+ 545 023a C046     		nop
+ 546 023c BD46     		mov	sp, r7
+ 547 023e 02B0     		add	sp, sp, #8
+ 548              		@ sp needed
+ 549 0240 80BD     		pop	{r7, pc}
+ 550              	.L31:
+ 551 0242 C046     		.align	2
+ 552              	.L30:
+ 553 0244 00000000 		.word	delaytime
+ 554              		.cfi_endproc
+ 555              	.LFE7:
+ 557              		.align	1
+ 558              		.syntax unified
+ 559              		.code	16
+ 560              		.thumb_func
+ 562              	SysTickConfig:
+ 563              	.LFB8:
+ 199:main.c        ****  
+ 200:main.c        **** // System Tick Configuration:
+ 201:main.c        **** // Initializes the System Timer and its interrupt, and
+ 202:main.c        **** // Starts the System Tick Timer.
+ 203:main.c        **** // ticks = Number of ticks between two interrupts.
+ 204:main.c        **** 
+ 205:main.c        **** static inline uint32_t SysTickConfig(uint32_t ticks) {
+ 564              		.loc 1 205 54
+ 565              		.cfi_startproc
+ 566              		@ args = 0, pretend = 0, frame = 8
+ 567              		@ frame_needed = 1, uses_anonymous_args = 0
+ 568 0248 80B5     		push	{r7, lr}
+ 569              		.cfi_def_cfa_offset 8
+ 570              		.cfi_offset 7, -8
+ 571              		.cfi_offset 14, -4
+ 572 024a 82B0     		sub	sp, sp, #8
+ 573              		.cfi_def_cfa_offset 16
+ 574 024c 00AF     		add	r7, sp, #0
+ 575              		.cfi_def_cfa_register 7
+ 576 024e 7860     		str	r0, [r7, #4]
+ 206:main.c        ****   if (ticks > 0xFFFFFFUL) // Timer is only 24 bits wide.
+ 577              		.loc 1 206 6
+ 578 0250 7A68     		ldr	r2, [r7, #4]
+ 579 0252 8023     		movs	r3, #128
+ 580 0254 5B04     		lsls	r3, r3, #17
+ 581 0256 9A42     		cmp	r2, r3
+ 582 0258 01D3     		bcc	.L33
+ 207:main.c        ****     return (1); //Reload value impossible
+ 583              		.loc 1 207 12
+ 584 025a 0123     		movs	r3, #1
+ 585 025c 0CE0     		b	.L34
+ 586              	.L33:
+ 208:main.c        ****   
+ 209:main.c        ****   SYST_RVR = (ticks & 0xFFFFFFUL) - 1;  //Set reload register
+ 587              		.loc 1 209 21
+ARM GAS  /tmp/ccAFfyHl.s 			page 15
+
+
+ 588 025e 7B68     		ldr	r3, [r7, #4]
+ 589 0260 1B02     		lsls	r3, r3, #8
+ 590 0262 1A0A     		lsrs	r2, r3, #8
+ 591              		.loc 1 209 3
+ 592 0264 064B     		ldr	r3, .L35
+ 593              		.loc 1 209 35
+ 594 0266 013A     		subs	r2, r2, #1
+ 595              		.loc 1 209 12
+ 596 0268 1A60     		str	r2, [r3]
+ 210:main.c        **** 
+ 211:main.c        ****   SYST_CVR = 0;   //Load the initial count value.
+ 597              		.loc 1 211 3
+ 598 026a 064B     		ldr	r3, .L35+4
+ 599              		.loc 1 211 12
+ 600 026c 0022     		movs	r2, #0
+ 601 026e 1A60     		str	r2, [r3]
+ 212:main.c        **** 
+ 213:main.c        ****   SYST_CSR = 0x07;  // Counter ENABLE, INT ENABLE, CLK source=system clock.
+ 602              		.loc 1 213 3
+ 603 0270 054B     		ldr	r3, .L35+8
+ 604              		.loc 1 213 12
+ 605 0272 0722     		movs	r2, #7
+ 606 0274 1A60     		str	r2, [r3]
+ 214:main.c        **** 
+ 215:main.c        ****   return (0);
+ 607              		.loc 1 215 10
+ 608 0276 0023     		movs	r3, #0
+ 609              	.L34:
+ 216:main.c        **** }         // AO!: Check OK.
+ 610              		.loc 1 216 1
+ 611 0278 1800     		movs	r0, r3
+ 612 027a BD46     		mov	sp, r7
+ 613 027c 02B0     		add	sp, sp, #8
+ 614              		@ sp needed
+ 615 027e 80BD     		pop	{r7, pc}
+ 616              	.L36:
+ 617              		.align	2
+ 618              	.L35:
+ 619 0280 14E000E0 		.word	-536813548
+ 620 0284 18E000E0 		.word	-536813544
+ 621 0288 10E000E0 		.word	-536813552
+ 622              		.cfi_endproc
+ 623              	.LFE8:
+ 625              	.Letext0:
+ 626              		.file 2 "/home/bahadira/gcc-arm-none-eabi-10.3/arm-none-eabi/include/machine/_default_types.h"
+ 627              		.file 3 "/home/bahadira/gcc-arm-none-eabi-10.3/arm-none-eabi/include/sys/_stdint.h"
+ 628              		.file 4 "xprintf.h"
+ARM GAS  /tmp/ccAFfyHl.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccAFfyHl.s:22     .bss:0000000000000000 delaytime
+     /tmp/ccAFfyHl.s:19     .bss:0000000000000000 $d
+     /tmp/ccAFfyHl.s:25     .rodata:0000000000000000 $d
+     /tmp/ccAFfyHl.s:41     .text:0000000000000000 $t
+     /tmp/ccAFfyHl.s:47     .text:0000000000000000 main
+     /tmp/ccAFfyHl.s:562    .text:0000000000000248 SysTickConfig
+     /tmp/ccAFfyHl.s:416    .text:00000000000001c4 config_uart0
+     /tmp/ccAFfyHl.s:515    .text:0000000000000220 delay_ms
+     /tmp/ccAFfyHl.s:177    .text:00000000000000c0 $d
+     /tmp/ccAFfyHl.s:250    .text:000000000000012c uart_putch
+     /tmp/ccAFfyHl.s:198    .text:0000000000000108 $t
+     /tmp/ccAFfyHl.s:204    .text:0000000000000108 delay
+     /tmp/ccAFfyHl.s:293    .text:0000000000000154 $d
+     /tmp/ccAFfyHl.s:298    .text:000000000000015c $t
+     /tmp/ccAFfyHl.s:304    .text:000000000000015c uart_getch
+     /tmp/ccAFfyHl.s:332    .text:0000000000000168 print
+     /tmp/ccAFfyHl.s:405    .text:00000000000001bc $d
+     /tmp/ccAFfyHl.s:410    .text:00000000000001c4 $t
+     /tmp/ccAFfyHl.s:459    .text:00000000000001f0 $d
+     /tmp/ccAFfyHl.s:466    .text:0000000000000200 $t
+     /tmp/ccAFfyHl.s:472    .text:0000000000000200 SysTick_Handler
+     /tmp/ccAFfyHl.s:505    .text:000000000000021c $d
+     /tmp/ccAFfyHl.s:509    .text:0000000000000220 $t
+     /tmp/ccAFfyHl.s:553    .text:0000000000000244 $d
+     /tmp/ccAFfyHl.s:557    .text:0000000000000248 $t
+     /tmp/ccAFfyHl.s:619    .text:0000000000000280 $d
+
+UNDEFINED SYMBOLS
+xprintf
+xfunc_output
