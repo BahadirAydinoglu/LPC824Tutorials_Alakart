@@ -1,5 +1,5 @@
 
-TARGET = blink_nxp824
+TARGET = NewProjectTemplate
 HEX_FILE=$(TARGET).hex
 ELF_FILE=$(TARGET).elf
 BIN_FILE=$(TARGET).bin
@@ -8,15 +8,18 @@ BIN_FILE=$(TARGET).bin
 # Build directory
 BUILD_DIR = build
 
+USER_SOURCE = src
+USER_INCLUDE = inc
+
 LIBPATH=/home/bahadira/MCULIBS/LPC824_SDK_215
 LPC824DIR=$(LIBPATH)/devices/LPC824
 SRCDIR=$(LIBPATH)/devices/LPC824/gcc/
 
 # C sources
-C_SOURCES = led_blinky.c
+C_SOURCES = main.c
+C_SOURCES += pin_mux.c
 C_SOURCES += board.c
 C_SOURCES += clock_config.c
-C_SOURCES += pin_mux.c
 # /
 C_SOURCES += system_LPC824.c
 # drivers/
@@ -64,13 +67,17 @@ ASM_FLAGS += -Wall
 # compile gcc flags
 #ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 
-ASM_INCLUDES  = -I$(SRCDIR)/
+ASM_INCLUDES  = -I.
+ASM_INCLUDES += -I$(USER_SOURCE)/
+ASM_INCLUDES += -I$(USER_INCLUDE)/
+ASM_INCLUDES += -I$(SRCDIR)/
 ASM_INCLUDES += -I$(LPC824DIR)/utilities/str
 ASM_INCLUDES += -I$(LPC824DIR)/utilities/debug_console_lite
 ASM_INCLUDES += -I$(LIBPATH)/components/uart/
 ASM_INCLUDES += -I$(LPC824DIR)/drivers/
 ASM_INCLUDES += -I$(LPC824DIR)/
 ASM_INCLUDES += -I$(LIBPATH)/CMSIS/Core/Include/
+
 # AS includes
 # AS_INCLUDES = 
 
@@ -81,6 +88,8 @@ C_DEFINES += -DMCUXPRESSO_SDK
 C_DEFINES += -DSDK_DEBUGCONSOLE=1
 
 C_INCLUDES  = -I.
+C_INCLUDES += -I$(USER_SOURCE)
+C_INCLUDES += -I$(USER_INCLUDE)
 C_INCLUDES += -I$(SRCDIR)/
 C_INCLUDES += -I$(LPC824DIR)/
 C_INCLUDES += -I$(LPC824DIR)/drivers/
@@ -88,6 +97,7 @@ C_INCLUDES += -I$(LPC824DIR)/utilities/str/
 C_INCLUDES += -I$(LPC824DIR)/utilities/debug_console_lite/
 C_INCLUDES += -I$(LIBPATH)/components/uart/
 C_INCLUDES += -I$(LIBPATH)/CMSIS/Core/Include/
+
 
 
 C_FLAGS  = -O3 -Os
@@ -150,12 +160,15 @@ CHECKSUM_FLAG=-f
 #######################################
 # list of objects
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
+vpath %.c $(USER_SOURCE)
+vpath %.c $(USER_INCLUDE)
 vpath %.c $(LPC824DIR)
 vpath %.c $(LPC824DIR)/drivers/
 vpath %.c $(LIBPATH)/components/uart/
 vpath %.c $(LPC824DIR)/utilities/
 vpath %.c $(LPC824DIR)/utilities/str/
 vpath %.c $(LPC824DIR)/utilities/debug_console_lite/
+
 
 # list of ASM program objects
 # CAUTION: Take care with 'S' and 's' extension.
@@ -194,7 +207,7 @@ install: $(BUILD_DIR)/$(ELF_FILE)
 	lpc21isp -control $(BUILD_DIR)/$(HEX_FILE) /dev/ttyUSB0 115200 12000
 
 clean:
-	@rm -f $(BUILD_DIR)/$(OBJECTS) $(BUILD_DIR)/$(OBJECTS:.o=.d) $(OBJECTS:.o=.lst) $(BUILD_DIR)/$(ELF_FILE) $(BUILD_DIR)/$(HEX_FILE) $(BUILD_DIR)/$(TARGET).map
+	@rm -f $(BUILD_DIR)/$(OBJECTS) $(BUILD_DIR)/$(OBJECTS:.o=.d) $(OBJECTS:.o=.lst) $(BUILD_DIR)/$(ELF_FILE) $(BUILD_DIR)/$(HEX_FILE) $(BUILD_DIR)/$(BIN_FILE) $(BUILD_DIR)/$(TARGET).map
 
 # Dependencies
 -include $(wildcard $(BUILD_DIR)/*.d)
