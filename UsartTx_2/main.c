@@ -54,11 +54,7 @@ void SysTick_DelayTicks(uint32_t n)
  */
 int main(void)
 {
-    /* Init output LED GPIO. */
-      /* Enable clock of uart0. */
-    CLOCK_EnableClock(kCLOCK_Uart0);
-    /* Ser DIV of uart0. */
-    CLOCK_SetClkDivider(kCLOCK_DivUsartClk, 1U);
+
     /* Board pin init */
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
